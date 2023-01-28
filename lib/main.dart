@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
@@ -17,7 +15,6 @@ import 'presentation/screens/proucts/add_product_screen.dart';
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
-  Firebase.initializeApp();
   runApp(const MyApp());
 }
 

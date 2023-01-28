@@ -46,10 +46,6 @@ dependencies:
   google_nav_bar: ^5.0.6
   sqflite: ^2.2.0+3
   awesome_dialog:
-  firebase_core:
-  firebase_auth:
-  cloud_firestore:
-  firebase_storage:
   conditional_builder:
   hexcolor:
 
@@ -77,25 +73,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/books.jpg
-    - assets/images/chemical tools.jpg
-    - assets/images/engineering-tools.jpg
-    - assets/images/IOT tools.jpg
-    - assets/images/onboarding1.png
-    - assets/images/onboarding2.png
-    - assets/images/onboarding3.png
-    - assets/images/chat (2).png
-    - assets/images/user (2).png
-    - assets/images/undraw_Devices_re_dxae.png
-    - assets/images/undraw_Bookshelves_re_lxoy.png
-    - assets/images/undraw_Circuit_board_re_1b79.png
-    - assets/images/undraw_QA_engineers_dg5p.png
-    - assets/images/undraw_Alien_science_re_0f8q.png
-    - assets/images/pdf.png
-    - assets/images/undraw_link_shortener_mvf6.png
-    - assets/images/undraw_Images_re_0kll.png
-    - assets/images/undraw_video_files_fu10.png
-    - assets/images/summary.png
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
