@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../login/login_screen.dart';
 class onBoard extends StatefulWidget {
   @override
   State<onBoard> createState() => _onBoardState();
@@ -117,7 +119,10 @@ class _onBoardState extends State<onBoard> {
                 style:TextStyle(fontSize: 20,),),
               InkWell(
                 onTap: (){
-                  nextPage.animateToPage(2, duration:const Duration(milliseconds:700), curve: Curves.easeIn);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) => LoginScreen()));
                 },
                 child: button("Sign up"),
               ),
