@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/presentation/screens/chats/home_chat.dart';
 import 'package:graduation/presentation/screens/posts/posts_screen.dart';
 import 'package:graduation/presentation/screens/proucts/product_categories.dart';
 import 'package:graduation/presentation/screens/services/services_Screen.dart';
@@ -54,21 +55,30 @@ class _tabsState extends State<tabs> {
                         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                         child: Row(
                           children: [
-                            Container(
-                              width: 25,
-                              height: 25,
-                              margin: EdgeInsets.all(1),
-                              child: Image.asset(
-                                "assets/images/user (2).png",
+                            InkWell(
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                margin: EdgeInsets.all(1),
+                                child: Image.asset(
+                                  "assets/images/user (2).png",
+                                ),
                               ),
+                              onTap: (){},
                             ),
                             Spacer(),
-                            Container(
-                              width: 25,
-                              height: 25,
-                              margin: EdgeInsets.all(1),
-                              child: Image.asset(
-                                "assets/images/chat (2).png",
+                            InkWell(
+                              onTap: ()
+                              {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHomeScreen()));
+                              },
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                margin: EdgeInsets.all(1),
+                                child: Image.asset(
+                                  "assets/images/chat (2).png",
+                                ),
                               ),
                             ),
                           ],
