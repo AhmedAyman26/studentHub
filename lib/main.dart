@@ -4,7 +4,6 @@ import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
 import 'package:graduation/presentation/screens/onboarding/onBoard.dart';
-import 'package:graduation/presentation/screens/onboarding/on_boarding_screen.dart';
 import 'package:graduation/presentation/screens/register/register.dart';
 import 'package:graduation/presentation/screens/test.dart';
 import 'package:graduation/shared/styles/colors.dart';
