@@ -31,6 +31,16 @@ class GraduationCubit extends Cubit<GraduationStates> {
       value: 'Clothes',
     ),
   ];
+  List<DropdownMenuItem> Universityitems = [
+    DropdownMenuItem(
+      child: Text('Zagaig University'),
+      value: 'Zagaizg University',
+    ),
+    DropdownMenuItem(
+      child: Text('Mansoura University'),
+      value: 'Mansoura University',
+    ),
+  ];
 
   String? selectedItem;
   changeSelectedItem(value) {
