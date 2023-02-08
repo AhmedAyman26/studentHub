@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/post_screen.dart';
 import 'package:graduation/presentation/screens/chats/home_chat.dart';
 import 'package:graduation/presentation/screens/posts/posts_screen.dart';
 import 'package:graduation/presentation/screens/proucts/product_categories.dart';
@@ -26,7 +27,7 @@ class _tabsState extends State<tabs> {
     ),
   ];
   List<Widget> tabsContent = [
-    PostsScreen(),
+    PostScreen(),
     service_screen(),
     product_categories_screen(),
   ];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
+import 'package:graduation/presentation/screens/Home.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
 import 'package:graduation/presentation/screens/onboarding/onBoard.dart';
 import 'package:graduation/presentation/screens/register/register.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal
         ),
         debugShowCheckedModeBanner: false,
-        home: onBoard(),
+        home: tabs(),
       ),
     );
   }
