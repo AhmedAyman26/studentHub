@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/presentation/widgets/search_widget.dart';
+import 'package:graduation/shared/widgets.dart';
 
 class PostsScreen extends StatelessWidget {
   const PostsScreen({Key? key}) : super(key: key);
@@ -9,312 +10,207 @@ class PostsScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
-          children:
-          [
-          ListView.separated(
-            physics: NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemBuilder: (context,index)=>buildPostItem(context),
-          // (context,index)=>buildPostItem(SocialCubit.get(context).posts[index],context,index)
-          separatorBuilder: (context,index)=>const SizedBox(height: 10,),
-          itemCount: 10,
-        )
+          children: [
+            search_widget(),
+            SizedBox(
+              height: 20,
+            ),
+            ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context,index)=>PostCard(),
+              separatorBuilder: (context,index)=>SizedBox(
+                height: 10,
+              ),
+              itemCount: 10,
+            ),
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        child: Icon(
+            Icons.add
         ),
       ),
     );
   }
-  // Widget buildPostItem(PostModel model,context,index)
-  Widget buildPostItem(context)=>Card(
-    clipBehavior: Clip.antiAliasWithSaveLayer,
-    elevation: 5,
-    margin: const EdgeInsets.all(6),
-    child: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children:
-        [
-          Row(
-            children:
-            [
-              CircleAvatar(
-                radius: 25,
-                child: Icon(
-                  Icons.person
-                ),
-                // backgroundImage: NetworkImage(
-                //     // '${model.image}'
-                //   ''
-                // ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:
-                  [
-                    Row(
-                      children: [
-                        Text(
-                          // '${model.username}',
-                          'AhmedAyman',
-                          style: Theme.of(context).textTheme.subtitle1,
-                        ),
-                        const SizedBox(
-                          width: 5,
-                        ),
-                        const Icon(
-                          Icons.check_circle,
-                          color: Colors.lightBlue,
-                          size: 15,
-                        ),
-                      ],
-                    ),
-                    Text(
-                      // '${model.dateTime}',
-                     '20-12-2022',
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              IconButton(
-                onPressed: (){},
-                icon: const Icon(Icons.more_horiz,
-                  size: 16,),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 15
+
+  Widget PostCard() {
+    return Padding(
+      padding: const EdgeInsets.only(
+          left: 20,
+          right: 20
+      ),
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+            side: BorderSide(
+                color: Colors.grey[500]!,
+                width: 2
             ),
-            child: Container(
-              height: 1,
-              color: Colors.grey,
-              width: double.infinity,
-            ),
-          ),
-          Text(
-            // '${model.text}',
-              'I cant found my wallet...if any one found it please tell me',
-            style: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                height: 1.3
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.only(
-          //       bottom: 10,
-          //       top: 5
-          //   ),
-          //   child: Container(
-          //     width: double.infinity,
-          //     child: Wrap(
-          //       children:
-          //       [
-          //         Padding(
-          //           padding: const EdgeInsetsDirectional.only(
-          //               end: 6
-          //           ),
-          //           child: Container(
-          //             height: 25,
-          //             child: MaterialButton(
-          //               onPressed: (){},
-          //               minWidth: 1,
-          //               padding: EdgeInsets.zero,
-          //               child: Text(
-          //                   '#software',
-          //                   style: Theme.of(context).textTheme.caption!.copyWith(
-          //                       color: Colors.lightBlue
-          //                   )
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsetsDirectional.only(
-          //               end: 6
-          //           ),
-          //           child: Container(
-          //             height: 25,
-          //             child: MaterialButton(
-          //               onPressed: (){},
-          //               minWidth: 1,
-          //               padding: EdgeInsets.zero,
-          //               child: Text(
-          //                   '#flutter',
-          //                   style: Theme.of(context).textTheme.caption!.copyWith(
-          //                       color: Colors.lightBlue
-          //                   )
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          // if(model.postImage!='')
-          //   Padding(
-          //     padding: const EdgeInsets.only(top: 15),
-          //     child: Container(
-          //       height: 140,
-          //       width: double.infinity,
-          //       decoration: BoxDecoration(
-          //         borderRadius: BorderRadius.circular(4),
-          //         image: DecorationImage(
-          //             image: NetworkImage(
-          //                 // '${model.postImage}
-          //               '',
-          //             ),
-          //             fit: BoxFit.cover
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-                vertical: 5
-            ),
-            child: Row(
-              children:
-              [
-                Expanded(
-                  child: InkWell(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 5,
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.heart_broken_outlined,
-                            size: 16,
-                            color: Colors.red,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            // '${SocialCubit.get(context).likes[index]}',
-                            '5',
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ],
+            borderRadius: BorderRadius.circular(
+              20,
+            )
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.greenAccent,
+                    radius: 20,
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: AssetImage(
+                          "assets/images/man.png"
                       ),
                     ),
-                    onTap: (){},
                   ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          const Icon(
-                            Icons.chat_outlined,
-                            size: 16,
-                            color: Colors.amber,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            '0 comment',
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ],
-                      ),
-                    ),
-                    onTap: (){},
+                  const SizedBox(
+                    width: 10,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                bottom: 10
-            ),
-            child: Container(
-              height: 1,
-              color: Colors.grey,
-              width: double.infinity,
-            ),
-          ),
-          Row(
-            children:
-            [
-              Expanded(
-                child: InkWell(
-                  child: Row(
-                    children:
-                    [
-                      CircleAvatar(
-                        child: Icon(
-                          Icons.person
-                        ),
-                        radius: 15,
-                        // backgroundImage: NetworkImage(
-                        //     '${SocialCubit.get(context).userModel!.image}'
-                        // ),
-                      ),
-                      const SizedBox(
-                        width: 20,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'AhmedMohamed',
                       ),
                       Text(
-                        'Write a comment....',
-                        style: Theme.of(context).textTheme.caption!.copyWith(
-                            fontSize: 13
-                        ),
+                          '3:30 PM'
                       ),
                     ],
                   ),
-                  onTap: ()
-                  {
-                    // navigateTo(context, CommentScreen());
-                  },
+                  Spacer(),
+                  TextButton(
+                    onPressed: (){},
+                    child: Text(
+                        '+ Follow'
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ...see more'
                 ),
               ),
-              InkWell(
+              myDivider(),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 5,
+                    left: 20
+                ),
                 child: Row(
-                  children: [
-                    const Icon(
-                      Icons.heart_broken_outlined,
-                      size: 16,
-                      color: Colors.red,
+                  children:
+                  [
+                    InkWell(
+                      onTap: (){},
+                      child: Row(
+                        children:
+                        [
+                          Text(
+                            'React',
+                            style: TextStyle(
+                                fontSize: 12
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                              color: Colors.grey,
+                              size: 15,
+                              Icons.thumb_up_off_alt
+                          )
+                        ],
+                      ),
                     ),
-                    const SizedBox(
-                      width: 5,
+                    SizedBox(
+                      width: 10,
                     ),
-                    Text(
-                      'Like',
-                      style: Theme.of(context).textTheme.caption,
+                    InkWell(
+                      onTap: (){},
+                      child: Row(
+                        children:
+                        [
+                          Text(
+                            'Comment',
+                            style: TextStyle(
+                                fontSize: 12
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                              color: Colors.grey,
+                              size: 15,
+                              Icons.chat_outlined
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      onTap: (){},
+                      child: Row(
+                        children:
+                        [
+                          Text(
+                            'Repost',
+                            style: TextStyle(
+                                fontSize: 12
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                              color: Colors.grey,
+                              size: 15,
+                              Icons.repeat_outlined
+                          )
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      onTap: (){},
+                      child: Row(
+                        children:
+                        [
+                          Text(
+                            'Send',
+                            style: TextStyle(
+                                fontSize: 12
+                            ),
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Icon(
+                              color: Colors.grey,
+                              size: 15,
+                              Icons.send
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
-                onTap: ()
-                {
-                  // SocialCubit.get(context).likePost(SocialCubit.get(context).postsId[index]);
-                },
               ),
-
             ],
-          )
-        ],
+          ),
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
