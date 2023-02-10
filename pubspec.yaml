@@ -45,6 +45,8 @@ dependencies:
   pretty_dio_logger:
   google_nav_bar: ^5.0.6
   sqflite: ^2.2.0+3
+  favorite_button: ^0.0.4
+  flutter_onboard: ^2.0.0
   awesome_dialog:
   conditional_builder:
   hexcolor:

@@ -6,6 +6,7 @@ class search_widget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width:MediaQuery.of(context).size.width/1.4,
+      margin: EdgeInsets.only(bottom: 5),
       height:35,
       child: TextField(
         style: TextStyle(

@@ -1,8 +1,7 @@
  import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:graduation/presentation/screens/proucts/singleCategory_productsScreen.dart';
 import 'package:graduation/shared/constants.dart';
-
-import '../screens/proucts/product_list_screen.dart';
 class productCard_widget extends StatelessWidget {
   Color green=Color.fromRGBO(103, 139, 133, 1.0);
   Color darkGreen=Color.fromRGBO(70, 121, 112, 1.0);
@@ -16,7 +15,7 @@ class productCard_widget extends StatelessWidget {
     return InkWell(
         onTap: ()
         {
-          navigateTo(context, ProductListScreen());
+          navigateTo(context, singleCategory_productsScreen(text));
         },
         child: Container(
           margin: EdgeInsets.all(2),
