@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation/presentation/widgets/servicesTypesCard_Widget.dart';
 import 'package:graduation/shared/appBar_class.dart';
 import 'package:graduation/presentation/widgets/productCard_widget.dart';
 
@@ -38,7 +39,7 @@ class servicesTypes_screen extends StatelessWidget {
       body:  ListView.builder(
         itemCount:name.length,
         itemBuilder: (context, index){
-          return productCard_widget(image[index], name[index]);
+          return servicesTypesCard_Widget(image[index], name[index]);
         },
       ),
     );
