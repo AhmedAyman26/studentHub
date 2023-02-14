@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:graduation/presentation/screens/proucts/add_product_screen.dart';
 import 'package:graduation/shared/constants.dart';
-
 import '../../widgets/productCard_widget.dart';
 import '../../widgets/search_widget.dart';
 

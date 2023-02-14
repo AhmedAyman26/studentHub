@@ -5,6 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:graduation/presentation/widgets/search_widget.dart';
 import 'package:graduation/presentation/widgets/serviceCard_widget.dart';
 
+import '../../../shared/constants.dart';
+import 'add_service.dart';
+
+
 class service_screen extends StatelessWidget {
   static const routeName="serviceCard_widget";
   List<String>name=[
@@ -45,7 +49,12 @@ class service_screen extends StatelessWidget {
               ),
             ),
           ],
-        )
+        ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {
+            navigateTo(context, AddService());
+          }),
     );
   }
 
