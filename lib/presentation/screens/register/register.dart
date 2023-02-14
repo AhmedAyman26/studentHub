@@ -1,19 +1,20 @@
 import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/logic/register_cubit/cubit.dart';
+import 'package:graduation/logic/register_cubit/states.dart';
 import 'package:graduation/presentation/screens/Home.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
+import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
 
-import '../../../logic/register_cubit/states.dart';
-import '../../../shared/constants.dart';
-import '../../../shared/local/cache_helper.dart';
 
 
 class RegisterScreen extends StatelessWidget {
 
-  var formkey = GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
   var nameController =TextEditingController();
   var emailController =TextEditingController();
   var universityController =TextEditingController();
@@ -30,27 +31,14 @@ class RegisterScreen extends StatelessWidget {
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) async{
           if(state is RegisterSuccessState){
-            if (state.registerModel.status)
-            {
-              print(state.registerModel.message);
-              print(state.registerModel.data.name);
-
-              await CacheHelper.saveData(
-                key: 'data',
-                value: state.registerModel.data,
-              ).then((value){
-                navigateAndFinish(
-                  context,
+              navigateAndFinish(
+                context,
                   const tabs(),
-                );
-              }
               );
-            }else{
-              print(state.registerModel.message);
-            }
           }
         },
         builder: (context, state) {
+          var cubit =RegisterCubit.get(context);
           return Scaffold(
               appBar: PreferredSize(
                 preferredSize: Size(double.infinity,150),
@@ -65,7 +53,7 @@ class RegisterScreen extends StatelessWidget {
               padding: const EdgeInsets.all(50),
               child: SingleChildScrollView(
                 child: Form(
-                  key: formkey,
+                  key: formKey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -79,7 +67,6 @@ class RegisterScreen extends StatelessWidget {
                           {
                             return 'please enter full name!';
                           }
-                          return null;
                         },
                         decoration:const InputDecoration(
                           labelText: 'Full Name',
@@ -98,7 +85,6 @@ class RegisterScreen extends StatelessWidget {
                           {
                             return 'please enter email address!';
                           }
-                          return null;
                         },
                         decoration:const InputDecoration(
                           labelText: 'Email',
@@ -121,7 +107,6 @@ class RegisterScreen extends StatelessWidget {
                           {
                             return 'please enter phone number!';
                           }
-                          return null;
                         },
                         decoration:const InputDecoration(
                           labelText: 'Phone Number',
@@ -140,7 +125,6 @@ class RegisterScreen extends StatelessWidget {
                           {
                             return 'please enter university!';
                           }
-                          return null;
                         },
                         decoration:const InputDecoration(
                           labelText: 'University',
@@ -160,7 +144,6 @@ class RegisterScreen extends StatelessWidget {
                           {
                             return 'please enter faculty!';
                           }
-                          return null;
                         },
                         decoration:const InputDecoration(
                           labelText: 'Faculty',
@@ -180,7 +163,6 @@ class RegisterScreen extends StatelessWidget {
                           {
                             return 'please enter password!';
                           }
-                          return null;
                         },
                         obscureText: true,
                         decoration:const InputDecoration(
@@ -205,7 +187,6 @@ class RegisterScreen extends StatelessWidget {
                           {
                             return 'please enter confirm password!';
                           }
-                          return null;
                         },
                         decoration:const InputDecoration(
                           labelText: 'Confirm Password',
@@ -225,42 +206,33 @@ class RegisterScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                             color:const Color.fromRGBO(70, 121, 112, 1.0),
                           ),
-                          child: ConditionalBuilder(
-                            condition: state is! RegisterLoadingState,
-                            builder: (context) =>MaterialButton(
-                              onPressed: ()
+                          child: MaterialButton(
+                            onPressed: ()async
+                            {
+                              if(formKey.currentState!.validate()){
+                                cubit.userRegister(
+                                    name:  nameController.text,
+                                    email: emailController.text,
+                                    phone: numberController.text,
+                                    university: universityController.text,
+                                    faculty: facultyController.text,
+                                    password: passwordController.text,
+                                    context: context
+                                );
+                                // print("انت كدا دخلت");
+                              }else
                               {
-                                try{
-                                  if(formkey.currentState!.validate()){
-                                    RegisterCubit.get(context).userRegister(
-                                        name:  nameController.text,
-                                        email: emailController.text,
-                                        phone: numberController.text,
-                                        university: universityController.text,
-                                        faculty: facultyController.text,
-                                        password: passwordController.text,
-                                        confirm: confirmController.text
-                                    );
-                                    // print("انت كدا دخلت");
-                                    navigateAndFinish(context, tabs());
-                                  }else{
-                                    print("******************************** llllllمدخلتش");
-                                  }
-                                } catch(e){
-                                  print(e);
-                                }
-                              },
-                              child:const Text(
-                                'Sign Up',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  //fontSize: 15,
-                                ),
+                                print("******************************** llllllمدخلتش");
+                              }
+                            },
+                            child:const Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                //fontSize: 15,
                               ),
                             ),
-                            fallback: (context) =>const CircularProgressIndicator(),
-
                           ),
                         ),
                       ),

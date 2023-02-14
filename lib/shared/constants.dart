@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-String? uId;
+String? id;
 
 void navigateTo(context, widget) => Navigator.push(
   context,

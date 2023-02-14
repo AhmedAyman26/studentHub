@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/data/models/product_model.dart';
@@ -9,6 +10,7 @@ import 'package:graduation/logic/cubit/states.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+
 class GraduationCubit extends Cubit<GraduationStates> {
   GraduationCubit() : super(GraduationInitialState());
   static GraduationCubit get(context) => BlocProvider.of(context);
@@ -131,53 +133,75 @@ class GraduationCubit extends Cubit<GraduationStates> {
     );
   }
 
-
-
-
-  ProductModel? model;
   void addProduct({
-    required String category,
+    required String id,
     required String name,
-    required String price,
+    required String category,
+    required String image,
+    required double price,
     required String description,
-})
-  {
-    DioHelper.postData(
-        url: '/AddProduct/1', data:
+    required String studentId,
+  }) {
+    emit(AddProductLoadingState());
+    ProductModel model=ProductModel(
+        id: id,
+        category: category,
+        name: name,
+        price: price,
+        description: description,
+        image: image,
+        studentId: studentId,
+    );
+    FirebaseFirestore.instance.collection('products').add(
+          model.toJson()).then((value)
     {
-      'category':category,
-      'name':name,
-      'price':price,
-      'description':description
-    }).then((value)
-    {
-      print("+++++++++++=");
-      print(value.data is String);
-      // print("+++++++++++=");
-
-      model=ProductModel.fromJson(value.data);
-      print('============');
-      print(model!.status);
-      print('============');
       emit(AddProductSuccessState());
-    });
-  }
-
-
-  void getProduct()
-  {
-    DioHelper.getData(url: '/AddProduct/1').then((value)
+    }
+    ).catchError((error)
     {
-      model=ProductModel.fromJson(value.data);
-      emit(GetProductSuccessState());
+      emit(AddProductErrorState());
     });
 
   }
 
-
-
-
-
-
+//   ProductModel? model;
+//   void addProduct({
+//     required String category,
+//     required String name,
+//     required String price,
+//     required String description,
+// })
+//   {
+//     DioHelper.postData(
+//         url: '/AddProduct/1', data:
+//     {
+//       'category':category,
+//       'name':name,
+//       'price':price,
+//       'description':description
+//     }).then((value)
+//     {
+//       print("+++++++++++=");
+//       print(value.data is String);
+//       // print("+++++++++++=");
+//
+//       model=ProductModel.fromJson(value.data);
+//       print('============');
+//       print(model!.status);
+//       print('============');
+//       emit(AddProductSuccessState());
+//     });
+//   }
+//
+//
+//   void getProduct()
+//   {
+//     DioHelper.getData(url: '/AddProduct/1').then((value)
+//     {
+//       model=ProductModel.fromJson(value.data);
+//       emit(GetProductSuccessState());
+//     });
+//
+//   }
 
 }

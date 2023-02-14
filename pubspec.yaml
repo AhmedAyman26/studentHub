@@ -47,9 +47,13 @@ dependencies:
   sqflite: ^2.2.0+3
   favorite_button: ^0.0.4
   flutter_onboard: ^2.0.0
-  awesome_dialog:
+  awesome_dialog: ^3.0.2
   conditional_builder:
   hexcolor:
+  firebase_core: ^2.5.0
+  firebase_auth: ^4.2.6
+  cloud_firestore: ^4.3.2
+  firebase_storage: ^11.0.11
 
 dev_dependencies:
   flutter_test:
