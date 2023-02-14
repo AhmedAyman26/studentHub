@@ -1,63 +1,81 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/logic/login_cubit/cubit.dart';
+import 'package:graduation/logic/login_cubit/states.dart';
+import 'package:graduation/presentation/screens/Home.dart';
 import 'package:graduation/presentation/screens/register/register.dart';
 import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   static String tag = 'login-page';
 
   @override
-  State<StatefulWidget> createState() {
-    return new _LoginScreenState();
-  }
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
   bool _obscureText = true;
   bool? check1 = false;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(double.infinity,150),
-        child: ClipPath(
-          clipper: CustomAppBarShape(),
-          child: Container(
-            color: kPrimaryColor,
-          ),
-        ),
-      ),
-      body:  Center(
-        child:  SingleChildScrollView(
-          child:  Container(
-            margin:  EdgeInsets.all(20.0),
-            child: Center(
-              child:  Form(
-                key: _key,
-
-                child: _getFormUI(),
+    return BlocProvider(
+      create: (BuildContext context)=>LoginCubit(),
+      child: BlocConsumer<LoginCubit,LoginStates>
+        (
+        listener: (context,state)
+        {
+          if(state is LoginSuccessState)
+          {
+            CacheHelper.saveData(
+              key: 'id',
+              value: state.uId,
+            ).then((value)
+            {
+              navigateAndFinish(context, tabs());
+            });
+          }
+        },
+        builder: (context,states)
+        {
+          return Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size(double.infinity,150),
+              child: ClipPath(
+                clipper: CustomAppBarShape(),
+                child: Container(
+                  color: kPrimaryColor,
+                ),
               ),
             ),
-          ),
-        ),
+            body:  Center(
+              child:  SingleChildScrollView(
+                child:  Container(
+                  margin:  EdgeInsets.all(20.0),
+                  child: Center(
+                    child:  Form(
+                      key: _key,
+
+                      child: _getFormUI(context),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _getFormUI() {
+  Widget _getFormUI(context) {
     return Column(
-      children: <Widget>[
-
+      children: [
         //SizedBox(height: 50.0),
         TextFormField(
           keyboardType: TextInputType.emailAddress,
           autofocus: false,
           decoration: InputDecoration(
-
             enabledBorder: UnderlineInputBorder(
-
               borderSide: BorderSide(
                   width: 3, color: Colors.black12),
             ),
@@ -86,9 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 borderSide: BorderSide(color: Colors.black12)),
             suffixIcon: GestureDetector(
               onTap: () {
-                setState(() {
-                  _obscureText = !_obscureText;
-                });
+                // setState(() {
+                //   _obscureText = !_obscureText;
+                // });
               },
               child: Icon(
                 color: Colors.black12,
@@ -101,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         SizedBox(height: 15.0),
         Row(
-          children:<Widget> [
+          children: [
             Checkbox(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
@@ -109,9 +127,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 activeColor: kPrimaryColor,
                 value: check1,
                 onChanged: (bool? value){
-                  setState(() {
-                    check1 = value;
-                  });
+                  // setState(() {
+                  //   check1 = value;
+                  // });
                 }
             ),
             Text("Remember me",
@@ -144,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
             'Forgot password?',
             style: TextStyle(color: Colors.black54),
           ),
-          onPressed: _showForgotPasswordDialog,
+          onPressed: (){_showForgotPasswordDialog(context);},
         ),
 
 
@@ -162,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Future<Null> _showForgotPasswordDialog() async {
+  Future<Null> _showForgotPasswordDialog(context) async {
     await showDialog<String>(
         context: context,
         builder: (BuildContext context) {
@@ -187,6 +205,7 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 }
+
 class CustomAppBarShape extends CustomClipper<Path> {
 
 

@@ -9,9 +9,8 @@ class AddProductScreen extends StatelessWidget {
   var productDescriptionController = TextEditingController();
   AddProductScreen({super.key});
   @override
-
   Widget build(BuildContext context) {
-    String selectedUniversity='Zagazig';
+    String selectedUniversity = 'Zagazig';
     return BlocConsumer<GraduationCubit, GraduationStates>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -23,10 +22,8 @@ class AddProductScreen extends StatelessWidget {
             leading: Padding(
               padding: const EdgeInsets.only(left: 20),
               child: IconButton(
-                icon: Icon(
-                    color: Colors.black, Icons.arrow_back_ios),
-                onPressed: ()
-                {
+                icon: Icon(color: Colors.black, Icons.arrow_back_ios),
+                onPressed: () {
                   Navigator.pop(context);
                 },
               ),
@@ -45,7 +42,17 @@ class AddProductScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    // GraduationCubit.get(context).addProduct(
+                    //   id: id,
+                    //   name: name,
+                    //   category: category,
+                    //   image: image,
+                    //   price: price,
+                    //   description: description,
+                    //   studentId: studentId,
+                    // );
+                  },
                   child: Text('Post'),
                 ),
               ),
@@ -60,11 +67,11 @@ class AddProductScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       CircleAvatar(
                         backgroundColor: Colors.greenAccent,
-                        radius: 25,
+                        radius: 20,
                         child: Image(
                           fit: BoxFit.cover,
                           image: AssetImage("assets/images/man.png"),
@@ -74,27 +81,9 @@ class AddProductScreen extends StatelessWidget {
                         width: 10,
                       ),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             'AhmedMohamed',
-                          ),
-                          DropdownButton(
-                            icon: Icon(Icons.arrow_drop_down_outlined),
-                            items: ["Zagazig University","Mansoura University"].map((e) => DropdownMenuItem(child: Text('$e'),value: e,))
-                            .toList(),
-                            hint: Row(
-                              children: [
-                                Icon(
-                                  color: Colors.black,
-                                  Icons.location_on_outlined
-                                ),
-                                Text('Select Category'),
-                              ],
-                            ),
-                            onChanged: (val) {
-                              },
-                            value: 'Zagazig University',
                           ),
                         ],
                       ),

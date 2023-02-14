@@ -1,19 +1,35 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/bloc_observer.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/Home.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
 import 'package:graduation/presentation/screens/register/register.dart';
 import 'package:graduation/presentation/screens/test.dart';
+import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'presentation/screens/proucts/add_product_screen.dart';
 import 'package:graduation/presentation/screens/onboarding/on_boarding_screen.dart';
-
+bool isLogin=false;
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  DioHelper.init();
+  Firebase.initializeApp();
+  Bloc.observer=MyBlocObserver();
+  CacheHelper.init();
+
+  // id= CacheHelper.getData(key: 'id');
+  // if(id==null)
+  // {
+  //   isLogin=false;
+  // }else
+  // {
+  //   isLogin=true;
+  // }
+  // print(isLogin.toString());
   runApp(const MyApp());
 }
 
@@ -31,7 +47,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal
         ),
         debugShowCheckedModeBanner: false,
-        home:tabs(),
+        home: on_boarding_screen(),
       ),
     );
   }
