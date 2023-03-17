@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
 
 import '../login/login_screen.dart';
-class on_boarding_screen extends StatefulWidget {
+class OnBoardingScreen extends StatefulWidget {
 
 
   @override
-  State<on_boarding_screen> createState() => _on_boarding_screenState();
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _on_boarding_screenState extends State<on_boarding_screen> {
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +19,7 @@ bool isLogin=false;
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
+  await DioHelper.init();
   Bloc.observer=MyBlocObserver();
   CacheHelper.init();
 
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.teal
         ),
         debugShowCheckedModeBanner: false,
-        home: on_boarding_screen(),
+        home: OnBoardingScreen(),
       ),
     );
   }

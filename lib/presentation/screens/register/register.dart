@@ -1,4 +1,5 @@
 import 'package:conditional_builder/conditional_builder.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
@@ -30,7 +31,7 @@ class RegisterScreen extends StatelessWidget {
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) async{
-          if(state is RegisterSuccessState){
+          if(state is CreateUserSuccessState){
               navigateAndFinish(
                 context,
                   const tabs(),
@@ -211,15 +212,13 @@ class RegisterScreen extends StatelessWidget {
                             {
                               if(formKey.currentState!.validate()){
                                 cubit.userRegister(
-                                    name:  nameController.text,
+                                    fullname:  nameController.text,
                                     email: emailController.text,
-                                    phone: numberController.text,
+                                    // phone: numberController.text,
                                     university: universityController.text,
-                                    faculty: facultyController.text,
+                                    faculty_id: facultyController.text,
                                     password: passwordController.text,
-                                    context: context
                                 );
-                                // print("انت كدا دخلت");
                               }else
                               {
                                 print("******************************** llllllمدخلتش");
