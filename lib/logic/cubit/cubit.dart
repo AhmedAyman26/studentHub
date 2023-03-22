@@ -69,7 +69,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
               InkWell(
                 onTap: () async {
                   var picked =
-                      await ImagePicker.pickImage(source: ImageSource.gallery);
+                      await ImagePicker().pickImage(source: ImageSource.gallery);
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
@@ -100,7 +100,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
               InkWell(
                 onTap: () async {
                   var picked =
-                      await ImagePicker.pickImage(source: ImageSource.camera);
+                      await ImagePicker().pickImage(source: ImageSource.camera);
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);

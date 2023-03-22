@@ -1,11 +1,68 @@
+import 'dart:io';
+// ignore_for_file: deprecated_member_use
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_player/video_player.dart';
+import 'package:path/path.dart';
 
-class AddService extends StatelessWidget {
+class AddService extends StatefulWidget {
    AddService({Key? key}) : super(key: key);
 
+  @override
+  State<AddService> createState() => _AddServiceState();
+}
+
+class _AddServiceState extends State<AddService> {
+   void addFile() async{
+     FilePickerResult? resultFile = await FilePicker.platform.pickFiles();
+     if(resultFile != null){
+       PlatformFile file = resultFile.files.first;
+       print(file.name);
+       print(file.extension);
+       print(file.path);
+     }else{}
+   }
+
+   late VideoPlayerController videoPlayerController ;
+
+   File? _video;
+
+   final picker = ImagePicker();
+
+   pickVideo () async{
+     final video = await picker.getVideo(source: ImageSource.gallery);
+     _video = File(video!.path) ;
+     videoPlayerController = VideoPlayerController.file(_video!)..initialize().then((value) {
+       setState(() {
+
+       });
+       videoPlayerController.play();
+     });
+     // if(_video != null){
+     //   videoPlayerController.value.isInitialized ? AspectRatio(
+     //       aspectRatio: videoPlayerController.value.aspectRatio,
+     //   )
+     // }
+   }
+
+   var imagePicker = ImagePicker();
+
+   File? imageFile;
+
+   void getImage({required ImageSource source}) async{
+
+     final file  = await ImagePicker().pickImage(source: source);
+
+     if(file?.path != null){
+       setState(() {
+         imageFile = File(file!.path);
+
+       });
+     }
+   }
+
   TextEditingController description = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -78,24 +135,6 @@ class AddService extends StatelessWidget {
                           fontSize: 20
                         ),
                       ),
-                      // ListView(
-                      //   children: [
-                      //     DropdownButton(
-                      //       value: defaultValue,
-                      //         menuMaxHeight: 350,
-                      //         items: [
-                      //           DropdownMenuItem(
-                      //               child: Text(
-                      //                 "select"
-                      //               ),
-                      //             value: ,
-                      //           )
-                      //
-                      //         ],
-                      //         onChanged: (){},
-                      //     ),
-                      //   ],
-                      // )
                     ],
                   ),
                 ),
@@ -135,18 +174,16 @@ class AddService extends StatelessWidget {
 
                     ),
                     InkWell(
-                      onTap: (){
-                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>Post(), ) );
-                      },
+                      onTap: () => getImage(source: ImageSource.gallery),
+                      // var picked =
+                      //     await ImagePicker().pickImage(source: ImageSource.gallery);
+                      // if(picked != null)
+                      // {
+                      //   image = File(picked.path);
+                      //   var imageName = basename(picked.path);
+                      // }
                       child: Row(
                         children:const [
-                          // TextButton(onPressed:()=>print('live') ,
-                          //   child: Icon(
-                          //       Icons.video_call,
-                          //     color: Colors.grey,
-                          //   ),
-                          //
-                          // ),
                           Icon(Icons.photo_outlined,
                             color: Colors.grey,
                             size: 35,
@@ -170,6 +207,7 @@ class AddService extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: (){
+                        //addFile();
                       },
                       child: Row(
                         children:const [
@@ -191,23 +229,10 @@ class AddService extends StatelessWidget {
                     const Divider(
                       height: 10,
                       color: Colors.grey,
-
                     ),
-                    // Row(
-                    //   children: [
-                    //     TextButton(onPressed:()=>print('live') ,
-                    //
-                    //       child: Icon(
-                    //         Icons.video_call,
-                    //         color: Colors.grey,
-                    //       ),
-                    //
-                    //     ),
-                    //     Text('data'),
-                    //   ],
-                    // ),
                     InkWell(
                       onTap: (){
+                        addFile();
                       },
                       child: Row(
                         children:const [
@@ -233,7 +258,7 @@ class AddService extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: (){
-                        //Navigator.push(context, MaterialPageRoute(builder: (context)=>Post(), ) );
+                        pickVideo();
                       },
                       child: Row(
                         children:const[
@@ -258,8 +283,14 @@ class AddService extends StatelessWidget {
 
                     ),
                     InkWell(
-                      onTap: (){
-                      },
+                      onTap: () => getImage(source: ImageSource.camera),
+                      // var picked =
+                      //     await ImagePicker().pickImage(source: ImageSource.camera);
+                      // if(picked != null)
+                      // {
+                      //   image = File(picked.path);
+                      //   var imageName = basename(picked.path);
+                      // }
                       child: Row(
                         children:const [
                           Icon(Icons.camera_alt_outlined,
