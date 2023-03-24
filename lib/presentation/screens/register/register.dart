@@ -31,7 +31,7 @@ class RegisterScreen extends StatelessWidget {
       create: (BuildContext context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterStates>(
         listener: (context, state) async{
-          if(state is CreateUserSuccessState){
+          if(state is RegisterSuccessState){
               navigateAndFinish(
                 context,
                   const tabs(),

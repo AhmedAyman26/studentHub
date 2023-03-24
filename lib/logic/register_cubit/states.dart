@@ -14,12 +14,6 @@ class RegisterErrorState extends RegisterStates{
 
 }
 
-class CreateUserSuccessState extends RegisterStates
-{}
-class CreateUserErrorState extends RegisterStates {
-  final String error ;
-  CreateUserErrorState(this.error);
-}
 class RegisterChangePasswordVisibilityState extends RegisterStates{}
 
 // import 'package:graduation/data/models/user_model.dart';
