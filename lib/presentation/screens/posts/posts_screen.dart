@@ -115,11 +115,11 @@ class PostsScreen extends StatelessWidget {
                           Text(
                             'React',
                             style: TextStyle(
-                                fontSize: 12
+                                fontSize: 15
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 10,
                           ),
                           Icon(
                               color: Colors.grey,
@@ -130,7 +130,7 @@ class PostsScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 15,
                     ),
                     InkWell(
                       onTap: (){},
@@ -140,11 +140,11 @@ class PostsScreen extends StatelessWidget {
                           Text(
                             'Comment',
                             style: TextStyle(
-                                fontSize: 12
+                                fontSize: 15
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 10,
                           ),
                           Icon(
                               color: Colors.grey,
@@ -155,7 +155,7 @@ class PostsScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 15,
                     ),
                     InkWell(
                       onTap: (){},
@@ -165,11 +165,11 @@ class PostsScreen extends StatelessWidget {
                           Text(
                             'Repost',
                             style: TextStyle(
-                                fontSize: 12
+                                fontSize: 15
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 10,
                           ),
                           Icon(
                               color: Colors.grey,
@@ -180,7 +180,7 @@ class PostsScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 10,
+                      width: 15,
                     ),
                     InkWell(
                       onTap: (){},
@@ -190,11 +190,11 @@ class PostsScreen extends StatelessWidget {
                           Text(
                             'Send',
                             style: TextStyle(
-                                fontSize: 12
+                                fontSize: 15
                             ),
                           ),
                           SizedBox(
-                            width: 5,
+                            width: 10,
                           ),
                           Icon(
                               color: Colors.grey,

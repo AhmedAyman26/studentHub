@@ -34,7 +34,7 @@ class RegisterScreen extends StatelessWidget {
           if(state is RegisterSuccessState){
               navigateAndFinish(
                 context,
-                  const tabs(),
+                  const HomeLayout(),
               );
           }
         },

@@ -7,23 +7,41 @@ class Test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(onPressed: (){}, icon: Icon(
-            Icons.ac_unit_sharp
-          ))
-        ],
-          leading:Icon(Icons.person,size: 30,),
-          toolbarHeight: 150,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        flexibleSpace: ClipPath(
-          clipper: CustomAppBarShape(),
-          child: Container(
-            color: HexColor('#678B85'),
-          ),
+      body:
+      SafeArea(
+        child: Column(
+          children:
+          [
+            Stack(
+              children:
+              [
+                Image(
+                  image: AssetImage("assets/images/path.png"),
+                ),
+                Align(child: IconButton(onPressed: (){}, icon: Icon(Icons.person,size:35,color: Colors.white,),),alignment: Alignment.topLeft,),
+                Align(child: IconButton(onPressed: (){}, icon: Icon(Icons.chat,size: 35,color: Colors.white,),),alignment: Alignment.topRight,)
+              ],
+            )
+          ],
         ),
       ),
+      // appBar: AppBar(
+      //   actions: [
+      //     IconButton(onPressed: (){}, icon: Icon(
+      //       Icons.ac_unit_sharp
+      //     ))
+      //   ],
+      //     leading:Icon(Icons.person,size: 30,),
+      //     toolbarHeight: 150,
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   flexibleSpace: ClipPath(
+      //     clipper: CustomAppBarShape(),
+      //     child: Container(
+      //       color: HexColor('#678B85'),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
