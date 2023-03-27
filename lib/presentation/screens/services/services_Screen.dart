@@ -39,7 +39,6 @@ class service_screen extends StatelessWidget {
     return Scaffold(
         body:Column(
           children: [
-            search_widget(),
             Expanded(
               child: ListView.builder(
                 itemCount:name.length,

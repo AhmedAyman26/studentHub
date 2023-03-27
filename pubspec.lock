@@ -121,6 +121,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  device_frame:
+    dependency: transitive
+    description:
+      name: device_frame
+      sha256: d9c1e681e2fe52667aeba8596061915f32611527aadacdd3a1d0900661960e90
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-alpha.2"
+  device_preview:
+    dependency: "direct main"
+    description:
+      name: device_preview
+      sha256: cee536e84014e2ac2fe79b7cf2517ba22535440fc1702d20e5f9020ecb4ace2c
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0-alpha.15"
   dio:
     dependency: "direct main"
     description:
@@ -270,6 +286,11 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  flutter_localizations:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.0"
   flutter_onboard:
     dependency: "direct main"
     description:
@@ -294,6 +315,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  flutter_screenutil:
+    dependency: "direct main"
+    description:
+      name: flutter_screenutil
+      sha256: "0a122936b450324cbdfd51be0819cc6fcebb093eb65585e9cd92263f7a1a8a39"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.7.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter

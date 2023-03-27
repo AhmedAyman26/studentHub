@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/presentation/screens/chats/home_chat.dart';
 import 'package:graduation/presentation/screens/posts/posts_screen.dart';
 import 'package:graduation/presentation/screens/proucts/product_categories.dart';
 import 'package:graduation/presentation/screens/services/services_Screen.dart';
+
+import '../widgets/search_widget.dart';
 
 class HomeLayout extends StatefulWidget {
   const HomeLayout({Key? key}) : super(key: key);
@@ -39,12 +42,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                 Stack(
                   children:
                   [
-                    Image(
-                      image: AssetImage("assets/images/path.png"),
+                    Container(
+                      width: double.infinity.w,
+                      child: Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/images/path.png"),
+                      ),
                     ),
                     Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children:
                       [
                         Row(
@@ -52,8 +57,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                           [
                             InkWell(
                               child: Container(
-                                width: 25,
-                                height: 25,
+                                width: 25.w,
+                                height: 25.h,
                                 margin: EdgeInsets.all(10),
                                 child: Image.asset(
                                   "assets/images/user (2).png",
@@ -68,8 +73,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHomeScreen()));
                               },
                               child: Container(
-                                width: 25,
-                                height: 25,
+                                width: 25.w,
+                                height: 25.h,
                                 margin: EdgeInsets.all(10),
                                 child: Image.asset(
                                   "assets/images/chat (2).png",
@@ -79,8 +84,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                           ],
                         ),
                         Container(
-                          padding: EdgeInsets.all(10),
-                          height: MediaQuery.of(context).size.height / 18,
+                          padding: EdgeInsets.all(3.h),
+                          height: MediaQuery.of(context).size.height / 25,
                           decoration: BoxDecoration(
                               color: Color.fromRGBO(103, 139, 133, 1.0),
                               borderRadius: BorderRadius.circular(20.0)),
@@ -88,13 +93,17 @@ class _HomeLayoutState extends State<HomeLayout> {
                             isScrollable: true,
                             indicator: BoxDecoration(
                               color: Color.fromRGBO(70, 121, 112, 1.0),
-                              borderRadius: BorderRadius.circular(15.0),
+                              borderRadius: BorderRadius.circular(15.0.w),
                             ),
                             labelColor: Colors.white,
                             unselectedLabelColor: Colors.white,
                             tabs: tabs,
                           ),
                         ),
+                        SizedBox(
+                          height: 30.h,
+                        ),
+                        search_widget(),
                       ],
                     )
                   ],

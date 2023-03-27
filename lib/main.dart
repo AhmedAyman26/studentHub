@@ -1,7 +1,9 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/bloc_observer.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
@@ -32,7 +34,7 @@ void main()async {
   //   isLogin=true;
   // }
   // print(isLogin.toString());
-  runApp(const MyApp());
+  runApp(DevicePreview(builder:(context)=> const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -43,13 +45,22 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GraduationCubit(),
-      child: MaterialApp(
-        theme: ThemeData(
-          primaryColor: Colors.teal,
-          primarySwatch: Colors.teal
-        ),
-        debugShowCheckedModeBanner: false,
-        home: OnBoardingScreen(),
+      child: ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context,child)
+        {
+          return MaterialApp(
+            builder: DevicePreview.appBuilder,
+            theme: ThemeData(
+                primaryColor: Colors.teal,
+                primarySwatch: Colors.teal
+            ),
+            debugShowCheckedModeBanner: false,
+            home: HomeLayout(),
+          );
+        },
       ),
     );
   }
