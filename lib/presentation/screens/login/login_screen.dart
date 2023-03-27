@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
               value: state.uId,
             ).then((value)
             {
-              navigateAndFinish(context, tabs());
+              navigateAndFinish(context, const HomeLayout());
             });
           }
         },
