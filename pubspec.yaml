@@ -58,6 +58,8 @@ dependencies:
   video_player: ^2.6.0
   device_preview:
   flutter_screenutil: ^5.7.0
+  email_validator: ^2.1.17
+  validators: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

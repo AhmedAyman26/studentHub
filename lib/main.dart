@@ -10,7 +10,6 @@ import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/Home.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
 import 'package:graduation/presentation/screens/register/register.dart';
-import 'package:graduation/presentation/screens/test.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
