@@ -34,7 +34,7 @@ void main()async {
   //   isLogin=true;
   // }
   // print(isLogin.toString());
-  runApp(DevicePreview(builder:(context)=> const MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -52,7 +52,6 @@ class MyApp extends StatelessWidget {
         builder: (context,child)
         {
           return MaterialApp(
-            builder: DevicePreview.appBuilder,
             theme: ThemeData(
                 primaryColor: Colors.teal,
                 primarySwatch: Colors.teal
