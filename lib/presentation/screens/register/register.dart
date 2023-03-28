@@ -117,15 +117,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
         builder: (context, state) {
           var cubit =RegisterCubit.get(context);
           return Scaffold(
-              appBar: PreferredSize(
-                preferredSize: Size(double.infinity,150),
-                child: ClipPath(
-                  clipper: CustomAppBarShape(),
-                  child: Container(
-                    color: kPrimaryColor,
+            appBar: PreferredSize(
+              preferredSize:const Size.fromHeight(150),
+              child: AppBar(
+                backgroundColor:const Color.fromRGBO(70, 121, 112, 1.0),
+                leading:const Icon(
+                  Icons.arrow_back,
+                ),
+                title:const Text(
+                    'Create Account'
+                ),
+                shape:const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(40),
                   ),
                 ),
               ),
+            ),
             body: Padding(
               padding: const EdgeInsets.all(50),
               child: SingleChildScrollView(

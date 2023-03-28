@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.teal
             ),
             debugShowCheckedModeBanner: false,
-            home: HomeLayout(),
+            home: OnBoardingScreen(),
           );
         },
       ),
