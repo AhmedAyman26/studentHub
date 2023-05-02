@@ -57,13 +57,14 @@ class RegisterModel
 
 class UserData
 {
-  late int id;
+  late String id;
   late String fullname;
   late String email;
   // late String phone;
-  late String university;
+  late String university_id;
   late String faculty_id;
   late String password;
+  late String image;
   // late String confirm;
 //الكونستركتور دا بياخد الداتا
 //   UserData({
@@ -79,14 +80,70 @@ class UserData
 //دا النيم كونستركتور بيرجج الداتا علي شكل جيسون
   UserData.fromJson(Map<String ,dynamic> json)
   {
-    id = json['id'];
+    id = json['studentId'];
     fullname = json['fullname'];
     email = json['email'];
     // phone = json['phone'];
-    university = json['university'];
-    faculty_id = json['faculty_id'];
+    university_id = json['university_id'];
+    faculty_id = json['facultyId'];
     password = json['password'];
+    image=json['image'];
     // confirm = json['confirm'];
 
   }
+  Map<String,dynamic> toMap()
+  {
+    return
+      {
+        'fullname':fullname,
+        'email':email,
+        'id':id,
+        'image':image,
+        'university_id':university_id,
+        'faculty_id':faculty_id
+      };
+  }
 }
+
+/*class RegisterModel {
+  RegisterModel({
+    required this.user,
+    required this.message,
+  });
+  late final User user;
+  late final String message;
+
+  RegisterModel.fromJson(Map<String, dynamic> json){
+    user = User.fromJson(json['user']);
+    message = json['message'];
+  }
+
+}
+
+class User {
+  User({
+    required this.fullname,
+    required this.email,
+    required this.image,
+    required this.universityName,
+    required this.facultyName,
+    required this.Password,
+  });
+  late final String fullname;
+  late final String email;
+  late final String image;
+  late final String universityName;
+  late final String facultyName;
+  late final String Password;
+
+  User.fromJson(Map<String, dynamic> json){
+    fullname = json['fullname'];
+    email = json['email'];
+    image = json['image'];
+    universityName = json['university_name'];
+    facultyName = json['faculty_name'];
+    Password = json['Password'];
+  }
+
+
+}*/

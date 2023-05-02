@@ -1,5 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
-
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,27 +11,31 @@ import 'package:graduation/logic/cubit/states.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import '../../data/models/addProduct_model.dart';
+import '../../data/models/getProduct_model.dart';
 
 class GraduationCubit extends Cubit<GraduationStates> {
+  var value;
+
   GraduationCubit() : super(GraduationInitialState());
   static GraduationCubit get(context) => BlocProvider.of(context);
 
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
       child: Text('Devices'),
-      value: 'Devices',
+      value: '1',
     ),
     DropdownMenuItem(
       child: Text('Books'),
-      value: 'Books',
+      value: '2',
     ),
     DropdownMenuItem(
-      child: Text('Tools'),
-      value: 'Tools',
+      child: Text('Engineering tools'),
+      value: '3',
     ),
     DropdownMenuItem(
       child: Text('Clothes'),
-      value: 'Clothes',
+      value: '4',
     ),
   ];
   List<DropdownMenuItem> Universityitems = [
@@ -52,8 +57,9 @@ class GraduationCubit extends Cubit<GraduationStates> {
 
   var imagePicker = ImagePicker();
   File? file;
+  String ?imageToAPI;
+  Future showBottomSheet(context) async{
 
-  void showBottomSheet(context) {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -74,6 +80,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
                     // refSotrage =FirebaseStorage.instance.ref('images/$imageName');
+                    //ConvertImage(picked as XFile);
+                    imageToAPI =await ConvertImage(file!);
                     Navigator.of(context).pop();
                   }
                 },
@@ -104,7 +112,9 @@ class GraduationCubit extends Cubit<GraduationStates> {
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
+                    //ConvertImage(picked as XFile);
                     // refSotrage =FirebaseStorage.instance.ref('images/$imageName');
+                    imageToAPI =await convertImageToBase64(file!);
                     Navigator.of(context).pop();
                   }
                 },
@@ -130,78 +140,93 @@ class GraduationCubit extends Cubit<GraduationStates> {
           ),
         ),
       ),
+
     );
   }
+  /////////////////////////////////////////////////////////////////////////////////////////
+  Future ConvertImage(File picked)async{
+    Uint8List imageBytes=await picked.readAsBytes();
+    String base64string=
+        base64.encode(imageBytes);
+    //print(".............................................");
+    return base64string;
+  }
+  ////////////////////////////////
+  Future<String?> imageToBase64(ImageSource source) async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: source);
 
+    if (pickedFile == null) return null;
+
+    final bytes = await pickedFile.readAsBytes();
+    final base64 = base64Encode(bytes);
+    return base64;
+  }
+////////////////////////////////
+  Future<String> convertImageToBase64(File imageFile) async {
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64Image = base64Encode(imageBytes);
+    return base64Image;
+  }
+
+////////////////////////////////
+  AddProductModel?addProductModel;
   void addProduct({
-    required String id,
-    required String name,
-    required String category,
-    required String image,
-    required double price,
-    required String description,
-    required String studentId,
-  }) {
+    required String product_name,
+    required String category_id,
+    required String product_image,
+    required String price,
+    required String product_desc,
+    required String student_id,
+  }){
     emit(AddProductLoadingState());
-    ProductModel model=ProductModel(
-        id: id,
-        category: category,
-        name: name,
-        price: price,
-        description: description,
-        image: image,
-        studentId: studentId,
-    );
-    FirebaseFirestore.instance.collection('products').add(
-          model.toJson()).then((value)
-    {
-      emit(AddProductSuccessState());
-    }
-    ).catchError((error)
-    {
-      emit(AddProductErrorState());
-    });
+    DioHelper.postData(url: 'product.php',
+        data:{
+      'student_id': "241",
+      'product_name':product_name,
+          'product_image':product_image,
+          'product_desc':product_desc,
+          'category_id':category_id,
+          //category_id,
+          //GraduationCubit().changeSelectedItem(value).toString(),
+          'price':price
 
+
+        }).then((value)
+        {
+          print(value.data);
+          Map<String,dynamic>JsonData=json.decode(value.data);
+          addProductModel=AddProductModel.fromJson(JsonData);
+          emit(AddProductSuccessState(addProductModel!));
+         // print(addProductModel?.message);
+          }
+        )..catchError((error){
+            print(error.toString());
+            emit(AddProductErrorState(error));
+        });
+  }
+/////////////////////////////////////
+  GetProductModel ?getProductModel;
+  void getProduct(
+  { required String category,}
+      ){
+    emit(GetProductLoadingState());
+    DioHelper.getData(url: 'getprod.php',
+      query: {
+      'category':category,
+      }
+    ).then((value){
+      print("....................................................................");
+      print(value.data);
+      Map<String,dynamic>jsonData=json.decode(value.data);
+      getProductModel=GetProductModel.fromJson(jsonData);
+      emit(GetProductSuccessState(getProductModel!));
+      print(value) ;}
+    )..catchError((error){
+      print(error.toString());
+      emit(GetProductErrorState(error.toString()));
+    });
   }
 
-//   ProductModel? model;
-//   void addProduct({
-//     required String category,
-//     required String name,
-//     required String price,
-//     required String description,
-// })
-//   {
-//     DioHelper.postData(
-//         url: '/AddProduct/1', data:
-//     {
-//       'category':category,
-//       'name':name,
-//       'price':price,
-//       'description':description
-//     }).then((value)
-//     {
-//       print("+++++++++++=");
-//       print(value.data is String);
-//       // print("+++++++++++=");
-//
-//       model=ProductModel.fromJson(value.data);
-//       print('============');
-//       print(model!.status);
-//       print('============');
-//       emit(AddProductSuccessState());
-//     });
-//   }
-//
-//
-//   void getProduct()
-//   {
-//     DioHelper.getData(url: '/AddProduct/1').then((value)
-//     {
-//       model=ProductModel.fromJson(value.data);
-//       emit(GetProductSuccessState());
-//     });
-//
-//   }
 
 }

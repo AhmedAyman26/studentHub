@@ -9,7 +9,7 @@ class DioHelper
   {
     dio=Dio(
         BaseOptions(
-          baseUrl: 'https://gradprod.000webhostapp.com/',
+          baseUrl: 'http://gradproj.atwebpages.com/',
           receiveDataWhenStatusError: true,
         ),
     );
@@ -17,34 +17,39 @@ class DioHelper
 
   static Future<Response>getData({
     required String url,
-    Map<String , dynamic>? query,
-    String lang='en',
-    String? token,
-})async
+    required Map<String , dynamic>? query,
+    })async
   {
-
-    dio.options.headers=
-    {
-      'Content-Type' : 'application/json',
-    };
-    return await dio.get(url,queryParameters: query,);
+    dio.options= BaseOptions(
+        baseUrl: 'http://gradproj.atwebpages.com/'
+    );
+    return await dio!.get(url,queryParameters: query,);
   }
-
 
   static postData({
     required url,
-    required Map<String,dynamic>data
+    required Map<String,dynamic> data
+  })async
+  {
+    dio.options=BaseOptions(
+        baseUrl: 'http://gradproj.atwebpages.com/'
+    );
+    return await dio.post( url,  data: data );
+  }
+
+  static postDataWithImage({
+    required url,
+    required FormData data
 })async
   {
     dio.options=BaseOptions(
-        baseUrl: 'https://gradprod.000webhostapp.com/'
+        baseUrl: 'http://gradproj.atwebpages.com/'
     );
-    return await dio.post(
-      url,
-      data: data
-    );
-
+    return await dio.post( url,  data: data );
   }
+
+
+
   // static Future<Response> postData({
   //   required String url,
   //   Map<String ,dynamic>?query,

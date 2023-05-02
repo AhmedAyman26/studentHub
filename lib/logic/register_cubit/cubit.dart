@@ -132,7 +132,7 @@ class RegisterCubit extends Cubit<RegisterStates>
         'fullname': fullname,
         'email':email,
         // 'phone': phone,
-        'university':university,
+        'university_id':university,
         'faculty_id':faculty_id,
         'password':password,
         // 'confirm':confirm,

@@ -12,7 +12,7 @@ class singleCategoryCard_productWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        navigateTo(context,productDetails_screen());
+       // navigateTo(context,productDetails_screen());
       },
       child: Container(
         width: MediaQuery.of(context).size.width/2.2,

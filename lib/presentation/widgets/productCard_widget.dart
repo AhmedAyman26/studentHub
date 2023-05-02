@@ -6,8 +6,8 @@ class productCard_widget extends StatelessWidget {
   Color green=Color.fromRGBO(103, 139, 133, 1.0);
   Color darkGreen=Color.fromRGBO(70, 121, 112, 1.0);
   String image;
-  String text;
-  productCard_widget(this.image,this.text);
+  final String name;
+  productCard_widget(this.image,this.name);
   static const routeName="productCard_widget";
 
   @override
@@ -15,7 +15,7 @@ class productCard_widget extends StatelessWidget {
     return InkWell(
         onTap: ()
         {
-          navigateTo(context, singleCategory_productsScreen(text));
+          navigateTo(context, singleCategory_productsScreen(name.toString()));
         },
         child: Container(
           margin: EdgeInsets.all(2),
@@ -47,7 +47,7 @@ class productCard_widget extends StatelessWidget {
                 ),
                 Container (alignment: Alignment.center,
                     width:MediaQuery.of(context).size.width/2.3 ,
-                    child: Text("$text",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:darkGreen),)),
+                    child: Text("$name",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:darkGreen),)),
 
               ],
             ),
