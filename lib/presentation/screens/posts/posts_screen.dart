@@ -61,7 +61,7 @@ class PostsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                 SizedBox(
+                SizedBox(
                   width: 10.w,
                 ),
                 Column(
@@ -87,26 +87,26 @@ class PostsScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ...see more',style: TextStyle(
-                fontSize: 16.sp
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ...see more',style: TextStyle(
+                  fontSize: 16.sp
               ),
               ),
             ),
-myDivider(),
+            myDivider(),
             Padding(
-              padding: const EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 5,
-              ),
-              child: Row(
-                children:
-                [
-                  PostButton(icon: ImageIcon(AssetImage("assets/images/like.png"),size: 22.w,color: Colors.grey[600],), label: 'React', onTap: (){}),
-                  PostButton(icon: ImageIcon(AssetImage("assets/images/comment.png"),size: 20.w,color: Colors.grey[600],), label: 'Comment', onTap: (){}),
-                  PostButton(icon: ImageIcon(AssetImage("assets/images/repost.png"),size: 20.w,color: Colors.grey[600],), label: 'Repost', onTap: (){}),
-                  PostButton(icon: ImageIcon(AssetImage("assets/images/send.png"),size: 20.w,color: Colors.grey[600],), label: 'Send', onTap: (){}),
+                ),
+                child: Row(
+                  children:
+                  [
+                    PostButton(icon: ImageIcon(AssetImage("assets/images/like.png"),size: 22.w,color: Colors.grey[600],), label: 'React', onTap: (){}),
+                    PostButton(icon: ImageIcon(AssetImage("assets/images/comment.png"),size: 20.w,color: Colors.grey[600],), label: 'Comment', onTap: (){}),
+                    PostButton(icon: ImageIcon(AssetImage("assets/images/repost.png"),size: 20.w,color: Colors.grey[600],), label: 'Repost', onTap: (){}),
+                    PostButton(icon: ImageIcon(AssetImage("assets/images/send.png"),size: 20.w,color: Colors.grey[600],), label: 'Send', onTap: (){}),
 
-                ],
-              )
+                  ],
+                )
             ),
           ],
         ),
@@ -133,7 +133,7 @@ class PostButton extends StatelessWidget {
               children:
               [
                 icon,
-                 SizedBox(width: 4.0.w,),
+                SizedBox(width: 4.0.w,),
                 Text(label,style: TextStyle(fontSize: 12.sp),)
               ],
             ),
@@ -143,5 +143,4 @@ class PostButton extends StatelessWidget {
     );
   }
 }
-
 
