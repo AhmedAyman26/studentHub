@@ -33,21 +33,20 @@ class _HomeLayoutState extends State<HomeLayout> {
   ];
   @override
   Widget build(BuildContext context) {
+    var scaffoldKey=GlobalKey<ScaffoldState>();
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
-          body: SafeArea(
+        key: scaffoldKey,
+        body: SafeArea(
             child: Column(
               children: [
                 Stack(
                   children:
                   [
-                    Container(
-                      width: double.infinity.w,
-                      child: Image(
-                        fit: BoxFit.cover,
-                        image: AssetImage("assets/images/path.png"),
-                      ),
+                    Image(
+                      fit: BoxFit.fitHeight,
+                      image: AssetImage("assets/images/path.png"),
                     ),
                     Column(
                       children:
@@ -64,7 +63,10 @@ class _HomeLayoutState extends State<HomeLayout> {
                                   "assets/images/user (2).png",
                                 ),
                               ),
-                              onTap: (){},
+                              onTap: ()
+                              {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
                             ),
                             Spacer(),
                             InkWell(
@@ -115,7 +117,68 @@ class _HomeLayoutState extends State<HomeLayout> {
                 ),
               ],
             ),
-          )),
+          ),
+        drawer: Drawer(
+          child: ListView(
+            // Important: Remove any padding from the ListView.
+            padding: EdgeInsets.zero,
+            children: [
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(30.h),
+                    bottomLeft: Radius.circular(30.h),
+                  ),
+                  image: DecorationImage(fit: BoxFit.cover,
+                    image: NetworkImage('https://static2.hdwallpapers.net/wallpapers/2019/02/24/1178/thumb_glass-building-in-toronto.jpg',),
+                  )
+                ),
+                currentAccountPicture: CircleAvatar(
+                  radius: 10,
+                  child: Icon(Icons.person),
+                ),
+                  accountName: Text('AhmedAyman',style: TextStyle(color: Colors.black),),
+                  accountEmail: Text('ahmedzayan49@gmail.com'),
+
+              ),
+              ListTile(
+
+                leading: ImageIcon(
+                  AssetImage('assets/images/user.png'),color: Colors.black,),
+
+                title: const Text('My Account'),
+
+                onTap: () {
+                },
+              ),
+              ListTile(
+                leading: ImageIcon(AssetImage('assets/images/settings.png'),color: Colors.black,),
+                title: const Text('Settings'),
+                onTap: () {
+                },
+              ),
+              ListTile(
+                leading: ImageIcon(AssetImage('assets/images/product.png',),color: Colors.black,),
+                title: const Text('My Products'),
+                onTap: () {
+                },
+              ),
+              ListTile(
+                leading: ImageIcon(AssetImage('assets/images/service.png'),color: Colors.black,),
+                title: const Text('My Services'),
+                onTap: () {
+                },
+              ),
+              ListTile(
+                leading: ImageIcon(AssetImage('assets/images/favoits.png'),color: Colors.black,),
+                title: const Text('Favourits'),
+                onTap: () {
+                },
+              ),
+            ],
+          ),
+        ),
+         ),
     );
   }
 }
