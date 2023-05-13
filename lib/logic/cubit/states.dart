@@ -6,11 +6,11 @@ abstract class GraduationStates{}
 
 class GraduationInitialState extends GraduationStates{}
 
-class GetUserLoadingStates extends GraduationStates{}
+class GetUserDataLoadingState extends GraduationStates{}
 
-class GetUserSuccessStates extends GraduationStates{}
+class GetUserDataSuccessState extends GraduationStates{}
 
-class GetUserErrorStates extends GraduationStates{}
+class GetUserDataErrorState extends GraduationStates{}
 
 class ChangeSelectedItemState extends GraduationStates{}
 
@@ -37,4 +37,15 @@ class GetProductErrorState extends GraduationStates{
 final String error;
 GetProductErrorState(this.error);
 }
+class GetUsersSuccessState extends GraduationStates{}
+
+class GetUsersErrorState extends GraduationStates{}
+
+class SendMessageSuccessState extends GraduationStates{}
+
+class SendMessageErrorState extends GraduationStates{}
+
+class GetMessagesLoadingState extends GraduationStates{}
+
+class GetMessagesSuccessState extends GraduationStates{}
 

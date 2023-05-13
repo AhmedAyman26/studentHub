@@ -1,41 +1,64 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/data/models/addProduct_model.dart';
+import 'package:graduation/data/models/getProduct_model.dart';
+import 'package:graduation/data/models/message_model.dart';
 import 'package:graduation/data/models/product_model.dart';
 import 'package:graduation/data/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/states.dart';
+import 'package:graduation/logic/register_cubit/cubit.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import '../../data/models/addProduct_model.dart';
-import '../../data/models/getProduct_model.dart';
 
 class GraduationCubit extends Cubit<GraduationStates> {
-  var value;
-
   GraduationCubit() : super(GraduationInitialState());
   static GraduationCubit get(context) => BlocProvider.of(context);
 
+  UserData? user;
+
+  void getUserData() async {
+    emit(GetUserDataLoadingState());
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(id)
+        .get()
+        .then((value) {
+      print("++++++++++++++");
+      print(value.id);
+      print(value.data());
+      print("++++++++++");
+      user = UserData.fromJson(value.data()!);
+      print(user!.uId);
+      emit(GetUserDataSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetUserDataErrorState());
+    });
+  }
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
       child: Text('Devices'),
-      value: '1',
+      value: 'Devices',
     ),
     DropdownMenuItem(
       child: Text('Books'),
-      value: '2',
+      value: 'Books',
     ),
     DropdownMenuItem(
-      child: Text('Engineering tools'),
-      value: '3',
+      child: Text('Tools'),
+      value: 'Tools',
     ),
     DropdownMenuItem(
       child: Text('Clothes'),
-      value: '4',
+      value: 'Clothes',
     ),
   ];
   List<DropdownMenuItem> Universityitems = [
@@ -75,7 +98,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
               InkWell(
                 onTap: () async {
                   var picked =
-                      await ImagePicker().pickImage(source: ImageSource.gallery);
+                  await ImagePicker().pickImage(source: ImageSource.gallery);
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
@@ -108,7 +131,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
               InkWell(
                 onTap: () async {
                   var picked =
-                      await ImagePicker().pickImage(source: ImageSource.camera);
+                  await ImagePicker().pickImage(source: ImageSource.camera);
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
@@ -143,11 +166,10 @@ class GraduationCubit extends Cubit<GraduationStates> {
 
     );
   }
-  /////////////////////////////////////////////////////////////////////////////////////////
   Future ConvertImage(File picked)async{
     Uint8List imageBytes=await picked.readAsBytes();
     String base64string=
-        base64.encode(imageBytes);
+    base64.encode(imageBytes);
     //print(".............................................");
     return base64string;
   }
@@ -182,8 +204,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
     emit(AddProductLoadingState());
     DioHelper.postData(url: 'product.php',
         data:{
-      'student_id': "241",
-      'product_name':product_name,
+          'student_id': "241",
+          'product_name':product_name,
           'product_image':product_image,
           'product_desc':product_desc,
           'category_id':category_id,
@@ -193,28 +215,28 @@ class GraduationCubit extends Cubit<GraduationStates> {
 
 
         }).then((value)
-        {
-          print(value.data);
-          Map<String,dynamic>JsonData=json.decode(value.data);
-          addProductModel=AddProductModel.fromJson(JsonData);
-          emit(AddProductSuccessState(addProductModel!));
-         // print(addProductModel?.message);
-          }
-        )..catchError((error){
-            print(error.toString());
-            emit(AddProductErrorState(error));
-        });
+    {
+      print(value.data);
+      Map<String,dynamic>JsonData=json.decode(value.data);
+      addProductModel=AddProductModel.fromJson(JsonData);
+      emit(AddProductSuccessState(addProductModel!));
+      // print(addProductModel?.message);
+    }
+    )..catchError((error){
+      print(error.toString());
+      emit(AddProductErrorState(error));
+    });
   }
 /////////////////////////////////////
   GetProductModel ?getProductModel;
   void getProduct(
-  { required String category,}
+      { required String category,}
       ){
     emit(GetProductLoadingState());
     DioHelper.getData(url: 'getprod.php',
-      query: {
-      'category':category,
-      }
+        query: {
+          'category':category,
+        }
     ).then((value){
       print("....................................................................");
       print(value.data);
@@ -228,5 +250,178 @@ class GraduationCubit extends Cubit<GraduationStates> {
     });
   }
 
+  // void addProduct({
+  //   required String id,
+  //   required String name,
+  //   required String category,
+  //   required String image,
+  //   required double price,
+  //   required String description,
+  //   required String studentId,
+  // }) {
+  //   emit(AddProductLoadingState());
+  //   ProductModel model=ProductModel(
+  //       id: id,
+  //       category: category,
+  //       name: name,
+  //       price: price,
+  //       description: description,
+  //       image: image,
+  //       studentId: studentId,
+  //   );
+  //   FirebaseFirestore.instance.collection('products').add(
+  //         model.toJson()).then((value)
+  //   {
+  //     emit(AddProductSuccessState());
+  //   }
+  //   ).catchError((error)
+  //   {
+  //     emit(AddProductErrorState());
+  //   });
+  //
+  // }
 
+//   ProductModel? model;
+//   void addProduct({
+//     required String category,
+//     required String name,
+//     required String price,
+//     required String description,
+// })
+//   {
+//     DioHelper.postData(
+//         url: '/AddProduct/1', data:
+//     {
+//       'category':category,
+//       'name':name,
+//       'price':price,
+//       'description':description
+//     }).then((value)
+//     {
+//       print("+++++++++++=");
+//       print(value.data is String);
+//       // print("+++++++++++=");
+//
+//       model=ProductModel.fromJson(value.data);
+//       print('============');
+//       print(model!.status);
+//       print('============');
+//       emit(AddProductSuccessState());
+//     });
+//   }
+//
+//
+//   void getProduct()
+//   {
+//     DioHelper.getData(url: '/AddProduct/1').then((value)
+//     {
+//       model=ProductModel.fromJson(value.data);
+//       emit(GetProductSuccessState());
+//     });
+//
+//   }
+
+  void addPost({
+    required String studentId,
+    required String text,
+    required  String image,
+    required Timestamp time,
+    required int likes,
+  })async
+  {
+    await DioHelper.postData(url: 'post.php', data:
+    {
+      'student_id':studentId,
+      'text':text,
+      'likes':likes,
+      'time':time,
+      'image':image,
+    });
+  }
+
+  List<UserData> users=[];
+  void getUsers() {
+    users.clear();
+    print('get users 11111111111');
+
+    FirebaseFirestore.instance.collection('users').get().then((value) {
+      value.docs.forEach((element) {
+        if (element.id != FirebaseAuth.instance.currentUser!.uid)
+          users.add(UserData.fromJson(element.data()));
+      });
+
+      print('get users 222222222');
+      emit(GetUsersSuccessState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(GetUsersErrorState());
+    });
+    print('get users 333333333333');
+  }
+
+
+  void sendMessage({
+    required String receiverId,
+    required String dateTime,
+    required String text,
+  })
+  {
+    MessageModel model= MessageModel(
+        text: text,
+        senderId: user!.uId,
+        receiverId: receiverId,
+        dateTime: dateTime
+    );
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uId)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .add(model.toMap())
+        .then((value){
+      emit(SendMessageSuccessState());
+    })
+        .catchError((){
+      emit(SendMessageErrorState());
+    });
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(receiverId)
+        .collection('chats')
+        .doc(user!.uId)
+        .collection('messages')
+        .add(model.toMap())
+        .then((value){
+      emit(SendMessageSuccessState());
+    })
+        .catchError((){
+      emit(SendMessageErrorState());
+    });
+  }
+
+  List<MessageModel> messages=[];
+  void getMessages ({
+    required String receiverId,
+  })
+  {
+    emit(GetMessagesLoadingState());
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uId)
+        .collection('chats')
+        .doc(receiverId)
+        .collection('messages')
+        .orderBy('dateTime')
+        .snapshots()
+        .listen((event)
+    {
+      messages=[];
+      event.docs.forEach((element)
+      {
+        messages.add(MessageModel.fromJson(element.data()));
+      });
+      emit(GetMessagesSuccessState());
+    });
+  }
 }

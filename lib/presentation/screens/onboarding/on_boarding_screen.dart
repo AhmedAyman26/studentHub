@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
+import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 
 import '../login/login_screen.dart';
 class OnBoardingScreen extends StatefulWidget {
@@ -13,17 +15,22 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController();
   @override
+  void submit()
+  {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value)
+    {
+      if(value)
+      {
+        navigateAndFinish(context, LoginScreen());
+      }
+    });
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor:Colors.white,
       body: OnBoard(
         pageController: _pageController,
-        onSkip: () {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => LoginScreen()));
-        },
+        onSkip: ()=>submit(),
         onDone: () {
           // print('done tapped');
         },
@@ -47,12 +54,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ),
 
         skipButton: TextButton(
-          onPressed: () {
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => LoginScreen()));
-          },
+          onPressed: submit,
           child: const Text(
             "Skip",
             style: TextStyle(color: Color.fromRGBO(70, 121, 112, 1.0),fontSize: 18),
@@ -97,10 +99,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         curve: Curves.easeInOutSine,
       );
     } else {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginScreen()));
+      submit();
     }
   }
 }
@@ -109,7 +108,7 @@ final List<OnBoardModel> onBoardData = [
   const OnBoardModel(
     title: "Exchange services with students from different universitres in your field of study including references, summerization, Links ,Online courses.",
     description: "",
-      imgUrl: "assets/images/undraw_Sharing_articles_re_jnkp.png",
+    imgUrl: "assets/images/undraw_Sharing_articles_re_jnkp.png",
   ),
   const OnBoardModel(
     title: "We enable you to offer and request different products and tools used in different fields to achieve collaboration.",
@@ -122,3 +121,5 @@ final List<OnBoardModel> onBoardData = [
     imgUrl: 'assets/images/undraw_Social_sharing_re_pvmr (2).png',
   ),
 ];
+
+

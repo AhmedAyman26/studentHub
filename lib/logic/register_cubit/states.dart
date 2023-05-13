@@ -2,15 +2,39 @@ abstract class RegisterStates{}
 
 class RegisterInitialState extends RegisterStates{}
 
-class RegisterLoadingState extends RegisterStates{}
+class RegisterDbLoadingState extends RegisterStates{}
 
-class RegisterSuccessState extends RegisterStates{
+class RegisterDbSuccessState extends RegisterStates{
 
 }
 
-class RegisterErrorState extends RegisterStates{
+class RegisterDbErrorState extends RegisterStates{
   final String error;
-  RegisterErrorState(this.error);
+  RegisterDbErrorState(this.error);
+
+}
+
+class RegisterFbLoadingState extends RegisterStates{}
+
+class RegisterFbSuccessState extends RegisterStates{
+
+}
+
+class RegisterFbErrorState extends RegisterStates{
+  final String error;
+  RegisterFbErrorState(this.error);
+
+}
+
+class CreateUserFbLoadingState extends RegisterStates{}
+
+class CreateUserFbSuccessState extends RegisterStates{
+
+}
+
+class CreateUserFbErrorState extends RegisterStates{
+  final String error;
+  CreateUserFbErrorState(this.error);
 
 }
 

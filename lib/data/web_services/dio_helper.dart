@@ -8,48 +8,45 @@ class DioHelper
   static init()
   {
     dio=Dio(
-        BaseOptions(
-          baseUrl: 'http://gradproj.atwebpages.com/',
-          receiveDataWhenStatusError: true,
-        ),
+      BaseOptions(
+        baseUrl: 'http://gradproj.atwebpages.com/',
+        receiveDataWhenStatusError: true,
+      ),
     );
   }
 
   static Future<Response>getData({
     required String url,
-    required Map<String , dynamic>? query,
-    })async
-  {
-    dio.options= BaseOptions(
-        baseUrl: 'http://gradproj.atwebpages.com/'
-    );
-    return await dio!.get(url,queryParameters: query,);
-  }
-
-  static postData({
-    required url,
-    required Map<String,dynamic> data
+    Map<String , dynamic>? query,
+    String lang='en',
+    String? token,
   })async
   {
-    dio.options=BaseOptions(
-        baseUrl: 'http://gradproj.atwebpages.com/'
-    );
-    return await dio.post( url,  data: data );
+
+    dio.options.headers=
+    {
+      'Content-Type' : 'application/json',
+    };
+    return await dio.get(url,queryParameters: query,);
   }
 
-  static postDataWithImage({
+
+  static Future<Response> postData({
     required url,
-    required FormData data
-})async
+    required Map<String,dynamic>data
+  })async
   {
-    dio.options=BaseOptions(
-        baseUrl: 'http://gradproj.atwebpages.com/'
+    dio.options.headers=
+    {
+      'Content-Type' : 'application/json',
+    };
+
+    return await dio.post(
+        url,
+        data: data
     );
-    return await dio.post( url,  data: data );
+
   }
-
-
-
   // static Future<Response> postData({
   //   required String url,
   //   Map<String ,dynamic>?query,

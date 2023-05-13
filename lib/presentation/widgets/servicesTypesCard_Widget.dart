@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:graduation/presentation/screens/services/Single_categoty_service_screen.dart';
+import 'package:graduation/shared/constants.dart';
 class servicesTypesCard_Widget extends StatelessWidget {
   Color green=Color.fromRGBO(103, 139, 133, 1.0);
   Color darkGreen=Color.fromRGBO(70, 121, 112, 1.0);
@@ -12,6 +14,7 @@ class servicesTypesCard_Widget extends StatelessWidget {
     return InkWell(
         onTap: ()
         {
+          navigateTo(context,SingleCategoryServiceScreen());
         },
         child: Container(
           margin: EdgeInsets.all(2),

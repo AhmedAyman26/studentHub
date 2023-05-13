@@ -1,182 +1,212 @@
+import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/logic/login_cubit/cubit.dart';
 import 'package:graduation/logic/login_cubit/states.dart';
-import 'package:graduation/presentation/screens/Home.dart';
+import 'package:graduation/presentation/screens/login/forget_password_screen.dart';
+import 'package:graduation/presentation/screens/home.dart';
 import 'package:graduation/presentation/screens/register/register.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static String tag = 'login-page';
 
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   GlobalKey<FormState> _key = new GlobalKey();
+
   bool _validate = false;
+
   bool _obscureText = true;
+
   bool? check1 = false;
+
+  TextEditingController emailController=TextEditingController();
+  TextEditingController passwordController=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context)=>LoginCubit(),
-      child: BlocConsumer<LoginCubit,LoginStates>
+      create: (BuildContext context) => LoginCubit(),
+      child: BlocConsumer<LoginCubit, LoginStates>
         (
-        listener: (context,state)
-        {
-          if(state is LoginSuccessState)
-          {
+        listener: (context, state) {
+          if (state is LoginSuccessState) {
             CacheHelper.saveData(
               key: 'id',
               value: state.uId,
-            ).then((value)
-            {
+            ).then((value) {
               navigateAndFinish(context, const HomeLayout());
             });
           }
         },
-        builder: (context,states)
-        {
+        builder: (context, state) {
           return Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size(double.infinity,150),
-              child: ClipPath(
-                clipper: CustomAppBarShape(),
-                child: Container(
-                  color: kPrimaryColor,
-                ),
-              ),
-            ),
-            body:  Center(
-              child:  SingleChildScrollView(
-                child:  Container(
-                  margin:  EdgeInsets.all(20.0),
-                  child: Center(
-                    child:  Form(
-                      key: _key,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Container(
+                      width: double.infinity,
+                      child: Image(
+                        image: AssetImage('assets/images/signin.png'),
+                        fit: BoxFit.fill,)),
+                  Center(
+                    child: SingleChildScrollView(
+                      child: Container(
+                        margin: EdgeInsets.all(20.0),
+                        child: Center(
+                          child: Column(
+                            children: [
+                              //SizedBox(height: 50.0),
+                              TextFormField(
+                                controller: emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                autofocus: false,
+                                decoration: InputDecoration(
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.black12),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.black12)),
+                                  hintText: 'Email',
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      20.0, 15.0, 20.0, 15.0),
 
-                      child: _getFormUI(context),
+                                ),
+
+                              ),
+                              SizedBox(height: 20.0),
+                              TextFormField(
+                                controller: passwordController,
+                                keyboardType: TextInputType.text,
+                                autofocus: false,
+                                obscureText: _obscureText,
+
+                                decoration: InputDecoration(
+                                  hintText: 'Password',
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      20.0, 10.0, 20.0, 10.0),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.black12),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                          color: Colors.black12)),
+                                  suffixIcon: GestureDetector(
+                                    onTap: () {
+                                      // setState(() {
+                                      //   _obscureText = !_obscureText;
+                                      // });
+                                    },
+                                    child: Icon(
+                                      color: Colors.black12,
+                                      _obscureText ? Icons.visibility : Icons
+                                          .visibility_off,
+                                      semanticLabel:
+                                      _obscureText
+                                          ? 'show password'
+                                          : 'hide password',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 15.0),
+                              Row(
+                                children: [
+                                  Checkbox(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      activeColor: kPrimaryColor,
+                                      value: check1,
+                                      onChanged: (bool? value) {
+                                        // setState(() {
+                                        //   check1 = value;
+                                        // });
+                                      }
+                                  ),
+                                  Text("Remember me",
+                                    style: TextStyle(
+                                        color: Colors.black54, fontSize: 15),
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: 10.0.h),
+                              ConditionalBuilder(
+                                condition: state is !LoginLoadingState,
+                                builder: (context) =>
+                                    Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 16.0),
+                                        child: ButtonTheme(
+                                          buttonColor: kPrimaryColor,
+                                          minWidth: 250.0,
+                                          height: 50.0,
+                                          child: MaterialButton(
+                                            color: kPrimaryColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius
+                                                  .circular(18),
+                                            ),
+                                            onPressed: () {
+                                              LoginCubit.get(context).userLogin(
+                                                  email: emailController.text
+                                                      .trim(),
+                                                  password: passwordController
+                                                      .text.trim(),
+                                                  context: context);
+                                            },
+                                            child: Text("Sign in",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 21),
+                                            ),
+                                          ),
+                                        )
+                                    ),
+                                fallback: (context) =>
+                                    CircularProgressIndicator(),
+                              ),
+                              TextButton(
+                                child: Text(
+                                  'Forgot password?',
+                                  style: TextStyle(color: Colors.black54),
+                                ),
+                                onPressed: () {
+                                  navigateTo(context, ForgetPasswordScreen());
+                                },
+                              ),
+                              TextButton(
+                                  onPressed: () {
+                                    navigateAndFinish(
+                                        context, RegisterScreen());
+                                  },
+                                  child: Text('Not a member? Sign up now',
+                                      style: TextStyle(color: Colors.black54))),
+
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           );
         },
       ),
-    );
-  }
-
-  Widget _getFormUI(context) {
-    return Column(
-      children: [
-        //SizedBox(height: 50.0),
-        TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          autofocus: false,
-          decoration: InputDecoration(
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                  width: 3, color: Colors.black12),
-            ),
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black12)),
-            hintText: 'Email',
-            contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-
-          ),
-
-        ),
-        SizedBox(height: 20.0),
-        TextFormField(
-          keyboardType: TextInputType.text,
-          autofocus: false,
-          obscureText: _obscureText,
-
-          decoration: InputDecoration(
-            hintText: 'Password',
-            contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                  width: 3, color: Colors.black12),
-            ),
-            focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black12)),
-            suffixIcon: GestureDetector(
-              onTap: () {
-                // setState(() {
-                //   _obscureText = !_obscureText;
-                // });
-              },
-              child: Icon(
-                color: Colors.black12,
-                _obscureText ? Icons.visibility : Icons.visibility_off,
-                semanticLabel:
-                _obscureText ? 'show password' : 'hide password',
-              ),
-            ),
-          ),
-        ),
-        SizedBox(height: 15.0),
-        Row(
-          children: [
-            Checkbox(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                activeColor: kPrimaryColor,
-                value: check1,
-                onChanged: (bool? value){
-                  // setState(() {
-                  //   check1 = value;
-                  // });
-                }
-            ),
-            Text("Remember me",
-              style: TextStyle(color: Colors.black54,fontSize: 15),
-            )
-          ],
-        ),
-        SizedBox(height: 10.0),
-        Padding(
-            padding: EdgeInsets.symmetric(vertical: 16.0),
-            child: ButtonTheme(
-              buttonColor: kPrimaryColor,
-              minWidth: 250.0,
-              height: 50.0,
-
-                child: MaterialButton(
-                  color: kPrimaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                onPressed: () {},
-                child: Text("Sign in",
-                  style:TextStyle(color: Colors.white,fontSize: 21),
-                ),
-              ),
-            )
-        ),
-        TextButton(
-          child: Text(
-            'Forgot password?',
-            style: TextStyle(color: Colors.black54),
-          ),
-          onPressed: (){_showForgotPasswordDialog(context);},
-        ),
-
-
-
-
-        TextButton(
-            onPressed: ()
-            {
-              navigateAndFinish(context, RegisterScreen());
-            },
-            child: Text('Not a member? Sign up now',
-            style: TextStyle(color: Colors.black54))),
-
-      ],
     );
   }
 
@@ -203,32 +233,5 @@ class LoginScreen extends StatelessWidget {
             ],
           );
         });
-  }
-}
-
-class CustomAppBarShape extends CustomClipper<Path> {
-
-
-  @override
-  Path getClip(Size size) {
-    var path = Path();
-    path.lineTo(0, size.height*0.5);
-    path.quadraticBezierTo(size.width*0.005, size.height*0.8, size.width*0.3, size.height*0.8);
-    path.lineTo(size.width*0.8, size.height*0.8);
-    path.quadraticBezierTo(size.width, size.height*0.8, size.width,size.height);
-    path.lineTo(size.width, 0);
-    // path.lineTo(0, size.height*0.5);
-    // path.quadraticBezierTo(size.width*0.05, size.height, size.width*0.9, size.height*0.8);
-    // path.quadraticBezierTo(size.width+5, size.height*0.8, size.width, size.height);
-    // path.lineTo(size.width, 0);
-
-    return path;
-  }
-
-  @override
-
-  bool shouldReclip (CustomClipper<Path> oldClipper)
-  {
-    return false;
   }
 }
