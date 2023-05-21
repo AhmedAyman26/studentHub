@@ -1,3 +1,5 @@
+import 'package:graduation/data/models/user_model.dart';
+
 abstract class RegisterStates{}
 
 class RegisterInitialState extends RegisterStates{}
@@ -5,7 +7,9 @@ class RegisterInitialState extends RegisterStates{}
 class RegisterDbLoadingState extends RegisterStates{}
 
 class RegisterDbSuccessState extends RegisterStates{
+  final UserData userData;
 
+  RegisterDbSuccessState(this.userData);
 }
 
 class RegisterDbErrorState extends RegisterStates{

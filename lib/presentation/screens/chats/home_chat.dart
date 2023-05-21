@@ -22,12 +22,11 @@ class ChatHomeScreen extends StatelessWidget {
       {
         return Scaffold(
 
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(
-                  padding:  EdgeInsets.only(top: 20.h),
-                  child: Stack(
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
                     children:
                     [
                       Image(
@@ -73,16 +72,16 @@ class ChatHomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding:  EdgeInsets.only(right: 20.w,left: 20.w,bottom: 20.h),
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context,index)=>buildChatItem(GraduationCubit.get(context).users[index],context),
-                    separatorBuilder: (context,index)=>SizedBox(height: 15.h,),
-                    itemCount: GraduationCubit.get(context).users.length,),
-                ),
-              ],
+                  Padding(
+                    padding:  EdgeInsets.only(right: 20.w,left: 20.w,bottom: 20.h),
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      itemBuilder: (context,index)=>buildChatItem(GraduationCubit.get(context).users[index],context),
+                      separatorBuilder: (context,index)=>SizedBox(height: 15.h,),
+                      itemCount: GraduationCubit.get(context).users.length,),
+                  ),
+                ],
+              ),
             ),
           ),
         );

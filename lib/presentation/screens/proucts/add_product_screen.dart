@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,7 +106,7 @@ class AddProductScreen extends StatelessWidget {
                           Column(
                             children: [
                               Text(
-                                'AhmedMohamed',
+                                '${FirebaseAuth.instance.currentUser?.displayName??'default'}',
                               ),
                             ],
                           ),
@@ -116,7 +117,7 @@ class AddProductScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          GraduationCubit.get(context).showBottomSheet(context);
+                          GraduationCubit.get(context).showProductBottomSheet(context);
                         },
                         child: Container(
                           child:/*GraduationCubit.get(context).imagePicker==null?

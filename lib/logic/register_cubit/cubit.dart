@@ -109,6 +109,7 @@ import 'package:graduation/data/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/register_cubit/states.dart';
 import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 
 class RegisterCubit extends Cubit<RegisterStates>
 {
@@ -150,7 +151,7 @@ class RegisterCubit extends Cubit<RegisterStates>
       userModel =UserModel.fromJson(jsonDecode(res.data));
       await userRegisterFb(fullname: fullname, email: email, university_id: university_id, faculty_id: faculty_id, password: password);
       print(userModel.userData!.fullname);
-      emit(RegisterDbSuccessState());
+      emit(RegisterDbSuccessState(userModel.userData!));
     }
     catch(error)
     {
@@ -198,7 +199,7 @@ class RegisterCubit extends Cubit<RegisterStates>
     ).then((value)async
     {
       await FirebaseAuth.instance.currentUser!.updateDisplayName(fullname);
-      id=value.user!.uid;
+      CacheHelper.saveData(key: 'id', value: id=value.user!.uid);
       await userCreate(
         id : value.user!.uid,
       );

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:device_preview/device_preview.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,6 +27,7 @@ void main()async {
   await DioHelper.init();
   Bloc.observer=MyBlocObserver();
   await CacheHelper.init();
+
 
   Widget widget;
   bool onBoarding=CacheHelper.getData(key: 'onBoarding');
@@ -63,8 +66,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
-      create: (context) => GraduationCubit()..getUserData(),
+      create: (context) => GraduationCubit()..getUserData()..getPost(),
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

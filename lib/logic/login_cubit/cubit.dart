@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/login_cubit/states.dart';
 import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 
 class LoginCubit extends Cubit<LoginStates> {
   LoginCubit() : super(LoginInitialState());
@@ -23,7 +24,7 @@ class LoginCubit extends Cubit<LoginStates> {
         email: email,
         password: password,
       ).then((value) {
-        id = value.user!.uid;
+        CacheHelper.saveData(key: 'id', value: value.user!.uid);
         emit(LoginSuccessState(value.user!.uid));
         print(value.user!.uid);
       });

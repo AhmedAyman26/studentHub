@@ -49,7 +49,7 @@ dependencies:
   favorite_button: ^0.0.4
   flutter_onboard: ^2.0.0
   awesome_dialog: ^3.0.2
-  conditional_builder:
+  conditional_builder_null_safety:
   hexcolor:
   firebase_core: ^2.5.0
   firebase_auth: ^4.2.6
