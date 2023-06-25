@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) => GraduationCubit()..getUserData()..getPost(),
+      create: (context) => GraduationCubit()..getUserData()..getPost()..getUni(),
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,

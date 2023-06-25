@@ -226,27 +226,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           const SizedBox(
                             height: 15,
                           ),
-                          TextFormField(
-                            controller: universityController,
-                            keyboardType: TextInputType.name,
-                            validator: (value)
-                            {
-                              if (value!.isEmpty)
-                              {
-                                return 'please enter university!';
-                              }
-                              return null;
-                            },
-                            decoration:const InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width:3,
-                                    color:Colors.black12
-                                ),
-                              ),
-                              labelText: 'University',
-                            ),
-                          ),
+                          // TextFormField(
+                          //   controller: universityController,
+                          //   keyboardType: TextInputType.name,
+                          //   validator: (value)
+                          //   {
+                          //     if (value!.isEmpty)
+                          //     {
+                          //       return 'please enter university!';
+                          //     }
+                          //     return null;
+                          //   },
+                          //   decoration:const InputDecoration(
+                          //     enabledBorder: UnderlineInputBorder(
+                          //       borderSide: BorderSide(
+                          //           width:3,
+                          //           color:Colors.black12
+                          //       ),
+                          //     ),
+                          //     labelText: 'University',
+                          //   ),
+                          // ),
+                          DropdownButton(items: GraduationCubit.get(context).uItems, onChanged: (e){},isExpanded: true,hint: Text('Select Your University')),
                           const SizedBox(
                             height: 15,
                           ),

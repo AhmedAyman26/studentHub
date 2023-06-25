@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/data/models/ServiceModel.dart';
@@ -14,11 +14,9 @@ import 'package:graduation/data/models/addProduct_model.dart';
 import 'package:graduation/data/models/getProduct_model.dart';
 import 'package:graduation/data/models/message_model.dart';
 import 'package:graduation/data/models/post_model.dart';
-import 'package:graduation/data/models/product_model.dart';
 import 'package:graduation/data/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/states.dart';
-import 'package:graduation/logic/register_cubit/cubit.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -55,63 +53,63 @@ class GraduationCubit extends Cubit<GraduationStates> {
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
       child: Text('Devices'),
-      value: 'Devices',
+      value: '1',
     ),
     DropdownMenuItem(
       child: Text('Books'),
-      value: 'Books',
+      value: '2',
     ),
     DropdownMenuItem(
-      child: Text('Tools'),
-      value: 'Tools',
+      child: Text('Engineering tools'),
+      value: '3',
     ),
     DropdownMenuItem(
       child: Text('Clothes'),
-      value: 'Clothes',
+      value: '4',
     ),
   ];
   List<DropdownMenuItem> Universityitems = [
-    DropdownMenuItem(
-      child: Text('Zagaig University'),
+    const DropdownMenuItem(
       value: 'Zagaizg University',
+      child: Text('Zagaig University'),
     ),
-    DropdownMenuItem(
-      child: Text('Mansoura University'),
+    const DropdownMenuItem(
       value: 'Mansoura University',
+      child: Text('Mansoura University'),
     ),
   ];
   List<DropdownMenuItem> subjectItems =const [
     DropdownMenuItem(
-      child: Text('programming'),
       value: '1',
+      child: Text('programming'),
     ),
     DropdownMenuItem(
-      child: Text('Algorithms'),
       value: '2',
+      child: Text('Algorithms'),
     ),
     DropdownMenuItem(
-      child: Text('Theory of programming languages '),
       value: '3',
+      child: Text('Theory of programming languages '),
     ),
     DropdownMenuItem(
-      child: Text('Compilers and language theory'),
       value: '4',
+      child: Text('Compilers and language theory'),
     ),
     DropdownMenuItem(
-      child: Text('DirectX'),
       value: '5',
+      child: Text('DirectX'),
     ),
     DropdownMenuItem(
-      child: Text('OpenGL'),
       value: '6',
+      child: Text('OpenGL'),
     ),
     DropdownMenuItem(
-      child: Text('Shell Scripting'),
       value: '7',
+      child: Text('Shell Scripting'),
     ),
     DropdownMenuItem(
-      child: Text('Python'),
       value: '8',
+      child: Text('Python'),
     ),
   ];
 
@@ -142,13 +140,12 @@ class GraduationCubit extends Cubit<GraduationStates> {
               InkWell(
                 onTap: () async {
                   var picked =
-                  await ImagePicker().pickImage(source: ImageSource.gallery);
+                  await productImagePicker.pickImage(source: ImageSource.gallery);
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
-                    // refSotrage =FirebaseStorage.instance.ref('images/$imageName');
-                    //ConvertImage(picked as XFile);
-                    imageToAPI =await ConvertImage(file!);
+                    // convertImageToBase64(picked as File);
+                    imageToAPI =await convertImageToBase64(file!);
                     Navigator.of(context).pop();
                   }
                 },
@@ -179,8 +176,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
-                    //ConvertImage(picked as XFile);
-                    // refSotrage =FirebaseStorage.instance.ref('images/$imageName');
+                    convertImageToBase64(picked as File);
                     imageToAPI =await convertImageToBase64(file!);
                     Navigator.of(context).pop();
                   }
@@ -243,7 +239,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
                           if(picked != null){
                             serviceImageFile = File(picked.path);
                             var imageName = basename(picked.path);
-                            serviceImageToAPI =await ConvertImage(serviceImageFile!);
+                            serviceImageToAPI =await convertImageToBase64(serviceImageFile!);
                             //ConvertImage(imageFile!);
 
                             print(serviceImageFile!.path);
@@ -369,7 +365,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
                           _video = File(video!.path) ;
                           videoPlayerController = VideoPlayerController.file(_video!)..initialize().then((value) {
                             videoPlayerController.play();
-                            ConvertImage(_video!);
+                            convertImageToBase64(_video!);
                             emit(AddVideoSuccessState());
                           }).catchError((error){
                             print(error.toString());
@@ -408,7 +404,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
                           if(picked != null){
                             serviceImageFile = File(picked.path);
                             var imageName = basename(picked.path);
-                            serviceImageToAPI =await ConvertImage(serviceImageFile!);
+                            serviceImageToAPI =await convertImageToBase64(serviceImageFile!);
                             //ConvertImage(imageFile!);
 
                             print(serviceImageFile!.path);
@@ -459,24 +455,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
     print(base64String);
 
   }
-  Future ConvertImage(File picked)async{
-    Uint8List imageBytes=await picked.readAsBytes();
-    String base64string=
-    base64.encode(imageBytes);
-    //print(".............................................");
-    return base64string;
-  }
   ////////////////////////////////
-  Future<String?> imageToBase64(ImageSource source) async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: source);
-
-    if (pickedFile == null) return null;
-
-    final bytes = await pickedFile.readAsBytes();
-    final base64 = base64Encode(bytes);
-    return base64;
-  }
 ////////////////////////////////
   Future<String> convertImageToBase64(File imageFile) async {
     List<int> imageBytes = await imageFile.readAsBytes();
@@ -485,16 +464,18 @@ class GraduationCubit extends Cubit<GraduationStates> {
   }
 
 ////////////////////////////////
+
   AddProductModel?addProductModel;
-  void addProduct({
+  Future<void> addProduct({
     required String product_name,
     required String category_id,
     required String product_image,
     required String price,
     required String product_desc,
-    required String student_id,
-  }){
+    String? student_id,
+  }) async {
     emit(AddProductLoadingState());
+
     DioHelper.postData(url: 'product.php',
         data:{
           'student_id': "241",
@@ -513,31 +494,27 @@ class GraduationCubit extends Cubit<GraduationStates> {
       Map<String,dynamic>JsonData=json.decode(value.data);
       addProductModel=AddProductModel.fromJson(JsonData);
       emit(AddProductSuccessState(addProductModel!));
-      // print(addProductModel?.message);
+      print(addProductModel?.message);
     }
-    )..catchError((error){
-      print(error.toString());
-      emit(AddProductErrorState(error));
-    });
+    );
   }
 /////////////////////////////////////
   GetProductModel ?getProductModel;
   void getProduct(
       { required String category,}
-      ){
+      )async{
     emit(GetProductLoadingState());
-    DioHelper.getData(url: 'getprod.php',
+    await DioHelper.getData(url: 'getprod.php',
         query: {
           'category':category,
         }
     ).then((value){
       print("....................................................................");
       print(value.data);
-      Map<String,dynamic>jsonData=json.decode(value.data);
-      getProductModel=GetProductModel.fromJson(jsonData);
+      getProductModel=GetProductModel.fromJson(jsonDecode(value.data));
       emit(GetProductSuccessState(getProductModel!));
       print(value) ;}
-    )..catchError((error){
+    ).catchError((error){
       print(error.toString());
       emit(GetProductErrorState(error.toString()));
     });
@@ -728,5 +705,17 @@ class GraduationCubit extends Cubit<GraduationStates> {
     });
 
   }
-
+  List<dynamic>universities=[];
+  List<DropdownMenuItem> uItems=[];
+  void getUni()async
+  {
+    Response res=await DioHelper.getData(url: 'getuni.php');
+    List<dynamic> data=jsonDecode(res.data)['university'];
+    // Map<String,dynamic> data=jsonDecode(res.data);
+    // List<dynamic>Univeristies=data['university'];
+    // List<dynamic>All=Univeristies.map((uni)=>uni['university_name']).toList();
+    universities=data.map((uni)=>uni['university_name']).toList();
+    print(universities);
+    uItems=universities.map((e)=>DropdownMenuItem(child: Text(e),value: e,)).toList();
+  }
 }

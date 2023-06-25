@@ -18,14 +18,12 @@ class GetProductModel {
 class Products {
   Products({
     required this.fullname,
-    required this.image,
     required this.productName,
     required this.productImage,
     required this.productDesc,
     required this.price,
   });
   late final String fullname;
-  late final String image;
   late final String productName;
   late final String productImage;
   late final String productDesc;
@@ -33,7 +31,6 @@ class Products {
 
   Products.fromJson(Map<String, dynamic> json){
     fullname = json['fullname'];
-    image = json['image'];
     productName = json['product_name'];
     productImage = json['product_image'];
     productDesc = json['product_desc'];

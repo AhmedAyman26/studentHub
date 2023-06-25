@@ -74,7 +74,7 @@ class PostsScreen extends StatelessWidget {
                 radius: 20,
                 child: Image(
                   fit: BoxFit.cover,
-                  image: AssetImage(
+                  image: model.image!.isEmpty||model.image!.isNotEmpty?AssetImage('assets/images/man.png'):AssetImage(
                       '${model.image}'
                   ),
                 ),
@@ -85,10 +85,10 @@ class PostsScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  model.name==null?Text('name'):Text(
                     '${model.name}',
                   ),
-                  Text(
+                  model.dateTime==null?Text('12:00PM'):Text(
                       '${model.dateTime}'
                   ),
                 ],
