@@ -32,7 +32,7 @@ late final String productName;
 late final String productImage;
 late final String productDesc;
 late final String price;
-late final String student_id;
+String? student_id;
 
 Product.fromJson(Map<String, dynamic> json){
 category_id=json['category_id'];

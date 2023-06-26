@@ -123,6 +123,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
   var productImagePicker = ImagePicker();
   File? file;
   String ?imageToAPI;
+  String? link;
   Future showProductBottomSheet(context) async{
 
     showModalBottomSheet(
@@ -145,7 +146,16 @@ class GraduationCubit extends Cubit<GraduationStates> {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
                     // convertImageToBase64(picked as File);
-                    imageToAPI =await convertImageToBase64(file!);
+                    // imageToAPI =await convertImageToBase64(file!);
+                    await FirebaseStorage.instance.ref()
+                        .child('users/${Uri.file(file!.path).pathSegments.last}')
+                        .putFile(file!).then((value)  {
+                      value.ref.getDownloadURL().then((value) {
+                        print(value);
+                        link=value;
+                        // emit(SocialUploadProfileImageSuccessState());
+                      });
+                    });
                     Navigator.of(context).pop();
                   }
                 },
@@ -176,8 +186,17 @@ class GraduationCubit extends Cubit<GraduationStates> {
                   if (picked != null) {
                     file = File(picked.path);
                     var imageName = basename(picked.path);
-                    convertImageToBase64(picked as File);
-                    imageToAPI =await convertImageToBase64(file!);
+                    // convertImageToBase64(picked as File);
+                    await FirebaseStorage.instance.ref()
+                        .child('users/${Uri.file(file!.path).pathSegments.last}')
+                        .putFile(file!).then((value)  {
+                      value.ref.getDownloadURL().then((value) {
+                        print(value);
+                        link=value;
+                        // emit(SocialUploadProfileImageSuccessState());
+                      });
+                    });
+                    // imageToAPI =await convertImageToBase64(file!);
                     Navigator.of(context).pop();
                   }
                 },
@@ -468,7 +487,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
   AddProductModel?addProductModel;
   Future<void> addProduct({
     required String product_name,
-    required String category_id,
+    required int category_id,
     required String product_image,
     required String price,
     required String product_desc,
@@ -476,7 +495,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
   }) async {
     emit(AddProductLoadingState());
 
-    DioHelper.postData(url: 'product.php',
+    await DioHelper.postData(url: 'product.php',
         data:{
           'student_id': "241",
           'product_name':product_name,
@@ -486,7 +505,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
           //category_id,
           //GraduationCubit().changeSelectedItem(value).toString(),
           'price':price
-
 
         }).then((value)
     {

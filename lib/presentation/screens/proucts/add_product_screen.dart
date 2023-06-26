@@ -56,22 +56,22 @@ class AddProductScreen extends StatelessWidget {
                   onPressed: () async{
                     if(state is AddProductLoadingState){
                       Center(child: CircularProgressIndicator());
-                    }else //if(state is AddProductSuccessState)
+                    }else
                         {
 
                       print(GraduationCubit.get(context).imageToAPI.toString());
 
                       print(GraduationCubit.get(context).selectedItem.toString());
                       print('++++++++++++++');
-                      GraduationCubit.get(context).addProduct(
+                      await GraduationCubit.get(context).addProduct(
 
                           product_name: productNameController.text,
-                          product_image:'${GraduationCubit.get(context).imageToAPI}',
-                          category_id: GraduationCubit.get(context).selectedItem.toString(),
+                          product_image:'${GraduationCubit.get(context).link}',
+                          category_id:1,
                           price:productPriceController.text,
                           product_desc: productDescriptionController.text,
                           );
-
+                      //Navigator.pop(context);
                     }
                   },
                   // },

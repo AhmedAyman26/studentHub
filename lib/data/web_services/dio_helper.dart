@@ -22,7 +22,14 @@ class DioHelper
     String? token,
   })async
   {
-
+    // dio.interceptors.add(PrettyDioLogger(
+    //     requestHeader: true,
+    //     requestBody: true,
+    //     responseBody: true,
+    //     responseHeader: false,
+    //     error: true,
+    //     compact: true,
+    //     maxWidth: 90));
     dio.options.headers=
     {
       'Content-Type' : 'application/json',
@@ -36,6 +43,14 @@ class DioHelper
     required Map<String,dynamic>data
   })async
   {
+    dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90));
     dio.options.headers=
     {
       'Content-Type' : 'application/json',

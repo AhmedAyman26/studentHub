@@ -25,24 +25,24 @@ class _singleCategory_productsScreenState extends State<singleCategory_productsS
   void initState() {
     // TODO: implement initState
     super.initState();
-    GraduationCubit.get(context).getProduct(category:"${widget.name}");
+    GraduationCubit.get(context).getProduct(category:widget.name);
   }
 late List<dynamic> allProducts;
 late List<dynamic> searchedForProduct;
 Color green=Color.fromRGBO(103, 139, 133, 1.0);
 var _searchController = TextEditingController();
 
-Widget image(String thumbnail) {
-    if (thumbnail.length % 4 > 0) {
-      thumbnail += '=' * (4 - thumbnail .length % 4); // as suggested by Albert221
-  }
-  final _byteImage = Base64Decoder().convert(thumbnail);
-  Widget image = Image.memory(_byteImage,
-    fit: BoxFit.fill,
-    width: double.infinity,
-    height: double.infinity,);
-  return image;
-}
+// Widget image(String thumbnail) {
+//     if (thumbnail.length % 4 > 0) {
+//       thumbnail += '=' * (4 - thumbnail .length % 4); // as suggested by Albert221
+//   }
+//   final _byteImage = Base64Decoder().convert(thumbnail);
+//   Widget image = Image.memory(_byteImage,
+//     fit: BoxFit.fill,
+//     width: double.infinity,
+//     height: double.infinity,);
+//   return image;
+// }
   @override
   Widget build(BuildContext context) {
    return BlocConsumer<GraduationCubit,GraduationStates >(
@@ -236,7 +236,7 @@ Widget image(String thumbnail) {
                           Container(
                             width: MediaQuery.of(context).size.width/2.5,
                             height: MediaQuery.of(context).size.height/10,
-                            child:image(state.getProductModel.products[index].productImage.toString()),),
+                            child:Image(image:NetworkImage(state.getProductModel.products[index].productImage.toString()),)),
                           FittedBox(fit: BoxFit.cover,
                               child: Text("${state.getProductModel.products[index].productName}",
                                 style:TextStyle(fontSize: 15,fontWeight: FontWeight.bold) ,)),
