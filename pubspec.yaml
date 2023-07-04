@@ -61,6 +61,7 @@ dependencies:
   flutter_screenutil: ^5.7.0
   email_validator: ^2.1.17
   validators: ^3.0.0
+  http:
 dev_dependencies:
   flutter_test:
     sdk: flutter

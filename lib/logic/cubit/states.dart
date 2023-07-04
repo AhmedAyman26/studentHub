@@ -85,9 +85,9 @@ class CreatePostErrorStates extends GraduationStates{
   CreatePostErrorStates(error);
 }
 
-class PostImagePickedSuccessStates extends GraduationStates{}
+class PostImageSuccessStates extends GraduationStates{}
 
-class PostImagePickedErrorStates extends GraduationStates{}
+class PostImageErrorStates extends GraduationStates{}
 
 class GetPostLoadingStates extends GraduationStates{}
 

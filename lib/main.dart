@@ -20,7 +20,7 @@ import 'package:graduation/shared/styles/colors.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'presentation/screens/proucts/add_product_screen.dart';
 import 'package:graduation/presentation/screens/onboarding/on_boarding_screen.dart';
-bool isLogin=false;
+var isLogin=false;
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -30,8 +30,8 @@ void main()async {
 
 
   Widget widget;
-  bool onBoarding=CacheHelper.getData(key: 'onBoarding');
-  String id=CacheHelper.getData(key: 'id');
+  var onBoarding=CacheHelper.getData(key: 'onBoarding');
+  var id=CacheHelper.getData(key: 'id');
   print(onBoarding);
 
   if(onBoarding !=null)
@@ -81,7 +81,7 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.teal
             ),
             debugShowCheckedModeBanner: false,
-            home: startWidget,
+            home: HomeLayout(),
           );
         },
       ),

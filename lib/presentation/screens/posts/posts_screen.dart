@@ -20,7 +20,7 @@ class PostsScreen extends StatelessWidget {
       builder: (context,state){
         return Scaffold(
           body: ConditionalBuilder(
-            condition: GraduationCubit.get(context).posts.length >1,
+            condition: GraduationCubit.get(context).posts.length >0,
             builder: (context) => SingleChildScrollView(
               child: Column(
                 children: [
@@ -31,7 +31,8 @@ class PostsScreen extends StatelessWidget {
                     separatorBuilder: (context,index)=>SizedBox(
                       height: 5.h,
                     ),
-                    itemCount: 10,
+                    itemCount: GraduationCubit.get(context).posts.length,
+                    //itemCount: 10,
                   ),
                 ],
               ),
@@ -85,11 +86,11 @@ class PostsScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  model.name==null?Text('name'):Text(
-                    '${model.name}',
+                  model.fullname==null?Text('name'):Text(
+                    '${model.fullname}',
                   ),
-                  model.dateTime==null?Text('12:00PM'):Text(
-                      '${model.dateTime}'
+                  model.time==null?Text('12:00PM'):Text(
+                      '${model.time}'
                   ),
                 ],
               ),
@@ -109,6 +110,30 @@ class PostsScreen extends StatelessWidget {
                 fontSize: 16.sp
             ),
             ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          if(model.postImage != "")
+            Container(
+              height: 140,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  image: DecorationImage(
+                    image: model.postImage == null
+                        ? NetworkImage(
+                        'https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1199&q=80') :
+                    NetworkImage(
+                        '${model.postImage}'
+                      // ''
+                    ),
+                    fit: BoxFit.cover,
+                  )
+              ),
+            ),
+          SizedBox(
+            height: 10,
           ),
           myDivider(),
           Padding(
