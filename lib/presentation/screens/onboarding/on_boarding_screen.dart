@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
-
 import '../login/login_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class OnBoardingScreen extends StatefulWidget {
 
 
@@ -26,6 +26,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     });
   }
   Widget build(BuildContext context) {
+    final List<OnBoardModel> onBoardData = [
+      OnBoardModel(
+        title: AppLocalizations.of(context)!.onboard_title1,
+        description: "",
+        imgUrl: "assets/images/undraw_Sharing_articles_re_jnkp.png",
+      ),
+      OnBoardModel(
+        title: AppLocalizations.of(context)!.onboard_title2,
+        description: "",
+        imgUrl: 'assets/images/undraw_sharing_knowledge_03vp (3).png',
+      ),
+      OnBoardModel(
+        title: AppLocalizations.of(context)!.onboard_title3,
+        description: "",
+        imgUrl: 'assets/images/undraw_Social_sharing_re_pvmr (2).png',
+      ),
+    ];
     return Scaffold(
       backgroundColor:Colors.white,
       body: OnBoard(
@@ -35,7 +52,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           // print('done tapped');
         },
         onBoardData: onBoardData,
-        titleStyles: const TextStyle(
+        titleStyles:  TextStyle(
           color: Colors.black,
           fontSize: 18,
           fontWeight: FontWeight.w400,
@@ -45,7 +62,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           fontSize: 16,
           color: Colors.brown.shade300,
         ),
-        pageIndicatorStyle: const PageIndicatorStyle(
+        pageIndicatorStyle:  PageIndicatorStyle(
           width: 100,
           inactiveColor:Color(0xf646060),
           activeColor: Color(0xfff4ba34),
@@ -55,8 +72,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
         skipButton: TextButton(
           onPressed: submit,
-          child: const Text(
-            "Skip",
+          child:  Text(
+            AppLocalizations.of(context)!.skip,
             style: TextStyle(color: Color.fromRGBO(70, 121, 112, 1.0),fontSize: 18),
           ),
         ),
@@ -72,13 +89,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  gradient: const LinearGradient(
+                  gradient:  LinearGradient(
                     colors: [Color.fromRGBO(70, 121, 112, 1.0), Color.fromRGBO(103, 139, 133, 1.0)],
                   ),
                 ),
                 child: Text(
-                  state.isLastPage ? "Sign up" : "Next",
-                  style: const TextStyle(
+                  state.isLastPage ? AppLocalizations.of(context)!.sign_in: AppLocalizations.of(context)!.next,
+                  style:  TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                   ),
@@ -95,31 +112,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     if (!onBoardState.isLastPage) {
       _pageController.animateToPage(
         onBoardState.page + 1,
-        duration: const Duration(milliseconds: 250),
+        duration:  Duration(milliseconds: 250),
         curve: Curves.easeInOutSine,
       );
     } else {
       submit();
     }
+
   }
 }
 
-final List<OnBoardModel> onBoardData = [
-  const OnBoardModel(
-    title: "Exchange services with students from different universitres in your field of study including references, summerization, Links ,Online courses.",
-    description: "",
-    imgUrl: "assets/images/undraw_Sharing_articles_re_jnkp.png",
-  ),
-  const OnBoardModel(
-    title: "We enable you to offer and request different products and tools used in different fields to achieve collaboration.",
-    description: "",
-    imgUrl: 'assets/images/undraw_sharing_knowledge_03vp (3).png',
-  ),
-  const OnBoardModel(
-    title: "All students in the same platform so you can ask freely about any thing you need in the right place",
-    description: "",
-    imgUrl: 'assets/images/undraw_Social_sharing_re_pvmr (2).png',
-  ),
-];
+
 
 

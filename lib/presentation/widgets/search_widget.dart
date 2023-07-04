@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class search_widget extends StatelessWidget {
   Color green=Color.fromRGBO(103, 139, 133, 1.0);
   @override
@@ -30,7 +31,7 @@ class search_widget extends StatelessWidget {
             ),
             fillColor: Colors.transparent,
             prefixIcon:Icon(Icons.search, size: 25, color:Colors.grey ,),
-            hintText: 'Search',
+            hintText:AppLocalizations.of(context)!.search ,
             hintStyle: TextStyle(color:Colors.grey,fontSize:15,)
         ),
       ),

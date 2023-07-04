@@ -1,0 +1,91 @@
+{
+
+"skip": "Skip",
+  "sign_up": "Sign up",
+  "next": "Next",
+  "onboard_title1": "Exchange services with students from different universitres in your field of study including references, summerization, Links ,Online courses.",
+  "onboard_title2": "We enable you to offer and request different products and tools used in different fields to achieve collaboration.",
+  "onboard_title3":"All students in the same platform so you can ask freely about any thing you need in the right place",
+
+
+  "email": "Email",
+  "password": "Password",
+  "enter_password": "please enter password!",
+  "strong_pass": "please enter strong password",
+  "show_password": "Show password",
+  "hide_password": "Hide Password",
+  "remember_me": "Remember me",
+  "sign_in": "Sign in",
+  "forgot_password": "Forgot password?",
+  "not_member":"Not a member? Sign up now",
+  "enter_email": "Please enter your Email",
+  "ok": "Ok",
+
+
+  "full_name": "Full Name",
+  "enter_name": "please enter full name!",
+  "phone": "Phone",
+  "enter_phon": "please enter phone number!",
+  "enter_vphon":"please enter valid phone !",
+  "select_university": "Select Your University",
+  "faculty": "Faculty",
+  "enter_faculty": "please enter faculty!",
+  "confirm_password": "Confirm Password",
+  "enter_cpassword": "please enter confirmpassword!",
+  "pass_notmatch": "password don\\'t match !",
+  "have_account": "Already have an account?",
+
+
+"settings": "Settings",
+  "language": "Language",
+  "arabic": "Arabic",
+  "english": "English",
+
+  "posts": "Posts",
+  "services": "Services",
+  "products": "Products",
+  "my_account": "My Account",
+  "my_products": "My Products",
+  "my_services": "My Services",
+  "favourits": "Favourits",
+  "search": "Search",
+
+  "devices":"Devices",
+  "book":"Books",
+  "electronic_tool":"Electronic tools",
+  "engineering_tools":"Engineering tools",
+  "medical_tools":"Medical tools",
+  "chemical_tools": "Chemical tools",
+  "others":"others",
+  "chats": "Chats",
+
+
+  "add_product":"Add Product",
+  "post": "Post",
+  "select_category": "Select Category",
+  "product_name": "Product Name",
+  "price": "Price (Optional)",
+  "description": "Description",
+
+  "add_service": "Add Service",
+  "select_subject": "Select Subject",
+  "type_description": "Type your description...",
+  "not_found": "not Found",
+  "upload": "UPLOAD",
+
+
+  "links": "Links",
+  "images": "Images",
+  "videos": "Videos",
+  "summarization": "Summarization",
+
+  "create_post": "Create Post ",
+  "your_mind": "what is on your mind...",
+  "add_photo": "Add Photo"
+
+
+
+
+
+
+}

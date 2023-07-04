@@ -3,21 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:graduation/presentation/screens/proucts/add_product_screen.dart';
 import 'package:graduation/shared/constants.dart';
 import '../../widgets/productCard_widget.dart';
-import '../../widgets/search_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class product_categories_screen extends StatelessWidget {
   static const routeName = "product_screen";
   Color green = Color.fromRGBO(103, 139, 133, 1.0);
   Color darkGreen = Color.fromRGBO(70, 121, 112, 1.0);
-  final List<String> name = [
-    "Devices",
-    "Books",
-    "Electronic tools",
-    "Engineering tools",
-    "Medical tools",
-    "Chemical tools",
-    'Others'
-  ];
+
 
  final List<String> image = [
     "assets/images/undraw_Devices_re_dxae.png",
@@ -30,6 +22,25 @@ class product_categories_screen extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final List<String> name = [
+      AppLocalizations.of(context)!.devices,
+    AppLocalizations.of(context)!.book,
+    AppLocalizations.of(context)!.electronic_tool,
+    AppLocalizations.of(context)!.engineering_tools,
+    AppLocalizations.of(context)!.medical_tools,
+    AppLocalizations.of(context)!.chemical_tools,
+    AppLocalizations.of(context)!.others
+    ];
+    final List<String> name2 = [
+      "Devices",
+      "Books",
+      "Electronic tools",
+      "Engineering tools",
+      "Medical tools",
+      "Chemical tools",
+      "others"
+    ];
+
     return Scaffold(
       body: Column(
         children: [
@@ -37,7 +48,7 @@ class product_categories_screen extends StatelessWidget {
             child: ListView.builder(
               itemCount: name.length,
               itemBuilder: (context, index) {
-                return productCard_widget(image[index].toString(), name[index].toString());
+                return productCard_widget(image[index].toString(), name[index].toString(),name2[index].toString());
               },
             ),
           ),

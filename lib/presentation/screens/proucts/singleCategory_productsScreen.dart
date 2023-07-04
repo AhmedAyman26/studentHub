@@ -1,19 +1,17 @@
-import 'dart:convert';
-
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/data/models/getProduct_model.dart';
 import 'package:graduation/logic/cubit/states.dart';
 import 'package:graduation/presentation/screens/proucts/productDetails_screen.dart';
 import '../../../logic/cubit/cubit.dart';
 import '../../../shared/appBar_class.dart';
 import '../../../shared/constants.dart';
-import '../../widgets/search_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class singleCategory_productsScreen extends StatefulWidget {
   final String name;
-  singleCategory_productsScreen(this.name);
+  final String name2;
+  singleCategory_productsScreen(this.name,this.name2);
 
   @override
   State<singleCategory_productsScreen> createState() => _singleCategory_productsScreenState();
@@ -25,7 +23,7 @@ class _singleCategory_productsScreenState extends State<singleCategory_productsS
   void initState() {
     // TODO: implement initState
     super.initState();
-    GraduationCubit.get(context).getProduct(category:widget.name);
+    GraduationCubit.get(context).getProduct(category:widget.name2);
   }
 late List<dynamic> allProducts;
 late List<dynamic> searchedForProduct;
@@ -137,7 +135,7 @@ var _searchController = TextEditingController();
                             fillColor: Colors.transparent,
                             prefixIcon: Icon(
                               Icons.search, size: 25, color: Colors.grey,),
-                            hintText: 'Search',
+                            hintText: AppLocalizations.of(context)!.search,
                             hintStyle: TextStyle(
                               color: Colors.grey, fontSize: 15,)
                         ),

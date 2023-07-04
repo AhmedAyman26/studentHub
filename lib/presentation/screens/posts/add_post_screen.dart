@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/logic/cubit/states.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewPostScreen extends StatelessWidget {
   //const NewPostScreen({Key? key}) : super(key: key);
@@ -28,8 +29,8 @@ class NewPostScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            title:const Text(
-              'Create Post ',
+            title: Text(
+              AppLocalizations.of(context)!.create_post,
               style: TextStyle(
                   color: Colors.black
               ),
@@ -64,8 +65,8 @@ class NewPostScreen extends StatelessWidget {
                           likes: 5,
                         );
                       },
-                      child:const Text(
-                        'Post',
+                      child: Text(
+                        AppLocalizations.of(context)!.post,
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
@@ -111,8 +112,8 @@ class NewPostScreen extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     controller: textController,
-                    decoration:const InputDecoration(
-                      hintText: "what is on your mind...",
+                    decoration: InputDecoration(
+                      hintText:  AppLocalizations.of(context)!.your_mind,
                       border: InputBorder.none,
                     ),
                   ),
@@ -124,7 +125,7 @@ class NewPostScreen extends StatelessWidget {
                           onPressed: (){},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:const [
+                            children: [
                               Icon(
                                 Icons.broken_image,
                               ),
@@ -132,7 +133,7 @@ class NewPostScreen extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                  "add Photo"
+                                  AppLocalizations.of(context)!.add_photo
                               )
                             ],
                           )),
