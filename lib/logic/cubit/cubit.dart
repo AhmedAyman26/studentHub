@@ -14,6 +14,7 @@ import 'package:graduation/data/models/addProduct_model.dart';
 import 'package:graduation/data/models/getProduct_model.dart';
 import 'package:graduation/data/models/message_model.dart';
 import 'package:graduation/data/models/post_model.dart';
+import 'package:graduation/data/models/subject_model.dart';
 import 'package:graduation/data/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/states.dart';
@@ -138,8 +139,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
   File? file;
   String ?imageToAPI;
   String? link;
-  Future showProductBottomSheet(context) async{
 
+  Future showProductBottomSheet(context) async{
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -496,6 +497,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
     return base64Image;
   }
 
+
 ////////////////////////////////
 
   AddProductModel?addProductModel;
@@ -674,11 +676,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
       // serviceModel=ServiceModel.fromJson(JsonData);
 
     }
-    List<Subjects> subjects=[];
-    getSubjects({query})async
-    {
-      await DioHelper.getData(url: 'getsubj',query:query );
-    }
 
   PostModel? postModel;
   void addPost({
@@ -737,17 +734,18 @@ class GraduationCubit extends Cubit<GraduationStates> {
     });
 
   }
-  List<dynamic>universities=[];
-  List<DropdownMenuItem> uItems=[];
-  void getUni()async
+
+  SubjectModel? subModel;
+  List<Map<String,dynamic>> subjects=[];
+  void getSubj(int id)async
   {
-    Response res=await DioHelper.getData(url: 'getuni.php');
-    List<dynamic> data=jsonDecode(res.data)['university'];
-    // Map<String,dynamic> data=jsonDecode(res.data);
-    // List<dynamic>Univeristies=data['university'];
-    // List<dynamic>All=Univeristies.map((uni)=>uni['university_name']).toList();
-    universities=data.map((uni)=>uni['university_name']).toList();
-    print(universities);
-    uItems=universities.map((e)=>DropdownMenuItem(child: Text(e),value: e,)).toList();
+    await DioHelper.getData(url: 'getsubj.php',query: {'faculty_id':CacheHelper.getData(key: 'faculty_id')}).then((value)
+    {
+      print(value);
+      subModel=SubjectModel.fromJson(jsonDecode(value.data));
+      subjects=subModel!.subjects!.map((e) => e.toJson()).toList();
+      print(subjects);
+    });
   }
+
 }

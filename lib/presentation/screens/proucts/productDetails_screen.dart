@@ -28,17 +28,6 @@ class _productDetails_screenState extends State<productDetails_screen> {
     super.initState();
     GraduationCubit.get(context).getProduct(category:"${widget.name}");
   }
-  Widget image(String thumbnail) {
-    if (thumbnail.length % 4 > 0) {
-      thumbnail += '=' * (4 - thumbnail .length % 4); // as suggested by Albert221
-    }
-    final _byteImage = Base64Decoder().convert(thumbnail);
-    Widget image = Image.memory(_byteImage,
-      fit: BoxFit.fill,
-      width: double.infinity,
-      height: double.infinity,);
-    return image;
-  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<GraduationCubit,GraduationStates >(
@@ -126,7 +115,7 @@ class _productDetails_screenState extends State<productDetails_screen> {
                   padding:EdgeInsets.only(left:20,right: 20),
                   height: MediaQuery.of(context).size.height/4,
                   width: double.infinity,
-                  child: image(state.getProductModel.products[widget.Index].productImage.toString()),
+                  child: Image(image:NetworkImage(state.getProductModel.products[widget.Index].productImage.toString())),
                   /*Image.asset("assets/images/laptop-with-white-screen-isolated-white-wall.png",
                     fit: BoxFit.cover,),*/
                 ),
