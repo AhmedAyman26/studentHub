@@ -13,7 +13,7 @@ import 'package:graduation/shared/constants.dart';
 import '../widgets/search_widget.dart';
 
 class HomeLayout extends StatefulWidget {
-  const HomeLayout({Key? key}) : super(key: key);
+  const HomeLayout({super.key});
   static const routeName = "3_tabs";
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
@@ -31,13 +31,15 @@ class _HomeLayoutState extends State<HomeLayout> {
       text: 'Product',
     ),
   ];
-  List<Widget> tabsContent = [
-    PostsScreen(),
-    service_screen(),
-    product_categories_screen(),
-  ];
+
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> tabsContent = [
+      PostsScreen(),
+      service_screen(),
+      product_categories_screen(),
+    ];
     var scaffoldKey=GlobalKey<ScaffoldState>();
     return DefaultTabController(
       length: tabs.length,

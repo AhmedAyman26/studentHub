@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/widgets/search_widget.dart';
 import 'package:graduation/presentation/widgets/serviceCard_widget.dart';
 
@@ -33,6 +34,7 @@ class service_screen extends StatelessWidget {
     "embedded systems",
   ];
 
+
   Color green=Color.fromRGBO(70, 121, 112, 1.0);
   @override
   Widget build(BuildContext context) {
@@ -41,9 +43,9 @@ class service_screen extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount:name.length,
+                itemCount:GraduationCubit.get(context).subjects.length,
                 itemBuilder: (context, index){
-                  return serviceCard_widget(name[index]);
+                  return serviceCard_widget(GraduationCubit.get(context).subjects[index]['subject_name']);
                 },
               ),
             ),

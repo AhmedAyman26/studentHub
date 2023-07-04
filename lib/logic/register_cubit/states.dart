@@ -44,6 +44,10 @@ class CreateUserFbErrorState extends RegisterStates{
 
 class RegisterChangePasswordVisibilityState extends RegisterStates{}
 
+class ChangeSelectedUniState extends RegisterStates{}
+
+class ChangeSelectedFacultyState extends RegisterStates{}
+
 // import 'package:graduation/data/models/user_model.dart';
 //
 //

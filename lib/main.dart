@@ -30,8 +30,8 @@ void main()async {
 
 
   Widget widget;
-  bool onBoarding=CacheHelper.getData(key: 'onBoarding');
-  String id=CacheHelper.getData(key: 'id');
+  var onBoarding=CacheHelper.getData(key: 'onBoarding');
+  var id=CacheHelper.getData(key: 'id');
   print(onBoarding);
 
   if(onBoarding !=null)
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) => GraduationCubit()..getUserData()..getPost()..getUni(),
+      create: (context) => GraduationCubit()..getUserData()..getPost()..getSubj(1),
       child: ScreenUtilInit(
         designSize: const Size(360, 690),
         minTextAdapt: true,
