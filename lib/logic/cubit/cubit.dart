@@ -53,19 +53,31 @@ class GraduationCubit extends Cubit<GraduationStates> {
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
       child: Text('Devices'),
-      value: '1',
+      value: 1,
     ),
     DropdownMenuItem(
       child: Text('Books'),
-      value: '2',
+      value: 2 ,
+    ),
+    DropdownMenuItem(
+      child: Text('Electronic tools'),
+      value: 3 ,
     ),
     DropdownMenuItem(
       child: Text('Engineering tools'),
-      value: '3',
+      value: 4 ,
     ),
     DropdownMenuItem(
-      child: Text('Clothes'),
-      value: '4',
+      child: Text('Medical tools'),
+      value: 5 ,
+    ),
+    DropdownMenuItem(
+      child: Text('Chemical tools'),
+      value: 6 ,
+    ),
+    DropdownMenuItem(
+      child: Text('Others'),
+      value: 7 ,
     ),
   ];
   List<DropdownMenuItem> Universityitems = [
@@ -114,7 +126,9 @@ class GraduationCubit extends Cubit<GraduationStates> {
   ];
 
 
-  String? selectedItem;
+
+////////////////////////////////////////////////////////
+  int? selectedItem;
   changeSelectedItem(value) {
     selectedItem = value;
     emit(ChangeSelectedItemState());
@@ -487,7 +501,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
   AddProductModel?addProductModel;
   Future<void> addProduct({
     required String product_name,
-    required int category_id,
+    //required int category_id,
     required String product_image,
     required String price,
     required String product_desc,
@@ -501,7 +515,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
           'product_name':product_name,
           'product_image':product_image,
           'product_desc':product_desc,
-          'category_id':category_id,
+          'category_id':selectedItem,
           //category_id,
           //GraduationCubit().changeSelectedItem(value).toString(),
           'price':price

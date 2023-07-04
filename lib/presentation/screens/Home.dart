@@ -9,35 +9,35 @@ import 'package:graduation/presentation/screens/services/Single_categoty_service
 import 'package:graduation/presentation/screens/services/services_Screen.dart';
 import 'package:graduation/presentation/screens/setting/settings_screen.dart';
 import 'package:graduation/shared/constants.dart';
-
 import '../widgets/search_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {
-  const HomeLayout({Key? key}) : super(key: key);
   static const routeName = "3_tabs";
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
-  List<Tab> tabs = [
-    Tab(
-      text: 'Post',
-    ),
-    Tab(
-      text: 'Service',
-    ),
-    Tab(
-      text: 'Product',
-    ),
-  ];
-  List<Widget> tabsContent = [
-    PostsScreen(),
-    service_screen(),
-    product_categories_screen(),
-  ];
+
   @override
   Widget build(BuildContext context) {
+    List<Tab> tabs = [
+      Tab(
+        text: AppLocalizations.of(context)!.posts,
+      ),
+      Tab(
+        text: AppLocalizations.of(context)!.services,
+      ),
+      Tab(
+        text: AppLocalizations.of(context)!.products,
+      ),
+    ];
+    List<Widget> tabsContent = [
+      PostsScreen(),
+      service_screen(),
+      product_categories_screen(),
+    ];
     var scaffoldKey=GlobalKey<ScaffoldState>();
     return DefaultTabController(
       length: tabs.length,
@@ -158,33 +158,33 @@ class _HomeLayoutState extends State<HomeLayout> {
                 leading: ImageIcon(
                   AssetImage('assets/images/user.png'),color: Colors.black,),
 
-                title: const Text('My Account'),
+                title:  Text(AppLocalizations.of(context)!.my_account),
 
                 onTap: () {
                 },
               ),
               ListTile(
                 leading: ImageIcon(AssetImage('assets/images/settings.png'),color: Colors.black,),
-                title: const Text('Settings'),
+                title:  Text(AppLocalizations.of(context)!.settings),
                 onTap: (){
                   navigateTo(context, SettingsScreen());
                 },
               ),
               ListTile(
                 leading: ImageIcon(AssetImage('assets/images/product.png',),color: Colors.black,),
-                title: const Text('My Products'),
+                title:  Text(AppLocalizations.of(context)!.my_products),
                 onTap: () {
                 },
               ),
               ListTile(
                 leading: ImageIcon(AssetImage('assets/images/service.png'),color: Colors.black,),
-                title: const Text('My Services'),
+                title:  Text(AppLocalizations.of(context)!.my_services),
                 onTap: () {
                 },
               ),
               ListTile(
                 leading: ImageIcon(AssetImage('assets/images/favoits.png'),color: Colors.black,),
-                title: const Text('Favourits'),
+                title:  Text(AppLocalizations.of(context)!.favourits),
                 onTap: () {
                 },
               ),

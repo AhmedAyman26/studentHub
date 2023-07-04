@@ -4,11 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/logic/cubit/states.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddProductScreen extends StatelessWidget {
   var productNameController = TextEditingController();
   var productPriceController = TextEditingController();
   var productDescriptionController = TextEditingController();
+
+  var val;
 
   AddProductScreen({super.key});
   @override
@@ -41,8 +44,8 @@ class AddProductScreen extends StatelessWidget {
             ),
             backgroundColor: Colors.white,
             title: Text(
+              AppLocalizations.of(context)!.add_product,
               style: TextStyle(color: Colors.black),
-              'Add Product',
             ),
             actions: [
               Padding(
@@ -67,7 +70,7 @@ class AddProductScreen extends StatelessWidget {
 
                           product_name: productNameController.text,
                           product_image:'${GraduationCubit.get(context).link}',
-                          category_id:1,
+                        //  category_id:1,
                           price:productPriceController.text,
                           product_desc: productDescriptionController.text,
                           );
@@ -75,7 +78,7 @@ class AddProductScreen extends StatelessWidget {
                     }
                   },
                   // },
-                  child: Text('Post'),
+                  child: Text(AppLocalizations.of(context)!.post),
                 ),
               ),
             ],
@@ -135,7 +138,7 @@ class AddProductScreen extends StatelessWidget {
                     child: DropdownButton(
                       icon: Icon(Icons.keyboard_arrow_down_rounded),
                       items: GraduationCubit.get(context).items,
-                      hint: Text('Select Category'),
+                      hint: Text(AppLocalizations.of(context)!.select_category),
                       onChanged: (val) {
                         GraduationCubit.get(context).changeSelectedItem(val);
                       },
@@ -146,18 +149,18 @@ class AddProductScreen extends StatelessWidget {
                   TextFormField(
                       controller: productNameController,
                       decoration: InputDecoration(
-                        labelText: 'Product Name',
+                        labelText: AppLocalizations.of(context)!.product_name,
                       )),
                   TextFormField(
                       controller: productPriceController,
                       decoration: InputDecoration(
-                        labelText: 'Price (Optional)',
+                        labelText: AppLocalizations.of(context)!.price,
                       )),
                   TextField(
                     controller: productDescriptionController,
                     maxLines: 4,
                     keyboardType: TextInputType.multiline,
-                    decoration: InputDecoration(labelText: 'Description'),
+                    decoration: InputDecoration(labelText: AppLocalizations.of(context)!.description),
                   ),
                 ],
               ),
