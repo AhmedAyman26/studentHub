@@ -13,6 +13,7 @@ import 'package:video_player/video_player.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //دا الي انا شغال عليه
 class AddService extends StatefulWidget {
   AddService();
@@ -54,8 +55,8 @@ class _AddServiceState extends State<AddService> {
                   color: Colors.black,
                 ),
               ),
-              title:const Text(
-                'Add Service',
+              title: Text(
+                AppLocalizations.of(context)!.add_service,
                 style: TextStyle(
                     color: Colors.black
                 ),
@@ -85,8 +86,8 @@ class _AddServiceState extends State<AddService> {
                             );
                           }
                         },
-                        child:const Text(
-                          'Post',
+                        child: Text(
+                          AppLocalizations.of(context)!.post,
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -138,7 +139,7 @@ class _AddServiceState extends State<AddService> {
                       child: DropdownButton(
                         icon:const Icon(Icons.keyboard_arrow_down_rounded),
                         items: GraduationCubit.get(context).subjectItems/*.take(7).toList()*/,
-                        hint:const Text('Select Subject'),
+                        hint: Text(AppLocalizations.of(context)!.select_subject),
                         onChanged: (val) {
                           GraduationCubit.get(context).changeSelectedItem(val);
                         },
@@ -153,8 +154,8 @@ class _AddServiceState extends State<AddService> {
                     controller: serviceNameController ,
                     cursorColor: Colors.teal,
                     keyboardType: TextInputType.multiline,
-                    decoration: const InputDecoration(
-                      hintText: 'Type your description...',
+                    decoration:  InputDecoration(
+                      hintText: AppLocalizations.of(context)!.type_description,
                       border: InputBorder.none,
                       fillColor: Colors.teal,
                     ),
@@ -166,7 +167,7 @@ class _AddServiceState extends State<AddService> {
                       // height: 300,
                       child:Center(
                         child: GraduationCubit.get(context).
-                        serviceImageFile == null ?  Text('not Found')  : Image.file(GraduationCubit.get(context).serviceImageFile! ,
+                        serviceImageFile == null ?  Text(AppLocalizations.of(context)!.not_found)  : Image.file(GraduationCubit.get(context).serviceImageFile! ,
                           width: 250,
                           height: 250,
                         ) ,
@@ -183,8 +184,8 @@ class _AddServiceState extends State<AddService> {
                         ),
                         child: TextButton(
                           onPressed: () => GraduationCubit.get(context).showServiceBottomSheet(context),
-                          child: const Text(
-                            'UPLOAD',
+                          child:  Text(
+                            AppLocalizations.of(context)!.upload,
                             style: TextStyle(
                               color: Colors.white,
                               //color: Color.fromRGBO(70, 121, 112, 1.0),

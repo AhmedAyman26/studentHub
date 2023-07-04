@@ -10,11 +10,11 @@ import 'package:graduation/presentation/screens/register/register.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginScreen extends StatefulWidget {
   static String tag = 'login-page';
 
-  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
               key: 'id',
               value: state.uId,
             ).then((value) {
-              navigateAndFinish(context, const HomeLayout());
+              navigateAndFinish(context, HomeLayout());
             });
           }
         },
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   focusedBorder: UnderlineInputBorder(
                                       borderSide: BorderSide(
                                           color: Colors.black12)),
-                                  hintText: 'Email',
+                                  hintText: AppLocalizations.of(context)!.email,
                                   contentPadding: EdgeInsets.fromLTRB(
                                       20.0, 15.0, 20.0, 15.0),
 
@@ -93,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 obscureText: _obscureText,
 
                                 decoration: InputDecoration(
-                                  hintText: 'Password',
+                                  hintText: AppLocalizations.of(context)!.password,
                                   contentPadding: EdgeInsets.fromLTRB(
                                       20.0, 10.0, 20.0, 10.0),
                                   enabledBorder: UnderlineInputBorder(
@@ -115,8 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                           .visibility_off,
                                       semanticLabel:
                                       _obscureText
-                                          ? 'show password'
-                                          : 'hide password',
+                                          ? AppLocalizations.of(context)!.show_password
+                                          : AppLocalizations.of(context)!.hide_password,
                                     ),
                                   ),
                                 ),
@@ -136,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         // });
                                       }
                                   ),
-                                  Text("Remember me",
+                                  Text(AppLocalizations.of(context)!.remember_me,
                                     style: TextStyle(
                                         color: Colors.black54, fontSize: 15),
                                   )
@@ -167,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .text.trim(),
                                                   context: context);
                                             },
-                                            child: Text("Sign in",
+                                            child: Text(AppLocalizations.of(context)!.sign_in,
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 21),
@@ -180,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               TextButton(
                                 child: Text(
-                                  'Forgot password?',
+                                 AppLocalizations.of(context)!.forgot_password,
                                   style: TextStyle(color: Colors.black54),
                                 ),
                                 onPressed: () {
@@ -192,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     navigateAndFinish(
                                         context, RegisterScreen());
                                   },
-                                  child: Text('Not a member? Sign up now',
+                                  child: Text(AppLocalizations.of(context)!.not_member,
                                       style: TextStyle(color: Colors.black54))),
 
                             ],
@@ -215,15 +215,15 @@ class _LoginScreenState extends State<LoginScreen> {
         context: context,
         builder: (BuildContext context) {
           return new AlertDialog(
-            title: const Text('Please enter your Email'),
+            title:  Text(AppLocalizations.of(context)!.enter_email),
             contentPadding: EdgeInsets.all(5.0),
             content: new TextField(
-              decoration: new InputDecoration(hintText: "Email"),
+              decoration: new InputDecoration(hintText:AppLocalizations.of(context)!.email),
 
             ),
             actions: <Widget>[
               new TextButton(
-                child: new Text("Ok"),
+                child: new Text(AppLocalizations.of(context)!.ok),
                 onPressed: () async {
 
                   Navigator.pop(context);
