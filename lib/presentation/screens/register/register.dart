@@ -247,7 +247,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //     labelText: 'University',
                           //   ),
                           // ),
-                          DropdownButton(items: GraduationCubit.get(context).uItems, onChanged: (e){},isExpanded: true,hint: Text(AppLocalizations.of(context)!.select_university)),
+                          DropdownButton(items: RegisterCubit.get(context).uItems, onChanged: (e){},isExpanded: true,hint: Text(AppLocalizations.of(context)!.select_university)),
                           const SizedBox(
                             height: 15,
                           ),
@@ -440,23 +440,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 color:const Color.fromRGBO(70, 121, 112, 1.0),
                               ),
                               child: MaterialButton(
-                                onPressed: ()async
-                                {
-                                  if(formkey.currentState!.validate()){
-                                    cubit.userRegisterDb(
-                                      fullname:  nameController.text.trim(),
-                                      email: emailController.text.trim(),
-                                      // phone: numberController.text,
-                                      university_id: universityController.text.trim(),
-                                      faculty_id: facultyController.text.trim(),
-                                      password: _password.text.trim(),
-
-                                    );
-
-                                  }
-                                  else
-                                  {
-                                    print("******************************** llllllمدخلتش");
+                                onPressed: () async {
+                                  if (formkey.currentState!.validate()) {
+                                    await cubit.userRegisterDb(
+                                        fullname: nameController.text.trim(),
+                                        email: emailController.text.trim(),
+                                        // phone: numberController.text,
+                                        university_id: RegisterCubit.get(context).selectedUniversity!,
+                                        faculty_id:RegisterCubit.get(context).selectedFaculty!,
+                                        password: _password.text.trim(),
+                                        image: RegisterCubit.get(context)
+                                            .profileImageLink);
+                                    await CacheHelper.saveData(key: 'facultyId', value: RegisterCubit.get(context).selectedFaculty);
+                                  } else {
+                                    print(
+                                        "******************************** llllllمدخلتش");
                                   }
                                 },
                                 child: Text(
