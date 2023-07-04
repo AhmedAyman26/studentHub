@@ -8,8 +8,8 @@ import 'package:graduation/presentation/screens/chats/chat_screen.dart';
 import 'package:graduation/presentation/widgets/search_widget.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/widgets.dart';
-
 import '../../../shared/appBar_class.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChatHomeScreen extends StatelessWidget {
   const ChatHomeScreen({Key? key}) : super(key: key);
@@ -51,7 +51,7 @@ class ChatHomeScreen extends StatelessWidget {
                                   color: Colors.white,
                                 )),
                                 SizedBox(width: 5.w,),
-                                Text('Chats',style: TextStyle(color: Colors.white,fontSize: 20.sp),),
+                                Text(AppLocalizations.of(context)!.chats,style: TextStyle(color: Colors.white,fontSize: 20.sp),),
                                 Spacer(),
                                 IconButton(
                                     onPressed: ()

@@ -7,6 +7,7 @@ import '../../data/models/getProduct_model.dart';
 
 abstract class GraduationStates{}
 
+
 class GraduationInitialState extends GraduationStates{}
 
 class GetUserDataLoadingState extends GraduationStates{}

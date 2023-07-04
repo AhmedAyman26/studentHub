@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/logic/cubit/states.dart';
-import 'package:graduation/logic/register_cubit/cubit.dart';
-import 'package:graduation/logic/register_cubit/states.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NewPostScreen extends StatelessWidget {
   //const NewPostScreen({Key? key}) : super(key: key);
 
   var textController = TextEditingController();
-
+  var nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +29,8 @@ class NewPostScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
-            title:const Text(
-              'Create Post ',
+            title: Text(
+              AppLocalizations.of(context)!.create_post,
               style: TextStyle(
                   color: Colors.black
               ),
@@ -47,16 +46,27 @@ class NewPostScreen extends StatelessWidget {
                   child: TextButton(
                       onPressed: (){
                         var now = DateTime.now();
+                        //print(now.toString());
+                        // if (GraduationCubit.get(context).postImage == null ){
+                        //   GraduationCubit.get(context).addPost(
+                        //       studentId: "241",
+                        //       text: textController.text,
+                        //       image: "image",
+                        //       dataTime: now.toString(),
+                        //       likes: 5,
+                        //   );
+                        // }
                         GraduationCubit.get(context).addPost(
-                          student_id: "241",
+                          studentId: "241",
+                          name: nameController.text,
                           text: textController.text,
-                          post_image: '${GraduationCubit.get(context).postImageLink}',
-                          time: now.toString(),
-                          likes: 0,
+                          image: "image",
+                          dataTime: now.toString(),
+                          likes: 5,
                         );
                       },
-                      child:const Text(
-                        'Post',
+                      child: Text(
+                        AppLocalizations.of(context)!.post,
                         style: TextStyle(
                           fontSize: 20,
                           color: Colors.white,
@@ -72,11 +82,6 @@ class NewPostScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                if(state is CreatePostLoadingStates)
-                  LinearProgressIndicator(),
-                SizedBox(
-                  height: 10,
-                ),
                 Row(
                   children: [
                     const CircleAvatar(
@@ -91,9 +96,9 @@ class NewPostScreen extends StatelessWidget {
                       child: Column(
                         //mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children:const [
                           Text(
-                            '${GraduationCubit.get(context).user?.fullname}',
+                            'Mohamed Osama',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                                 fontSize: 20
@@ -107,8 +112,8 @@ class NewPostScreen extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     controller: textController,
-                    decoration:const InputDecoration(
-                      hintText: "what is on your mind...",
+                    decoration: InputDecoration(
+                      hintText:  AppLocalizations.of(context)!.your_mind,
                       border: InputBorder.none,
                     ),
                   ),
@@ -117,13 +122,10 @@ class NewPostScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextButton(
-                          onPressed: ()
-                          {
-                            GraduationCubit.get(context).showPostBottomSheet(context);
-                          },
+                          onPressed: (){},
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children:const [
+                            children: [
                               Icon(
                                 Icons.broken_image,
                               ),
@@ -131,11 +133,19 @@ class NewPostScreen extends StatelessWidget {
                                 width: 5,
                               ),
                               Text(
-                                  "add Photo"
+                                  AppLocalizations.of(context)!.add_photo
                               )
                             ],
                           )),
                     ),
+                    // Expanded(
+                    //   child: TextButton(
+                    //       onPressed: (){},
+                    //       child: Text(
+                    //           "# tags"
+                    //       )
+                    //   ),
+                    // ),
                   ],
                 )
               ],

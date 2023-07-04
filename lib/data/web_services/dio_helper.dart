@@ -34,7 +34,8 @@ class DioHelper
     {
       'Content-Type' : 'application/json',
     };
-    return await dio.get(url,queryParameters: query,);
+    return await dio.get(url,queryParameters:
+    query,);
   }
 
 

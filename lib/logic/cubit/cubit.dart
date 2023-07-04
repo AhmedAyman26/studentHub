@@ -14,6 +14,7 @@ import 'package:graduation/data/models/addProduct_model.dart';
 import 'package:graduation/data/models/getProduct_model.dart';
 import 'package:graduation/data/models/message_model.dart';
 import 'package:graduation/data/models/post_model.dart';
+import 'package:graduation/data/models/subject_model.dart';
 import 'package:graduation/data/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/states.dart';
@@ -53,19 +54,31 @@ class GraduationCubit extends Cubit<GraduationStates> {
   List<DropdownMenuItem> items = [
     DropdownMenuItem(
       child: Text('Devices'),
-      value: '1',
+      value: 1,
     ),
     DropdownMenuItem(
       child: Text('Books'),
-      value: '2',
+      value: 2 ,
+    ),
+    DropdownMenuItem(
+      child: Text('Electronic tools'),
+      value: 3 ,
     ),
     DropdownMenuItem(
       child: Text('Engineering tools'),
-      value: '3',
+      value: 4 ,
     ),
     DropdownMenuItem(
-      child: Text('Clothes'),
-      value: '4',
+      child: Text('Medical tools'),
+      value: 5 ,
+    ),
+    DropdownMenuItem(
+      child: Text('Chemical tools'),
+      value: 6 ,
+    ),
+    DropdownMenuItem(
+      child: Text('Others'),
+      value: 7 ,
     ),
   ];
   List<DropdownMenuItem> Universityitems = [
@@ -114,7 +127,9 @@ class GraduationCubit extends Cubit<GraduationStates> {
   ];
 
 
-  String? selectedItem;
+
+////////////////////////////////////////////////////////
+  int? selectedItem;
   changeSelectedItem(value) {
     selectedItem = value;
     emit(ChangeSelectedItemState());
@@ -124,8 +139,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
   File? file;
   String ?imageToAPI;
   String? link;
-  Future showProductBottomSheet(context) async{
 
+  Future showProductBottomSheet(context) async{
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
@@ -482,12 +497,13 @@ class GraduationCubit extends Cubit<GraduationStates> {
     return base64Image;
   }
 
+
 ////////////////////////////////
 
   AddProductModel?addProductModel;
   Future<void> addProduct({
     required String product_name,
-    required int category_id,
+    //required int category_id,
     required String product_image,
     required String price,
     required String product_desc,
@@ -501,7 +517,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
           'product_name':product_name,
           'product_image':product_image,
           'product_desc':product_desc,
-          'category_id':category_id,
+          'category_id':selectedItem,
           //category_id,
           //GraduationCubit().changeSelectedItem(value).toString(),
           'price':price
@@ -659,11 +675,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
       // Map<String,dynamic>JsonData=json.decode(value.data);
       // serviceModel=ServiceModel.fromJson(JsonData);
 
-    }
-    List<Subjects> subjects=[];
-    getSubjects({query})async
-    {
-      await DioHelper.getData(url: 'getsubj',query:query );
     }
 
   var postImagePicker = ImagePicker();
@@ -825,17 +836,18 @@ class GraduationCubit extends Cubit<GraduationStates> {
     });
 
   }
-  List<dynamic>universities=[];
-  List<DropdownMenuItem> uItems=[];
-  void getUni()async
+
+  SubjectModel? subModel;
+  List<Map<String,dynamic>> subjects=[];
+  void getSubj(int id)async
   {
-    Response res=await DioHelper.getData(url: 'getuni.php');
-    List<dynamic> data=jsonDecode(res.data)['university'];
-    // Map<String,dynamic> data=jsonDecode(res.data);
-    // List<dynamic>Univeristies=data['university'];
-    // List<dynamic>All=Univeristies.map((uni)=>uni['university_name']).toList();
-    universities=data.map((uni)=>uni['university_name']).toList();
-    print(universities);
-    uItems=universities.map((e)=>DropdownMenuItem(child: Text(e),value: e,)).toList();
+    await DioHelper.getData(url: 'getsubj.php',query: {'faculty_id':CacheHelper.getData(key: 'faculty_id')}).then((value)
+    {
+      print(value);
+      subModel=SubjectModel.fromJson(jsonDecode(value.data));
+      subjects=subModel!.subjects!.map((e) => e.toJson()).toList();
+      print(subjects);
+    });
   }
+
 }
