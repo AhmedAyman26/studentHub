@@ -8,7 +8,7 @@ class NewPostScreen extends StatelessWidget {
   //const NewPostScreen({Key? key}) : super(key: key);
 
   var textController = TextEditingController();
-  var nameController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +57,11 @@ class NewPostScreen extends StatelessWidget {
                         //   );
                         // }
                         GraduationCubit.get(context).addPost(
-                          studentId: "241",
-                          name: nameController.text,
+                          student_id: "241",
                           text: textController.text,
-                          image: "image",
-                          dataTime: now.toString(),
-                          likes: 5,
+                          post_image: GraduationCubit.get(context).postImageLink,
+                          time: now.toString(),
+                          likes: 0,
                         );
                       },
                       child: Text(
@@ -96,9 +95,9 @@ class NewPostScreen extends StatelessWidget {
                       child: Column(
                         //mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children:const [
+                        children: [
                           Text(
-                            'Mohamed Osama',
+                            '${GraduationCubit.get(context).user?.fullname}',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                                 fontSize: 20

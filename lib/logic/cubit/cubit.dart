@@ -677,26 +677,128 @@ class GraduationCubit extends Cubit<GraduationStates> {
 
     }
 
+  var postImagePicker = ImagePicker();
+  File? postImageFile;
+  String? postImageLink;
+  Future showPostBottomSheet(context) async{
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        padding: EdgeInsets.all(20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Please Choose Image',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              InkWell(
+                onTap: () async {
+                  var picked =
+                  await postImagePicker.pickImage(source: ImageSource.gallery);
+                  if (postImageFile != null) {
+                    postImageFile = File(picked!.path);
+                    var imageName = basename(picked.path);
+                    // convertImageToBase64(picked as File);
+                    // imageToAPI =await convertImageToBase64(file!);
+                    await FirebaseStorage.instance.ref()
+                        .child('posts/${Uri.file(file!.path).pathSegments.last}')
+                        .putFile(postImageFile!).then((value)  {
+                      value.ref.getDownloadURL().then((value) {
+                        print(value);
+                        postImageLink=value;
+                        // emit(SocialUploadProfileImageSuccessState());
+                      });
+                    });
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.photo_outlined,
+                        size: 30,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'From Gallery',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () async {
+                  var picked =
+                  await postImagePicker.pickImage(source: ImageSource.camera);
+                  if (picked != null) {
+                    postImageFile = File(picked.path);
+                    var imageName = basename(picked.path);
+                    // convertImageToBase64(picked as File);
+                    await FirebaseStorage.instance.ref()
+                        .child('posts/${Uri.file(postImageFile!.path).pathSegments.last}')
+                        .putFile(postImageFile!).then((value)  {
+                      value.ref.getDownloadURL().then((value) {
+                        print(value);
+                        postImageLink=value;
+                        // emit(SocialUploadProfileImageSuccessState());
+                      });
+                    });
+                    // imageToAPI =await convertImageToBase64(file!);
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.camera_alt_outlined,
+                        size: 30,
+                      ),
+                      SizedBox(width: 20),
+                      Text(
+                        'From Camera',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+
+    );
+  }
+
   PostModel? postModel;
   void addPost({
-    required String name,
-    required String studentId,
+    required String student_id,
     required String text,
-    required String image,
-    required String dataTime,
+    required String time,
     required int likes,
+    String? post_image,
   })async
   {
     emit(CreatePostLoadingStates());
     await DioHelper.postData(
         url: 'post.php',
         data: {
-          'student_id':studentId,
-          'name':name,
+          'student_id':student_id,
           'text':text,
           'likes':likes,
-          'dataTime':dataTime,
-          'image':image,
+          'time':time,
+          'post_image':post_image,
         }
     ).then((value){
       print(value.data);

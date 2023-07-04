@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => GraduationCubit()..getUserData()..getPost()..getUni(),
+            create: (context) => GraduationCubit()..getUserData()..getPost(),
           ),
           BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()..getSavedLanguage(),
