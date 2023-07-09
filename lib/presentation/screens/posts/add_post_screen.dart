@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/logic/cubit/states.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 
 class NewPostScreen extends StatelessWidget {
   //const NewPostScreen({Key? key}) : super(key: key);
@@ -57,7 +58,7 @@ class NewPostScreen extends StatelessWidget {
                         //   );
                         // }
                         GraduationCubit.get(context).addPost(
-                          student_id: "241",
+                          student_id: CacheHelper.getData(key: 'sId'),
                           text: textController.text,
                           post_image: GraduationCubit.get(context).postImageLink,
                           time: now.toString(),
@@ -121,7 +122,10 @@ class NewPostScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextButton(
-                          onPressed: (){},
+                          onPressed: ()
+                          {
+                            GraduationCubit.get(context).showPostBottomSheet(context);
+                          },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [

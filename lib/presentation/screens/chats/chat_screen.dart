@@ -20,210 +20,269 @@ class ChatScreen extends StatelessWidget {
     return BlocConsumer<GraduationCubit, GraduationStates>(
       listener: (context, state) {},
       builder: (context, state) => Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(110),
-          child: AppBar(
-            // backgroundColor: const Color.fromRGBO(70, 121, 112, 1.0),
-            leading: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(0.5),
-                child: Row(
-                  //mainAxisAlignment:  MainAxisAlignment.start,
-                  children: const [
-                    Icon(
-                      Icons.arrow_back_ios,
-                      size: 19,
-                    ),
-                    CircleAvatar(
-                      radius: 18,
-                      backgroundImage: NetworkImage(
-                          'https://media.istockphoto.com/id/1270067126/photo/smiling-indian-man-looking-at-camera.jpg?s=2048x2048&w=is&k=20&c=FLq43kh338qFN_JQSc262aRvFPBVlgDqhrG-sUtIIB8='),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            title: Container(
-              margin: const EdgeInsets.all(7),
-              child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
+        // PreferredSize(
+        //   preferredSize: const Size.fromHeight(110),
+        //   child: AppBar(
+        //     // backgroundColor: const Color.fromRGBO(70, 121, 112, 1.0),
+        //     leading: InkWell(
+        //       onTap: () {
+        //         Navigator.pop(context);
+        //       },
+        //       child: Padding(
+        //         padding: const EdgeInsets.all(0.5),
+        //         child: Row(
+        //           //mainAxisAlignment:  MainAxisAlignment.start,
+        //           children: const [
+        //             Icon(
+        //               Icons.arrow_back_ios,
+        //               size: 19,
+        //             ),
+        //             CircleAvatar(
+        //               radius: 18,
+        //               backgroundImage: NetworkImage(
+        //                   'https://media.istockphoto.com/id/1270067126/photo/smiling-indian-man-looking-at-camera.jpg?s=2048x2048&w=is&k=20&c=FLq43kh338qFN_JQSc262aRvFPBVlgDqhrG-sUtIIB8='),
+        //             )
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //     title: Container(
+        //       margin: const EdgeInsets.all(7),
+        //       child: Column(
+        //         //mainAxisAlignment: MainAxisAlignment.center,
+        //         children: [
+        //           Text(
+        //             '${user.fullname}',
+        //             style: TextStyle(
+        //               fontSize: 20,
+        //               fontWeight: FontWeight.bold,
+        //             ),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //     actions: [
+        //       IconButton(
+        //         onPressed: () {},
+        //         icon: const Icon(
+        //           Icons.phone,
+        //         ),
+        //       ),
+        //       IconButton(
+        //         onPressed: () {},
+        //         icon: const Icon(
+        //           Icons.more_vert,
+        //           size: 30,
+        //         ),
+        //       )
+        //     ],
+        //     toolbarHeight: MediaQuery.of(context).size.height / 11,
+        //     backgroundColor: Colors.transparent,
+        //     elevation: 0,
+        //     flexibleSpace: ClipPath(
+        //       clipper: CustomAppBarShape(),
+        //       child: Stack(
+        //         alignment: Alignment.center,
+        //         children: [
+        //           Container(
+        //             color: const Color.fromRGBO(70, 121, 112, 1.0),
+        //             alignment: Alignment.center,
+        //             // child: Text(
+        //             //   "title",style: TextStyle(color: Colors.white,fontSize: 20),),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Stack(
                 children: [
-                  Text(
-                    '${user.fullname}',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  Image(
+                    image: AssetImage('assets/images/chatHeader.png'),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
                   ),
-                ],
-              ),
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.phone,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.more_vert,
-                  size: 30,
-                ),
-              )
-            ],
-            toolbarHeight: MediaQuery.of(context).size.height / 11,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            flexibleSpace: ClipPath(
-              clipper: CustomAppBarShape(),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Container(
-                    color: const Color.fromRGBO(70, 121, 112, 1.0),
-                    alignment: Alignment.center,
-                    // child: Text(
-                    //   "title",style: TextStyle(color: Colors.white,fontSize: 20),),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: ConditionalBuilder(
-                condition: GraduationCubit.get(context).messages.length > 0,
-                builder: (context) => Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          var message =
-                              GraduationCubit.get(context).messages[index];
-                          if (user.uId == message.senderId) {
-                            return buildMyMessage(message);
-                          }
-                          return buildMessage(message);
-                        },
-                        shrinkWrap: true,
-                        separatorBuilder: (context, state) => SizedBox(
-                          height: 15.h,
-                        ),
-                        itemCount: GraduationCubit.get(context).messages.length,
-                      ),
-                    ),
-                  ],
-                ),
-                fallback: (context) => Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width - 60,
-                    child: Card(
-                      margin: const EdgeInsets.only(
-                          left: 2, right: 2, bottom: 8),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: TextFormField(
-                        controller: messageController,
-                        textAlignVertical: TextAlignVertical.center,
-                        keyboardType: TextInputType.multiline,
-                        cursorColor:
-                        const Color.fromRGBO(70, 121, 112, 1.0),
-                        maxLines: 5,
-                        minLines: 1,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: 'Write a message..',
-                          prefixIcon: IconButton(
-                            color:
-                            const Color.fromRGBO(70, 121, 112, 1.0),
-                            icon: const Icon(
-                              Icons.emoji_emotions_outlined,
-                            ),
-                            onPressed: () {},
-                          ),
-                          suffixIcon: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 20.h, left: 10.w),
+                        child: Row(
+                          children: [
+                            IconButton(
                                 onPressed: () {
-                                  showModalBottomSheet(
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (builder) =>
-                                          bottomsheet());
+                                  Navigator.pop(context);
                                 },
-                                icon: const Icon(
-                                  Icons.attach_file,
-                                ),
-                                color: const Color.fromRGBO(
-                                    70, 121, 112, 1.0),
+                                icon: Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 25.w,
+                                  color: Colors.white,
+                                )),
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundImage: user.image!=null ? NetworkImage(
+                                '${user.image}'):NetworkImage('https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')),
+                            SizedBox(
+                              width: 8.w,
+                            ),
+                            Text(
+                              '${user.fullname}',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                            Spacer(),
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.phone,
+                                color: Colors.white,
+                                size: 25.w,
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.camera_alt,
-                                ),
-                                color: const Color.fromRGBO(
-                                    70, 121, 112, 1.0),
-                              ),
-                            ],
-                          ),
-                          contentPadding: const EdgeInsets.all(5),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: Icon(
+                                  Icons.more_vert_rounded,
+                                  size: 25.w,
+                                  color: Colors.white,
+                                )),
+                          ],
                         ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 8,
-                      left: 2,
-                      right: 5,
-                    ),
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundColor:
-                      const Color.fromRGBO(70, 121, 112, 1.0),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.send_rounded,
-                          color: Colors.white,
-                        ),
-                        onPressed: (){
-                          if(messageController.text.isNotEmpty)
-                          {
-                            GraduationCubit.get(context).sendMessage(
-                              receiverId: user.uId!,
-                              dateTime: DateTime.now().toString(),
-                              text: messageController.text,
-                            );
-                            messageController.clear();
-                          }
-
-                        },
-                      ),
-                    ),
+                    ],
                   ),
                 ],
               ),
-            ),
-          ],
+              Expanded(
+                child: ConditionalBuilder(
+                  condition: GraduationCubit.get(context).messages.length > 0,
+                  builder: (context) => Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            var message =
+                                GraduationCubit.get(context).messages[index];
+                            if (user.uId == message.senderId) {
+                              return buildMyMessage(message);
+                            }
+                            return buildMessage(message);
+                          },
+                          shrinkWrap: true,
+                          separatorBuilder: (context, state) => SizedBox(
+                            height: 15.h,
+                          ),
+                          itemCount:
+                              GraduationCubit.get(context).messages.length,
+                        ),
+                      ),
+                    ],
+                  ),
+                  fallback: (context) => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width - 60,
+                      child: Card(
+                        margin:
+                            const EdgeInsets.only(left: 2, right: 2, bottom: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: TextFormField(
+                          controller: messageController,
+                          textAlignVertical: TextAlignVertical.center,
+                          keyboardType: TextInputType.multiline,
+                          cursorColor: const Color.fromRGBO(70, 121, 112, 1.0),
+                          maxLines: 5,
+                          minLines: 1,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Write a message..',
+                            prefixIcon: IconButton(
+                              color: const Color.fromRGBO(70, 121, 112, 1.0),
+                              icon: const Icon(
+                                Icons.emoji_emotions_outlined,
+                              ),
+                              onPressed: () {},
+                            ),
+                            suffixIcon: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                        backgroundColor: Colors.transparent,
+                                        context: context,
+                                        builder: (builder) => bottomsheet());
+                                  },
+                                  icon: const Icon(
+                                    Icons.attach_file,
+                                  ),
+                                  color:
+                                      const Color.fromRGBO(70, 121, 112, 1.0),
+                                ),
+                                IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(
+                                    Icons.camera_alt,
+                                  ),
+                                  color:
+                                      const Color.fromRGBO(70, 121, 112, 1.0),
+                                ),
+                              ],
+                            ),
+                            contentPadding: const EdgeInsets.all(5),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        bottom: 8,
+                        left: 2,
+                        right: 5,
+                      ),
+                      child: CircleAvatar(
+                        radius: 25,
+                        backgroundColor:
+                            const Color.fromRGBO(70, 121, 112, 1.0),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.send_rounded,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {
+                            if (messageController.text.isNotEmpty) {
+                              GraduationCubit.get(context).sendMessage(
+                                receiverId: user.uId!,
+                                dateTime: DateTime.now().toString(),
+                                text: messageController.text,
+                              );
+                              messageController.clear();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -243,7 +302,19 @@ class ChatScreen extends StatelessWidget {
             vertical: 5,
             horizontal: 10,
           ),
-          child: Text(
+          child: message.image != null
+              ? Column(
+            children: [
+              Image(height: 100,width: 100,fit:BoxFit.cover,image: NetworkImage(message.image!)),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                message.text!,
+              ),
+            ],
+          )
+              : Text(
             message.text!,
           ),
         ),
@@ -262,9 +333,21 @@ class ChatScreen extends StatelessWidget {
             vertical: 5,
             horizontal: 10,
           ),
-          child: Text(
-            message.text!,
-          ),
+          child: message.image != null
+              ? Column(
+                  children: [
+                    Image(height: 100,width: 100,fit:BoxFit.cover,image: NetworkImage(message.image!)),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    Text(
+                      message.text!,
+                    ),
+                  ],
+                )
+              : Text(
+                  message.text!,
+                ),
         ),
       );
 

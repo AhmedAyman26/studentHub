@@ -16,6 +16,7 @@ class ChatHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int index;
     return BlocConsumer<GraduationCubit,GraduationStates>(
       listener: (context,state){},
       builder: (context,state)
@@ -23,65 +24,64 @@ class ChatHomeScreen extends StatelessWidget {
         return Scaffold(
 
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Stack(
-                    children:
-                    [
-                      Image(
-                        image: AssetImage('assets/images/chatHeader.png'),
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding:  EdgeInsets.only(top: 20.h,left: 10.w ),
-                            child: Row(
-                              children: [
-                                IconButton(
-                                    onPressed: ()
-                                    {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: Icon(
-                                    Icons.arrow_back_ios,
-                                  size: 25.w,
-                                  color: Colors.white,
-                                )),
-                                SizedBox(width: 5.w,),
-                                Text(AppLocalizations.of(context)!.chats,style: TextStyle(color: Colors.white,fontSize: 20.sp),),
-                                Spacer(),
-                                IconButton(
-                                    onPressed: ()
-                                    {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: Icon(
-                                      Icons.more_vert_rounded,
-                                      size: 25.w,
-                                      color: Colors.white,
-                                    )),
-                              ],
-                            ),
+            child: Column(
+              children: [
+                Stack(
+                  children:
+                  [
+                    Image(
+                      image: AssetImage('assets/images/chatHeader.png'),
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding:  EdgeInsets.only(top: 20.h,left: 10.w ),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                  onPressed: ()
+                                  {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                  Icons.arrow_back_ios,
+                                size: 25.w,
+                                color: Colors.white,
+                              )),
+                              SizedBox(width: 5.w,),
+                              Text(AppLocalizations.of(context)!.chats,style: TextStyle(color: Colors.white,fontSize: 20.sp),),
+                              Spacer(),
+                              IconButton(
+                                  onPressed: ()
+                                  {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                    Icons.more_vert_rounded,
+                                    size: 25.w,
+                                    color: Colors.white,
+                                  )),
+                            ],
                           ),
-                          SizedBox(height: 40.h,),
-                          search_widget(),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(
+                        ),
+                        SizedBox(height: 40.h,),
+                        search_widget(),
+                      ],
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
                     padding:  EdgeInsets.only(right: 20.w,left: 20.w,bottom: 20.h),
                     child: ListView.separated(
-                      shrinkWrap: true,
                       itemBuilder: (context,index)=>buildChatItem(GraduationCubit.get(context).users[index],context),
                       separatorBuilder: (context,index)=>SizedBox(height: 15.h,),
                       itemCount: GraduationCubit.get(context).users.length,),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         );
@@ -100,10 +100,9 @@ Widget buildChatItem(UserData model,context)=> InkWell(
     children: [
        CircleAvatar(
         radius: 20.h,
-        backgroundImage: NetworkImage(
-            'https://media.istockphoto.com/id/1270067126/photo/smiling-indian-man-looking-at-camera.jpg?s=2048x2048&w=is&k=20&c=FLq43kh338qFN_JQSc262aRvFPBVlgDqhrG-sUtIIB8='
-        ),
-      ),
+        backgroundImage:
+            model.image!=null ? NetworkImage(
+                '${model.image}'):NetworkImage('https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')),
        SizedBox(
         width: 15.w,
       ),

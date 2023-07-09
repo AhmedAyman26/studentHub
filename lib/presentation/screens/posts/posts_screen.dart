@@ -75,7 +75,7 @@ class PostsScreen extends StatelessWidget {
                 radius: 20,
                 child: Image(
                   fit: BoxFit.cover,
-                  image: model.image!.isEmpty||model.image!.isNotEmpty?AssetImage('assets/images/man.png'):AssetImage(
+                  image: model.image!.isEmpty||model.image!.isNotEmpty?NetworkImage('https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png'):NetworkImage(
                       '${model.image}'
                   ),
                 ),
@@ -126,7 +126,7 @@ class PostsScreen extends StatelessWidget {
                         'https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1199&q=80') :
                     NetworkImage(
                         '${model.postImage}'
-                      // ''
+                      //
                     ),
                     fit: BoxFit.cover,
                   )

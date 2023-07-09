@@ -261,6 +261,8 @@ class RegisterCubit extends Cubit<RegisterStates>
       userModel =UserModel.fromJson(jsonDecode(res.data));
       await userRegisterFb(fullname: fullname, email: email, university_id: university_id, faculty_id: faculty_id, password: password);
       print(userModel.userData!.fullname);
+      print(userModel.userData!.student_id);
+      await CacheHelper.saveData(key: 'sId', value: userModel.userData!.student_id);
       emit(RegisterDbSuccessState(userModel.userData!));
     }
     catch(error)
@@ -309,7 +311,7 @@ class RegisterCubit extends Cubit<RegisterStates>
     ).then((value)async
     {
       await FirebaseAuth.instance.currentUser!.updateDisplayName(fullname);
-      CacheHelper.saveData(key: 'id', value: id=value.user!.uid);
+      CacheHelper.saveData(key: 'uId', value: value.user!.uid);
       await userCreate(
         id : value.user!.uid,
       );

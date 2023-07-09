@@ -34,7 +34,7 @@ void main()async {
 
   Widget widget;
   var onBoarding=CacheHelper.getData(key: 'onBoarding');
-  var id=CacheHelper.getData(key: 'id');
+  var id=CacheHelper.getData(key: 'uId');
   print(onBoarding);
 
   if(onBoarding !=null)
@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (context) => GraduationCubit()..getUserData()..getPost(),
+            create: (context) => GraduationCubit()..getUserData()..getPost()..getSubj(1),
           ),
           BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()..getSavedLanguage(),

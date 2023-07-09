@@ -32,18 +32,18 @@
   "pass_notmatch":"كلمة المرور غير متطابقة!",
   "have_account": "هل لديك حساب؟",
 
-  "settings": "لاعدادات",
+  "settings": "الاعدادات",
   "language": "اللغة",
   "arabic": "عربي",
   "english":"إنجليزي",
 
   "posts": "المنشورات",
   "services": "الخدمات",
-  "products": "المنتجات",
+  "products": "الادوات",
   "my_account":"حسابي",
-  "my_products":"منتجاتي",
+  "my_products":"",
   "my_services": "خدماتي",
-  "favourits":"المفضلة",
+  "favourits":"الادوات",
   "search":"البحث",
 
   "devices":"الاجهزة",
@@ -52,7 +52,7 @@
   "engineering_tools":" الادوات الهندسية",
   "medical_tools":"الادوات الطبية",
   "chemical_tools": "الادوات الكميائية",
-  "others":"اخرون",
+  "others":"اخرى",
   "chats": "المحادثات",
 
 

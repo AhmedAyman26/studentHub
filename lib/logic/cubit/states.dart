@@ -18,6 +18,8 @@ class GetUserDataErrorState extends GraduationStates{}
 
 class ChangeSelectedItemState extends GraduationStates{}
 
+class ChangeSelectedSubject extends GraduationStates{}
+
 class AddProductLoadingState extends GraduationStates{}
 
 class AddProductSuccessState extends GraduationStates{

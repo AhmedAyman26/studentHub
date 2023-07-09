@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/logic/cubit/cubit.dart';
+import 'package:graduation/presentation/screens/login/login_screen.dart';
+import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
 import '../../../logic/Language Cubit/language_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,10 +26,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
         elevation: 0.0,
         backgroundColor: Colors.white,
         leading: Padding(
-          padding:  EdgeInsets.all(20.0.h),
-          child: const Icon(
-            Icons.arrow_back_ios,
+          padding:  EdgeInsets.all(14.0.h),
+          child: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
             color: Colors.black,
+            onPressed: ()
+            {
+              Navigator.pop(context);
+            },
           ),
         ),
         title: Padding(
@@ -49,11 +57,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('AhmedAyman',style: TextStyle(fontSize: 16.sp),),
+                    Text('${GraduationCubit.get(context).user!.fullname}',style: TextStyle(fontSize: 16.sp),),
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text('Computer And Information',style: Theme.of(context).textTheme.bodySmall,)
+                    Text('${GraduationCubit.get(context).user!.facultyName}',style: Theme.of(context).textTheme.bodySmall,)
                   ],
                 ),
                 Spacer(),
@@ -63,9 +71,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ))
                 ],
             ),
-            ListTile(
-              leading: ImageIcon(AssetImage('')),
-            ),
+            // ListTile(
+            //   leading: ImageIcon(AssetImage('')),
+            // ),
             Padding(
               padding: EdgeInsets.only(right: 16,left: 16),
               child: ExpansionTile(
@@ -119,6 +127,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
               ),
             ),
+            InkWell(
+              onTap: ()
+              {
+                CacheHelper.removeData(key: 'uId');
+                navigateAndFinish(context, LoginScreen());
+              },
+              child: Padding(
+                padding: EdgeInsets.only(left: 30),
+                child: Row(
+                  children:
+                  [
+                    Icon(Icons.logout,size: 25.h,),
+                    SizedBox(width: 10.w,),
+                    Text('SignOut',style: TextStyle(fontSize: 15.sp),),
+                  ],
+                ),
+              ),
+            ),
+
 
 
           ],

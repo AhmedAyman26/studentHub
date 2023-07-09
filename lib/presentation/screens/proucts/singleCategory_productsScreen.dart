@@ -2,8 +2,12 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/data/models/user_model.dart';
 import 'package:graduation/logic/cubit/states.dart';
+import 'package:graduation/presentation/screens/chats/chat_screen.dart';
+import 'package:graduation/presentation/screens/chats/home_chat.dart';
 import 'package:graduation/presentation/screens/proucts/productDetails_screen.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 import '../../../logic/cubit/cubit.dart';
 import '../../../shared/appBar_class.dart';
 import '../../../shared/constants.dart';
@@ -256,14 +260,20 @@ var _searchController = TextEditingController();
                                 },
                                 child:Container(
                                   width: MediaQuery.of(context).size.width/3,
-                                  child: FittedBox(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Icon(Icons.add),
-                                        Text("Request | ",style: TextStyle(),),
-                                        Text("${state.getProductModel.products[index].price} LE", style: TextStyle(color: Colors.white70),),
-                                      ],
+                                  child: InkWell(
+                                    onTap: ()
+                                    {
+                                      GraduationCubit.get(context).sendMessage(receiverId: state.getProductModel.products[index].firebase_id.toString(), dateTime: DateTime.now().toString(), text: 'Hello,i see you have ${state.getProductModel.products[index].productName} i need it..so can you help me?',image: state.getProductModel.products[index].productImage);
+                                    },
+                                    child: FittedBox(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.add),
+                                          Text("Request | ",style: TextStyle(),),
+                                          Text("${state.getProductModel.products[index].price} LE", style: TextStyle(color: Colors.white70),),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 )

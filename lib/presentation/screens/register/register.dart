@@ -12,30 +12,28 @@ import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
-
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
-  var nameController =TextEditingController();
-  var emailController =TextEditingController();
-  var universityController =TextEditingController();
-  var facultyController =TextEditingController();
-  var numberController =TextEditingController();
-  var formkey =GlobalKey<FormState>();
+  var nameController = TextEditingController();
+  var emailController = TextEditingController();
+  var universityController = TextEditingController();
+  var facultyController = TextEditingController();
+  var numberController = TextEditingController();
+  var formkey = GlobalKey<FormState>();
   // var passwordController =TextEditingController();
   // var confirmController =TextEditingController();
 
-  TextEditingController _password =TextEditingController();
-  TextEditingController _confirmpassword =TextEditingController();
+  TextEditingController _password = TextEditingController();
+  TextEditingController _confirmpassword = TextEditingController();
 
-  late String _name,_email,_phone;
-
+  late String _name, _email, _phone;
 
   bool _obscureText = true;
   bool isPassword = true;
@@ -43,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   // bool isPasswordEditingCharacter = false;
   // bool hasPasswordOneNumber = false;
   //bool isEmailCorrect = false;
-  void disValid (){
+  void disValid() {
     emailController.dispose();
     super.dispose();
   }
@@ -66,29 +64,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
   RegExp pass_validate = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
   double pass_strength = 0;
 
-  bool validatePassword(String pass){
+  bool validatePassword(String pass) {
     String password = pass.trim();
-    if(password.isEmpty){
+    if (password.isEmpty) {
       setState(() {
         pass_strength = 0;
       });
-    }else if(password.length < 6){
+    } else if (password.length < 6) {
       setState(() {
-        pass_strength = 1/4 ;
+        pass_strength = 1 / 4;
       });
-    }else if(password.length < 8){
+    } else if (password.length < 8) {
       setState(() {
-        pass_strength = 2/4 ;
+        pass_strength = 2 / 4;
       });
-    }else{
-      if(pass_validate.hasMatch(password)){
+    } else {
+      if (pass_validate.hasMatch(password)) {
         setState(() {
-          pass_strength = 4/4 ;
+          pass_strength = 4 / 4;
         });
         return true;
-      }else{
+      } else {
         setState(() {
-          pass_strength = 3/4 ;
+          pass_strength = 3 / 4;
         });
         return false;
       }
@@ -104,27 +102,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final size=MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return BlocProvider(
-      create: (BuildContext context) => RegisterCubit(),
+      create: (BuildContext context) => RegisterCubit()..getUni()..getFac(),
       child: BlocConsumer<RegisterCubit, RegisterStates>(
-        listener: (context, state) async{
-          if(state is RegisterDbSuccessState){
+        listener: (context, state) async {
+          if (state is RegisterDbSuccessState) {
             navigateAndFinish(
               context,
-               HomeLayout(),
+              HomeLayout(),
             );
           }
         },
         builder: (context, state) {
-          var cubit =RegisterCubit.get(context);
+          var cubit = RegisterCubit.get(context);
           return Scaffold(
             body: SingleChildScrollView(
               child: Column(
                 children: [
                   Container(
                       width: double.infinity,
-                      child: Image(image: AssetImage('assets/images/signup.png'),fit: BoxFit.fill,)),
+                      child: Image(
+                        image: AssetImage('assets/images/signup.png'),
+                        fit: BoxFit.fill,
+                      )),
                   Padding(
                     padding: EdgeInsets.only(
                       top: 15.h,
@@ -138,25 +139,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 50.h),
+                              child: InkWell(
+                                onTap: () {
+                                  RegisterCubit.get(context)
+                                      .addImageBottomSheet(context);
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.add_a_photo_outlined,
+                                      color: Colors.grey[600],
+                                    ),
+                                    SizedBox(
+                                      width: 5.h,
+                                    ),
+                                    Text(
+                                      'Upload Your Picture',
+                                      style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color: Colors.grey[600]),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                           TextFormField(
                             controller: nameController,
                             keyboardType: TextInputType.name,
-                            validator: (value)
-                            {
-                              if (value!.isEmpty)
-                              {
+                            validator: (value) {
+                              if (value!.isEmpty) {
                                 return AppLocalizations.of(context)!.enter_name;
                               }
                               return null;
                             },
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width:3,
-                                    color:Colors.black12
-                                ),
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.black12),
                               ),
-                              labelText: AppLocalizations.of(context)!.full_name,
+                              labelText:
+                                  AppLocalizations.of(context)!.full_name,
                             ),
                           ),
                           const SizedBox(
@@ -177,17 +203,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             //   }
                             //   return null;
                             // },
-                            validator: (email) => email != null && ! EmailValidator.validate(email) ?
-                            AppLocalizations.of(context)!.enter_email: null,
-                            onSaved: ( email){
+                            validator: (email) =>
+                                email != null && !EmailValidator.validate(email)
+                                    ? AppLocalizations.of(context)!.enter_email
+                                    : null,
+                            onSaved: (email) {
                               _email = email!;
                             },
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width:3,
-                                    color:Colors.black12
-                                ),
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.black12),
                               ),
                               labelText: AppLocalizations.of(context)!.email,
                             ),
@@ -198,27 +224,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           TextFormField(
                             controller: numberController,
                             keyboardType: TextInputType.number,
-                            validator: ( value)
-                            {
-                              if (value!.isEmpty)
-                              {
+                            validator: (value) {
+                              if (value!.isEmpty) {
                                 return AppLocalizations.of(context)!.enter_phon;
                               }
-                              if (value.length < 10)
-                              {
-                                return  AppLocalizations.of(context)!.enter_vphon;
+                              if (value.length < 10) {
+                                return AppLocalizations.of(context)!
+                                    .enter_vphon;
                               }
                               return null;
                             },
-                            onSaved: ( phone){
+                            onSaved: (phone) {
                               _phone = phone!;
                             },
                             decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width:3,
-                                    color:Colors.black12
-                                ),
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.black12),
                               ),
                               labelText: AppLocalizations.of(context)!.phone,
                             ),
@@ -247,30 +269,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //     labelText: 'University',
                           //   ),
                           // ),
-                          DropdownButton(items: RegisterCubit.get(context).uItems, onChanged: (e){},isExpanded: true,hint: Text(AppLocalizations.of(context)!.select_university)),
+                          DropdownButton(
+                              items: RegisterCubit.get(context).uItems,
+                              onChanged: (e)
+                              {
+                                RegisterCubit.get(context).changeSelectedUniversity(e);
+                              },
+                              isExpanded: true,
+                              hint: Text(AppLocalizations.of(context)!
+                                  .select_university),
+                            value: RegisterCubit.get(context).selectedUniversity,
+                          ),
                           const SizedBox(
                             height: 15,
                           ),
-                          TextFormField(
-                            controller: facultyController,
-                            keyboardType: TextInputType.name,
-                            validator: (value)
-                            {
-                              if (value!.isEmpty)
+                          DropdownButton(
+                              items: RegisterCubit.get(context).fItems,
+                              onChanged: (e)
                               {
-                                return AppLocalizations.of(context)!.enter_faculty;
-                              }
-                              return null;
-                            },
-                            decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width:3,
-                                    color:Colors.black12
-                                ),
-                              ),
-                              labelText: AppLocalizations.of(context)!.faculty,
-                            ),
+                                RegisterCubit.get(context).changeSelectedFaculty(e);
+
+                              },
+                              isExpanded: true,
+                              hint: Text('select Your faculty'),
+                              value: RegisterCubit.get(context).selectedFaculty
                           ),
                           const SizedBox(
                             height: 15,
@@ -280,38 +302,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _password,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: _obscureText,
-                            validator: ( value)
-                            {
-                              if (value!.isEmpty)
-                              {
-                                return AppLocalizations.of(context)!.enter_password;
-                              }else {
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return AppLocalizations.of(context)!
+                                    .enter_password;
+                              } else {
                                 bool result = validatePassword(value);
-                                if(!result){
-                                  return AppLocalizations.of(context)!.strong_pass;
+                                if (!result) {
+                                  return AppLocalizations.of(context)!
+                                      .strong_pass;
                                 }
                               }
                             },
                             decoration: InputDecoration(
-                              enabledBorder:const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width:3,
-                                    color:Colors.black12
-                                ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.black12),
                               ),
                               labelText: AppLocalizations.of(context)!.password,
                               suffixIcon: IconButton(
-                                onPressed: (){
+                                onPressed: () {
                                   setState(() {
-                                    _obscureText = ! _obscureText;
-                                    isPassword = ! isPassword;
+                                    _obscureText = !_obscureText;
+                                    isPassword = !isPassword;
                                   });
                                 },
-                                icon: isPassword ? Icon(Icons.visibility_off,
-                                  color: Colors.grey,
-                                ) : Icon(Icons.visibility,
-                                  color: Colors.grey,
-                                ),
+                                icon: isPassword
+                                    ? Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.grey,
+                                      )
+                                    : Icon(
+                                        Icons.visibility,
+                                        color: Colors.grey,
+                                      ),
                               ),
                             ),
                           ),
@@ -322,38 +346,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             controller: _confirmpassword,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: _obscureText,
-                            validator: ( value)
-                            {
-                              if (value!.isEmpty)
-                              {
-                                return AppLocalizations.of(context)!.enter_cpassword;
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return AppLocalizations.of(context)!
+                                    .enter_cpassword;
                               }
-                              if (_password.text != _confirmpassword.text)
-                              {
-                                return AppLocalizations.of(context)!.pass_notmatch;
+                              if (_password.text != _confirmpassword.text) {
+                                return AppLocalizations.of(context)!
+                                    .pass_notmatch;
                               }
                               return null;
                             },
                             decoration: InputDecoration(
-                              enabledBorder:const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width:3,
-                                    color:Colors.black12
-                                ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(width: 3, color: Colors.black12),
                               ),
-                              labelText: AppLocalizations.of(context)!.confirm_password,
+                              labelText: AppLocalizations.of(context)!
+                                  .confirm_password,
                               suffixIcon: IconButton(
-                                onPressed: (){
+                                onPressed: () {
                                   setState(() {
-                                    _obscureText = ! _obscureText;
-                                    isPassword = ! isPassword;
+                                    _obscureText = !_obscureText;
+                                    isPassword = !isPassword;
                                   });
                                 },
-                                icon: isPassword ? Icon(Icons.visibility_off,
-                                  color: Colors.grey,
-                                ) : Icon(Icons.visibility,
-                                  color: Colors.grey,
-                                ),
+                                icon: isPassword
+                                    ? Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.grey,
+                                      )
+                                    : Icon(
+                                        Icons.visibility,
+                                        color: Colors.grey,
+                                      ),
                               ),
                             ),
                           ),
@@ -364,8 +390,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             value: pass_strength,
                             backgroundColor: Colors.black12,
                             minHeight: 5,
-                            color: pass_strength <=1/4 ? Color.fromRGBO(70, 121, 112, 1.0) : pass_strength == 2/4? Color.fromRGBO(70, 121, 112, 1.0) : pass_strength == 3/4 ? Color.fromRGBO(70, 121, 112, 1.0) : Color.fromRGBO(70, 121, 112, 1.0) ,
-
+                            color: pass_strength <= 1 / 4
+                                ? Color.fromRGBO(70, 121, 112, 1.0)
+                                : pass_strength == 2 / 4
+                                    ? Color.fromRGBO(70, 121, 112, 1.0)
+                                    : pass_strength == 3 / 4
+                                        ? Color.fromRGBO(70, 121, 112, 1.0)
+                                        : Color.fromRGBO(70, 121, 112, 1.0),
                           ),
                           const SizedBox(
                             height: 20,
@@ -437,7 +468,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                color:const Color.fromRGBO(70, 121, 112, 1.0),
+                                color: const Color.fromRGBO(70, 121, 112, 1.0),
                               ),
                               child: MaterialButton(
                                 onPressed: () async {
@@ -446,12 +477,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         fullname: nameController.text.trim(),
                                         email: emailController.text.trim(),
                                         // phone: numberController.text,
-                                        university_id: RegisterCubit.get(context).selectedUniversity!,
-                                        faculty_id:RegisterCubit.get(context).selectedFaculty!,
+                                        university_id:
+                                            RegisterCubit.get(context)
+                                                .selectedUniversity!,
+                                        faculty_id: RegisterCubit.get(context)
+                                            .selectedFaculty!,
                                         password: _password.text.trim(),
                                         image: RegisterCubit.get(context)
                                             .profileImageLink);
-                                    await CacheHelper.saveData(key: 'facultyId', value: RegisterCubit.get(context).selectedFaculty);
+                                    await CacheHelper.saveData(
+                                        key: 'facultyId',
+                                        value: RegisterCubit.get(context)
+                                            .selectedFaculty);
                                   } else {
                                     print(
                                         "******************************** llllllمدخلتش");
@@ -474,18 +511,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                               Text(
+                              Text(
                                 AppLocalizations.of(context)!.have_account,
                               ),
                               TextButton(
-                                onPressed: ()
-                                {
+                                onPressed: () {
                                   navigateTo(
                                     context,
                                     LoginScreen(),
                                   );
                                 },
-                                child:  Text(
+                                child: Text(
                                   AppLocalizations.of(context)!.sign_in,
                                   style: TextStyle(
                                     color: Color.fromRGBO(70, 121, 112, 1.0),
@@ -507,4 +543,3 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 }
-

@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/logic/cubit/states.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -61,18 +63,14 @@ class AddProductScreen extends StatelessWidget {
                       Center(child: CircularProgressIndicator());
                     }else
                         {
-
-                      print(GraduationCubit.get(context).imageToAPI.toString());
-
-                      print(GraduationCubit.get(context).selectedItem.toString());
-                      print('++++++++++++++');
                       await GraduationCubit.get(context).addProduct(
-
+                        student_id: CacheHelper.getData(key: 'sId'),
                           product_name: productNameController.text,
                           product_image:'${GraduationCubit.get(context).link}',
                         //  category_id:1,
-                          price:productPriceController.text,
+                          price:productPriceController.text!=null?productNameController.text:'free',
                           product_desc: productDescriptionController.text,
+                        firebase_id: CacheHelper.getData(key: 'uId')
                           );
                       //Navigator.pop(context);
                     }
@@ -108,7 +106,7 @@ class AddProductScreen extends StatelessWidget {
                       Column(
                         children: [
                           Text(
-                            'AhmedMohamed',
+                            '${FirebaseAuth.instance.currentUser?.displayName??'default'}',
                           ),
                         ],
                       ),
@@ -160,6 +158,7 @@ class AddProductScreen extends StatelessWidget {
                     controller: productDescriptionController,
                     maxLines: 4,
                     keyboardType: TextInputType.multiline,
+
                     decoration: InputDecoration(labelText: AppLocalizations.of(context)!.description),
                   ),
                 ],

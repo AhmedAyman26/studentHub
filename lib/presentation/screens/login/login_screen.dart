@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
         listener: (context, state) {
           if (state is LoginSuccessState) {
             CacheHelper.saveData(
-              key: 'id',
+              key: 'uId',
               value: state.uId,
             ).then((value) {
               navigateAndFinish(context, HomeLayout());

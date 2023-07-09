@@ -141,10 +141,10 @@ class _AddServiceState extends State<AddService> {
                         items: GraduationCubit.get(context).subjectItems/*.take(7).toList()*/,
                         hint: Text(AppLocalizations.of(context)!.select_subject),
                         onChanged: (val) {
-                          GraduationCubit.get(context).changeSelectedItem(val);
+                          GraduationCubit.get(context).changeSelectedSubject(val);
                         },
                         isExpanded: true,
-                        value: GraduationCubit.get(context).selectedItem,
+                        value: GraduationCubit.get(context).selectedSubject,
                       ),
                     ),
                   ),

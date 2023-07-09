@@ -34,11 +34,9 @@ class GraduationCubit extends Cubit<GraduationStates> {
     emit(GetUserDataLoadingState());
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(CacheHelper.getData(key: 'id'))
+        .doc(CacheHelper.getData(key: 'uId'))
         .get()
         .then((value) {
-      print("++++++++++++++");
-      print(id);
       print("++++++++++++++");
       print(value.id);
       print(value.data());
@@ -135,6 +133,12 @@ class GraduationCubit extends Cubit<GraduationStates> {
     emit(ChangeSelectedItemState());
   }
 
+  String? selectedSubject;
+  changeSelectedSubject(value) {
+    selectedSubject = value;
+    emit(ChangeSelectedItemState());
+  }
+
   var productImagePicker = ImagePicker();
   File? file;
   String ?imageToAPI;
@@ -163,7 +167,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
                     // convertImageToBase64(picked as File);
                     // imageToAPI =await convertImageToBase64(file!);
                     await FirebaseStorage.instance.ref()
-                        .child('users/${Uri.file(file!.path).pathSegments.last}')
+                        .child('products/${Uri.file(file!.path).pathSegments.last}')
                         .putFile(file!).then((value)  {
                       value.ref.getDownloadURL().then((value) {
                         print(value);
@@ -203,7 +207,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
                     var imageName = basename(picked.path);
                     // convertImageToBase64(picked as File);
                     await FirebaseStorage.instance.ref()
-                        .child('users/${Uri.file(file!.path).pathSegments.last}')
+                        .child('products/${Uri.file(file!.path).pathSegments.last}')
                         .putFile(file!).then((value)  {
                       value.ref.getDownloadURL().then((value) {
                         print(value);
@@ -508,19 +512,21 @@ class GraduationCubit extends Cubit<GraduationStates> {
     required String price,
     required String product_desc,
     String? student_id,
+    required String? firebase_id,
   }) async {
     emit(AddProductLoadingState());
 
     await DioHelper.postData(url: 'product.php',
         data:{
-          'student_id': "241",
+          'student_id': student_id,
           'product_name':product_name,
           'product_image':product_image,
           'product_desc':product_desc,
           'category_id':selectedItem,
           //category_id,
           //GraduationCubit().changeSelectedItem(value).toString(),
-          'price':price
+          'price':price,
+          'firebase_id':firebase_id
 
         }).then((value)
     {
@@ -580,15 +586,17 @@ class GraduationCubit extends Cubit<GraduationStates> {
     required String receiverId,
     required String dateTime,
     required String text,
-  })
+    String? image,
+  })async
   {
     MessageModel model= MessageModel(
         text: text,
         senderId: user!.uId,
         receiverId: receiverId,
-        dateTime: dateTime
+        dateTime: dateTime,
+      image: image
     );
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('users')
         .doc(user!.uId)
         .collection('chats')
@@ -597,6 +605,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
         .add(model.toMap())
         .then((value){
       emit(SendMessageSuccessState());
+      emit(GetProductSuccessState(getProductModel!));
     })
         .catchError((){
       emit(SendMessageErrorState());
@@ -837,16 +846,24 @@ class GraduationCubit extends Cubit<GraduationStates> {
 
   }
 
+  List<DropdownMenuItem<Map<String,dynamic>>> subItems=[];
   SubjectModel? subModel;
   List<Map<String,dynamic>> subjects=[];
   void getSubj(int id)async
   {
-    await DioHelper.getData(url: 'getsubj.php',query: {'faculty_id':CacheHelper.getData(key: 'faculty_id')}).then((value)
+    await DioHelper.getData(url: 'getsubj.php',query: {'faculty_id':1}).then((value)
     {
       print(value);
       subModel=SubjectModel.fromJson(jsonDecode(value.data));
       subjects=subModel!.subjects!.map((e) => e.toJson()).toList();
+      subItems = subjects.map<DropdownMenuItem<Map<String, dynamic>>>((subject) {
+        return DropdownMenuItem<Map<String, dynamic>>(
+          value: subject,
+          child: Text(subject['subject_name']),
+        );
+      }).toList();
       print(subjects);
+
     });
   }
 
