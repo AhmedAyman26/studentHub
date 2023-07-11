@@ -89,7 +89,7 @@ class SingleCategoryServiceScreen extends StatelessWidget {
                                padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width/50,top: MediaQuery.of(context).size.height/404),
                                child: Row(
                                  children: [
-                                   Text('Ahmed Ayman',style: TextStyle(fontSize: 18.sp),),
+                                   Text('Mohamed Osamaaa',style: TextStyle(fontSize: 18.sp),),
                                    Spacer(),
                                    InkWell(
                                      onTap: (){},
