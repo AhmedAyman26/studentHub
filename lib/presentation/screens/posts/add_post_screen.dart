@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/logic/cubit/states.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation/presentation/screens/posts/posts_screen.dart';
+import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 
 class NewPostScreen extends StatelessWidget {
@@ -45,7 +47,7 @@ class NewPostScreen extends StatelessWidget {
                     color:const Color.fromRGBO(70, 121, 112, 1.0),
                   ),
                   child: TextButton(
-                      onPressed: (){
+                      onPressed: () async {
                         var now = DateTime.now();
                         //print(now.toString());
                         // if (GraduationCubit.get(context).postImage == null ){
@@ -57,13 +59,15 @@ class NewPostScreen extends StatelessWidget {
                         //       likes: 5,
                         //   );
                         // }
-                        GraduationCubit.get(context).addPost(
+                        await GraduationCubit.get(context).addPost(
                           student_id: CacheHelper.getData(key: 'sId'),
                           text: textController.text,
                           post_image: GraduationCubit.get(context).postImageLink,
                           time: now.toString(),
                           likes: 0,
+                          firebase_id: CacheHelper.getData(key: 'uId')
                         );
+                        Navigator.pop(context);
                       },
                       child: Text(
                         AppLocalizations.of(context)!.post,

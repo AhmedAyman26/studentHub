@@ -594,7 +594,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
         senderId: user!.uId,
         receiverId: receiverId,
         dateTime: dateTime,
-      image: image
+        image: image
     );
     await FirebaseFirestore.instance
         .collection('users')
@@ -661,19 +661,19 @@ class GraduationCubit extends Cubit<GraduationStates> {
   }) async{
     try{
       emit(AddServiceLoadingState());
-    var res=await DioHelper.postData(
-      url: 'service.php',
-      data:
-      {
-        'student_id': studentId,
-        'service_name':serviceName,
-        'service_type':serviceType,
-        'subject_id':subjectId,
-        'attachment':attachment,
-        'in_favourite':inFavourite,
-      },
-    );
-    emit(AddServiceSuccessState());
+      var res=await DioHelper.postData(
+        url: 'service.php',
+        data:
+        {
+          'student_id': studentId,
+          'service_name':serviceName,
+          'service_type':serviceType,
+          'subject_id':subjectId,
+          'attachment':attachment,
+          'in_favourite':inFavourite,
+        },
+      );
+      emit(AddServiceSuccessState());
       // model=ServiceModel.fromJson(value.data);
       // print(res.data);
     }catch(error)
@@ -681,10 +681,10 @@ class GraduationCubit extends Cubit<GraduationStates> {
       print(error.toString());
       emit(AddProductErrorState(error.toString()));
     }
-      // Map<String,dynamic>JsonData=json.decode(value.data);
-      // serviceModel=ServiceModel.fromJson(JsonData);
+    // Map<String,dynamic>JsonData=json.decode(value.data);
+    // serviceModel=ServiceModel.fromJson(JsonData);
 
-    }
+  }
 
   var postImagePicker = ImagePicker();
   File? postImageFile;
@@ -791,12 +791,13 @@ class GraduationCubit extends Cubit<GraduationStates> {
   }
 
   PostModel? postModel;
-  void addPost({
+  Future<void> addPost({
     required String student_id,
     required String text,
     required String time,
     required int likes,
     String? post_image,
+    String? firebase_id,
   })async
   {
     emit(CreatePostLoadingStates());
@@ -808,9 +809,11 @@ class GraduationCubit extends Cubit<GraduationStates> {
           'likes':likes,
           'time':time,
           'post_image':post_image,
+          'firebase_id':firebase_id
         }
     ).then((value){
       print(value.data);
+      postModel=PostModel.fromJson(jsonDecode(value.data));
       emit(CreatePostSuccessStates(postModel!));
 
     }).catchError((error){

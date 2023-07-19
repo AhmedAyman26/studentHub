@@ -6,6 +6,7 @@ class PostModel {
   String? time;
   String? image;
   String? fullname;
+  String? firebase_id;
 
   PostModel(
       {
@@ -15,7 +16,8 @@ class PostModel {
         this.likes,
         this.time,
         this.fullname,
-        this.image
+        this.image,
+        this.firebase_id
       });
 
   PostModel.fromJson(Map<String, dynamic> json) {
@@ -26,6 +28,7 @@ class PostModel {
     time = json['time'];
     fullname = json['fullname'];
     image = json['image'];
+    firebase_id=json['firebase_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +40,7 @@ class PostModel {
     data['time'] = this.time;
     data['image'] = this.image;
     data['fullname'] = this.fullname;
+    data['firebase_id']=this.firebase_id;
     return data;
   }
 }

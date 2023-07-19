@@ -22,7 +22,8 @@ class Products {
     required this.productImage,
     required this.productDesc,
     required this.price,
-    required this.firebase_id
+    required this.firebase_id,
+    required this.image
   });
   late final String fullname;
   late final String productName;
@@ -30,6 +31,7 @@ class Products {
   late final String productDesc;
   late final String price;
   late final firebase_id;
+  late final image;
 
   Products.fromJson(Map<String, dynamic> json){
     fullname = json['fullname'];
@@ -38,6 +40,7 @@ class Products {
     productDesc = json['product_desc'];
     price = json['price'];
     firebase_id=json['firebase_id'];
+    image=json['image'];
   }
 
 }

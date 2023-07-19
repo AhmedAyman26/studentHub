@@ -41,9 +41,9 @@
   "services": "الخدمات",
   "products": "الادوات",
   "my_account":"حسابي",
-  "my_products":"",
+  "my_products":"الادوات",
   "my_services": "خدماتي",
-  "favourits":"الادوات",
+  "favourits":"المفضلة",
   "search":"البحث",
 
   "devices":"الاجهزة",

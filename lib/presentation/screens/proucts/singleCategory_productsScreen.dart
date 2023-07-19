@@ -213,7 +213,7 @@ var _searchController = TextEditingController();
                                 padding: const EdgeInsets.all(5.0),
                                 child: CircleAvatar(
                                   radius: 20,
-                                  backgroundImage: AssetImage("assets/images/botswana (1).png"),
+                                  backgroundImage: NetworkImage("${state.getProductModel.products[index].image}"),
                                   backgroundColor: Colors.white,
                                 ),
                               ),

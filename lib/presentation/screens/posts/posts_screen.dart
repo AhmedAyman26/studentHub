@@ -10,10 +10,19 @@ import 'package:graduation/presentation/widgets/search_widget.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/widgets.dart';
 
-class PostsScreen extends StatelessWidget {
+class PostsScreen extends StatefulWidget {
   const PostsScreen({Key? key}) : super(key: key);
 
   @override
+  State<PostsScreen> createState() => _PostsScreenState();
+}
+
+class _PostsScreenState extends State<PostsScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    // GraduationCubit.get(context).getPost();
+  }
   Widget build(BuildContext context) {
     return BlocConsumer<GraduationCubit,GraduationStates>(
       listener: (context,state){},

@@ -141,7 +141,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         children: [
                           Center(
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 50.h),
+                              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width/7),
                               child: InkWell(
                                 onTap: () {
                                   RegisterCubit.get(context)
