@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,19 +6,19 @@ import '../../../logic/cubit/cubit.dart';
 import '../../../logic/cubit/states.dart';
 import '../../../shared/appBar_class.dart';
 
-class productDetails_screen extends StatefulWidget {
-  //productDetails_screen(int index, String s);
+class ProductDetailsPage extends StatefulWidget {
+  //ProductDetailsPage(int index, String s);
 
   final String name;
   final int Index;
-  productDetails_screen(this.Index,this.name);
+  const ProductDetailsPage(this.Index,this.name, {super.key});
 
   @override
-  State<productDetails_screen> createState() => _productDetails_screenState();
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
 }
 
-class _productDetails_screenState extends State<productDetails_screen> {
-  //const productDetails_screen({Key? key}) : super(key: key);
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
+  //const ProductDetailsPage({Key? key}) : super(key: key);
   @override
   void initState() {
     // TODO: implement initState

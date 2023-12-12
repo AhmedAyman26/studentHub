@@ -64,13 +64,13 @@ class AddProductScreen extends StatelessWidget {
                     }else
                         {
                       await GraduationCubit.get(context).addProduct(
-                        student_id: CacheHelper.getData(key: 'sId'),
-                          product_name: productNameController.text,
-                          product_image:'${GraduationCubit.get(context).link}',
+                        studentId: CacheHelper.getData(key: 'sId'),
+                          productName: productNameController.text,
+                          productImage:'${GraduationCubit.get(context).link}',
                         //  category_id:1,
                           price:productPriceController.text!=null?productNameController.text:'free',
-                          product_desc: productDescriptionController.text,
-                        firebase_id: CacheHelper.getData(key: 'uId')
+                          productDesc: productDescriptionController.text,
+                        firebaseId: CacheHelper.getData(key: 'uId')
                           );
                       //Navigator.pop(context);
                     }

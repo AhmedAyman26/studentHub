@@ -8,11 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/bloc_observer.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/features/posts/di/posts_di.dart';
 import 'package:graduation/logic/Language%20Cubit/language_cubit.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/home.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
-import 'package:graduation/presentation/screens/posts/posts_screen.dart';
 import 'package:graduation/presentation/screens/register/register.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
@@ -25,7 +25,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 bool isLogin=false;
 void main()async {
+
   WidgetsFlutterBinding.ensureInitialized();
+  await init();
   await Firebase.initializeApp();
   await DioHelper.init();
   Bloc.observer=MyBlocObserver();
@@ -35,7 +37,6 @@ void main()async {
   Widget widget;
   var onBoarding=CacheHelper.getData(key: 'onBoarding');
   var id=CacheHelper.getData(key: 'uId');
-  print(onBoarding);
 
   if(onBoarding !=null)
   {
@@ -72,9 +73,9 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => GraduationCubit()..getUserData()..getPost()..getSubj(1),
-          ),
+          // BlocProvider(
+          //   create: (context) => GraduationCubit()..getUserData()..getSubj(1),
+          // ),
           BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()..getSavedLanguage(),
           ),

@@ -2,24 +2,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:graduation/presentation/screens/proucts/singleCategory_productsScreen.dart';
 import 'package:graduation/shared/constants.dart';
-class productCard_widget extends StatelessWidget {
-  Color green=Color.fromRGBO(103, 139, 133, 1.0);
-  Color darkGreen=Color.fromRGBO(70, 121, 112, 1.0);
+class ProductCardWidget extends StatelessWidget {
+  Color green=const Color.fromRGBO(103, 139, 133, 1.0);
+  Color darkGreen=const Color.fromRGBO(70, 121, 112, 1.0);
   String image;
   final String name;
   final String name2;
-  productCard_widget(this.image,this.name,this.name2);
-  static const routeName="productCard_widget";
+  ProductCardWidget(this.image,this.name,this.name2, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: ()
         {
-          navigateTo(context, singleCategory_productsScreen(name.toString(),name2.toString()));
+          navigateTo(context, SingleCategoryProductPage(name.toString(),name2.toString()));
         },
         child: Container(
-          margin: EdgeInsets.all(2),
+          margin: const EdgeInsets.all(2),
           height: MediaQuery.of(context).size.height/6.5,
           child:  Card(
             shape: RoundedRectangleBorder(
@@ -35,11 +34,11 @@ class productCard_widget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(20.0),
                   ),
                   child: Image.asset(
-                      '$image',
+                      image,
                       height: MediaQuery.of(context).size.height/6.5,
                       width: MediaQuery.of(context).size.width/2.3,
                       fit:BoxFit.fill
@@ -48,7 +47,7 @@ class productCard_widget extends StatelessWidget {
                 ),
                 Container (alignment: Alignment.center,
                     width:MediaQuery.of(context).size.width/2.3 ,
-                    child: Text("$name",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:darkGreen),)),
+                    child: Text(name,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color:darkGreen),)),
 
               ],
             ),

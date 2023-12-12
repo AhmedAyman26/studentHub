@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/features/posts/presentation/pages/posts_page/posts_screen.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/chats/home_chat.dart';
-import 'package:graduation/presentation/screens/posts/posts_screen.dart';
 import 'package:graduation/presentation/screens/proucts/product_categories.dart';
 import 'package:graduation/presentation/screens/services/Single_categoty_service_screen.dart';
 import 'package:graduation/presentation/screens/services/services_Screen.dart';
@@ -34,7 +34,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
     ];
     List<Widget> tabsContent = [
-      PostsScreen(),
+      PostPage(),
       service_screen(),
       product_categories_screen(),
     ];

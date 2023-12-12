@@ -6,7 +6,6 @@ import '../../widgets/productCard_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class product_categories_screen extends StatelessWidget {
-  static const routeName = "product_screen";
   Color green = Color.fromRGBO(103, 139, 133, 1.0);
   Color darkGreen = Color.fromRGBO(70, 121, 112, 1.0);
 
@@ -48,7 +47,7 @@ class product_categories_screen extends StatelessWidget {
             child: ListView.builder(
               itemCount: name.length,
               itemBuilder: (context, index) {
-                return productCard_widget(image[index].toString(), name[index].toString(),name2[index].toString());
+                return ProductCardWidget(image[index].toString(), name[index].toString(),name2[index].toString());
               },
             ),
           ),

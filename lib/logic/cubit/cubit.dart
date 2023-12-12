@@ -9,16 +9,13 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/data/models/ServiceModel.dart';
-import 'package:graduation/data/models/Subjects_model.dart';
 import 'package:graduation/data/models/addProduct_model.dart';
 import 'package:graduation/data/models/getProduct_model.dart';
 import 'package:graduation/data/models/message_model.dart';
-import 'package:graduation/data/models/post_model.dart';
 import 'package:graduation/data/models/subject_model.dart';
 import 'package:graduation/data/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/states.dart';
-import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -29,7 +26,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
   static GraduationCubit get(context) => BlocProvider.of(context);
 
   UserData? user;
-
   void getUserData() async {
     emit(GetUserDataLoadingState());
     await FirebaseFirestore.instance
@@ -50,33 +46,33 @@ class GraduationCubit extends Cubit<GraduationStates> {
     });
   }
   List<DropdownMenuItem> items = [
-    DropdownMenuItem(
-      child: Text('Devices'),
+    const DropdownMenuItem(
       value: 1,
+      child: Text('Devices'),
     ),
-    DropdownMenuItem(
-      child: Text('Books'),
+    const DropdownMenuItem(
       value: 2 ,
+      child: Text('Books'),
     ),
-    DropdownMenuItem(
-      child: Text('Electronic tools'),
+    const DropdownMenuItem(
       value: 3 ,
+      child: Text('Electronic tools'),
     ),
-    DropdownMenuItem(
-      child: Text('Engineering tools'),
+    const DropdownMenuItem(
       value: 4 ,
+      child: Text('Engineering tools'),
     ),
-    DropdownMenuItem(
-      child: Text('Medical tools'),
+    const DropdownMenuItem(
       value: 5 ,
+      child: Text('Medical tools'),
     ),
-    DropdownMenuItem(
-      child: Text('Chemical tools'),
+    const DropdownMenuItem(
       value: 6 ,
+      child: Text('Chemical tools'),
     ),
-    DropdownMenuItem(
-      child: Text('Others'),
+    const DropdownMenuItem(
       value: 7 ,
+      child: Text('Others'),
     ),
   ];
   List<DropdownMenuItem> Universityitems = [
@@ -148,12 +144,12 @@ class GraduationCubit extends Cubit<GraduationStates> {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Please Choose Image',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
@@ -180,8 +176,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(10),
-                  child: Row(
+                  padding: const EdgeInsets.all(10),
+                  child: const Row(
                     children: [
                       Icon(
                         Icons.photo_outlined,
@@ -221,8 +217,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(10),
-                  child: Row(
+                  padding: const EdgeInsets.all(10),
+                  child: const Row(
                     children: [
                       Icon(
                         Icons.camera_alt_outlined,
@@ -259,7 +255,7 @@ class GraduationCubit extends Cubit<GraduationStates> {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -272,7 +268,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
                     children: [
                       InkWell(
                         onTap: () async{
-                          // emit(AddImageLoadingState());
                           var picked  = await ImagePicker().pickImage(source: ImageSource.gallery);
                           if(picked != null){
                             serviceImageFile = File(picked.path);
@@ -283,15 +278,14 @@ class GraduationCubit extends Cubit<GraduationStates> {
                             print(serviceImageFile!.path);
                             emit(AddServiceImageSuccessState());
                           }else{
-                            print("===+++++++++++++++++++");
                             emit(AddServiceImageErrorState());
                           }
                         },
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children:const [
+                          padding: const EdgeInsets.all(10),
+                          child: const Row(
+                            children:[
                               Icon(
                                 Icons.photo_outlined,
                                 color: Colors.grey,
@@ -339,14 +333,13 @@ class GraduationCubit extends Cubit<GraduationStates> {
                             // );
                             // print(response.toString());
                           }else{
-                            print("result is null");
                           }
                         },
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children:const [
+                          padding: const EdgeInsets.all(10),
+                          child: const Row(
+                            children:[
                               Icon(
                                 Icons.file_present,
                                 color: Colors.grey,
@@ -373,9 +366,9 @@ class GraduationCubit extends Cubit<GraduationStates> {
                         },
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children:const [
+                          padding: const EdgeInsets.all(10),
+                          child: const Row(
+                            children:[
                               Icon(
                                 Icons.link,
                                 color: Colors.grey,
@@ -398,7 +391,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
                       ),
                       InkWell(
                         onTap: ()async{
-                          //emit(AddVideoLoadingState());
                           final video = await picker.getVideo(source: ImageSource.gallery);
                           _video = File(video!.path) ;
                           videoPlayerController = VideoPlayerController.file(_video!)..initialize().then((value) {
@@ -406,15 +398,14 @@ class GraduationCubit extends Cubit<GraduationStates> {
                             convertImageToBase64(_video!);
                             emit(AddVideoSuccessState());
                           }).catchError((error){
-                            print(error.toString());
                             emit(AddVideoErrorState(error.toString()));
                           });
                         },
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children:const [
+                          padding: const EdgeInsets.all(10),
+                          child: const Row(
+                            children:[
                               Icon(
                                 Icons.video_camera_back_outlined,
                                 color: Colors.grey,
@@ -444,19 +435,16 @@ class GraduationCubit extends Cubit<GraduationStates> {
                             var imageName = basename(picked.path);
                             serviceImageToAPI =await convertImageToBase64(serviceImageFile!);
                             //ConvertImage(imageFile!);
-
-                            print(serviceImageFile!.path);
                             emit(AddServiceImageSuccessState());
                           }else{
-                            print("===+++++++++++++++++++");
                             emit(AddServiceImageErrorState());
                           }
                         },
                         child: Container(
                           width: double.infinity,
-                          padding: EdgeInsets.all(10),
-                          child: Row(
-                            children:const [
+                          padding: const EdgeInsets.all(10),
+                          child: const Row(
+                            children:[
                               Icon(
                                 Icons.photo_outlined,
                                 color: Colors.grey,
@@ -506,27 +494,27 @@ class GraduationCubit extends Cubit<GraduationStates> {
 
   AddProductModel?addProductModel;
   Future<void> addProduct({
-    required String product_name,
+    required String productName,
     //required int category_id,
-    required String product_image,
+    required String productImage,
     required String price,
-    required String product_desc,
-    String? student_id,
-    required String? firebase_id,
+    required String productDesc,
+    String? studentId,
+    required String? firebaseId,
   }) async {
     emit(AddProductLoadingState());
 
     await DioHelper.postData(url: 'product.php',
         data:{
-          'student_id': student_id,
-          'product_name':product_name,
-          'product_image':product_image,
-          'product_desc':product_desc,
+          'student_id': studentId,
+          'product_name':productName,
+          'product_image':productImage,
+          'product_desc':productDesc,
           'category_id':selectedItem,
           //category_id,
           //GraduationCubit().changeSelectedItem(value).toString(),
           'price':price,
-          'firebase_id':firebase_id
+          'firebase_id':firebaseId
 
         }).then((value)
     {
@@ -552,10 +540,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
       print("....................................................................");
       print(value.data);
       getProductModel=GetProductModel.fromJson(jsonDecode(value.data));
-      emit(GetProductSuccessState(getProductModel!));
-      print(value) ;}
+      emit(GetProductSuccessState(getProductModel!));}
     ).catchError((error){
-      print(error.toString());
       emit(GetProductErrorState(error.toString()));
     });
   }
@@ -568,8 +554,9 @@ class GraduationCubit extends Cubit<GraduationStates> {
 
     FirebaseFirestore.instance.collection('users').get().then((value) {
       value.docs.forEach((element) {
-        if (element.id != FirebaseAuth.instance.currentUser!.uid)
+        if (element.id != FirebaseAuth.instance.currentUser!.uid) {
           users.add(UserData.fromJson(element.data()));
+        }
       });
 
       print('get users 222222222');
@@ -678,7 +665,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
       // print(res.data);
     }catch(error)
     {
-      print(error.toString());
       emit(AddProductErrorState(error.toString()));
     }
     // Map<String,dynamic>JsonData=json.decode(value.data);
@@ -693,12 +679,12 @@ class GraduationCubit extends Cubit<GraduationStates> {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Please Choose Image',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
@@ -715,7 +701,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
                         .child('posts/${Uri.file(file!.path).pathSegments.last}')
                         .putFile(postImageFile!).then((value)  {
                       value.ref.getDownloadURL().then((value) {
-                        print(value);
                         postImageLink=value;
                         // emit(SocialUploadProfileImageSuccessState());
                       });
@@ -725,8 +710,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(10),
-                  child: Row(
+                  padding: const EdgeInsets.all(10),
+                  child: const Row(
                     children: [
                       Icon(
                         Icons.photo_outlined,
@@ -755,7 +740,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
                         .child('posts/${Uri.file(postImageFile!.path).pathSegments.last}')
                         .putFile(postImageFile!).then((value)  {
                       value.ref.getDownloadURL().then((value) {
-                        print(value);
                         postImageLink=value;
                         // emit(SocialUploadProfileImageSuccessState());
                       });
@@ -766,8 +750,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
                 },
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.all(10),
-                  child: Row(
+                  padding: const EdgeInsets.all(10),
+                  child: const Row(
                     children: [
                       Icon(
                         Icons.camera_alt_outlined,
@@ -790,64 +774,10 @@ class GraduationCubit extends Cubit<GraduationStates> {
     );
   }
 
-  PostModel? postModel;
-  Future<void> addPost({
-    required String student_id,
-    required String text,
-    required String time,
-    required int likes,
-    String? post_image,
-    String? firebase_id,
-  })async
-  {
-    emit(CreatePostLoadingStates());
-    await DioHelper.postData(
-        url: 'post.php',
-        data: {
-          'student_id':student_id,
-          'text':text,
-          'likes':likes,
-          'time':time,
-          'post_image':post_image,
-          'firebase_id':firebase_id
-        }
-    ).then((value){
-      print(value.data);
-      postModel=PostModel.fromJson(jsonDecode(value.data));
-      emit(CreatePostSuccessStates(postModel!));
-
-    }).catchError((error){
-      print(error.toString());
-      emit(CreatePostErrorStates(error.toString()));
-    });
-  }
 
 
-  List<PostModel> posts =[];
-  void getPost()async{
-    emit(GetPostLoadingStates());
-    await DioHelper.getData(
-      url: 'getpost.php',
 
-    ).then((value)
-    {
-      final responseJson = jsonDecode(value.data) as Map<String ,dynamic >;
-      //print(value);
-      // print(value.data.runtimeType.toString()) ;
-      final posts = (responseJson["posts"] as List)
-          .map((e) => PostModel.fromJson(e as Map<String,dynamic>)).toList();
-      this.posts = posts ;
-      // posts.add(PostModel.fromJson(value.data));
-      //print(value.posts);
-      emit(GetPostSuccessStates());
 
-    }).catchError((error){
-      //throw error;
-      print(error.toString());
-      emit(GetPostErrorStates(error.toString()));
-    });
-
-  }
 
   List<DropdownMenuItem<Map<String,dynamic>>> subItems=[];
   SubjectModel? subModel;
@@ -856,7 +786,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
   {
     await DioHelper.getData(url: 'getsubj.php',query: {'faculty_id':1}).then((value)
     {
-      print(value);
       subModel=SubjectModel.fromJson(jsonDecode(value.data));
       subjects=subModel!.subjects!.map((e) => e.toJson()).toList();
       subItems = subjects.map<DropdownMenuItem<Map<String, dynamic>>>((subject) {
@@ -865,8 +794,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
           child: Text(subject['subject_name']),
         );
       }).toList();
-      print(subjects);
-
     });
   }
 

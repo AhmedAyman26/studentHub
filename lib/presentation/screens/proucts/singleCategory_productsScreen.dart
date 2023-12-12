@@ -12,16 +12,16 @@ import '../../../logic/cubit/cubit.dart';
 import '../../../shared/appBar_class.dart';
 import '../../../shared/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-class singleCategory_productsScreen extends StatefulWidget {
+class SingleCategoryProductPage extends StatefulWidget {
   final String name;
   final String name2;
-  singleCategory_productsScreen(this.name,this.name2);
+  const SingleCategoryProductPage(this.name,this.name2, {super.key});
 
   @override
-  State<singleCategory_productsScreen> createState() => _singleCategory_productsScreenState();
+  State<SingleCategoryProductPage> createState() => _SingleCategoryProductPageState();
 }
 
-class _singleCategory_productsScreenState extends State<singleCategory_productsScreen> {
+class _SingleCategoryProductPageState extends State<SingleCategoryProductPage> {
 
 @override
   void initState() {
@@ -187,7 +187,7 @@ var _searchController = TextEditingController();
                   return InkWell(
                     onTap:(){
                       //int indexp=index;
-                      navigateTo(context,productDetails_screen(index,"${widget.name}"));
+                      navigateTo(context,ProductDetailsPage(index,"${widget.name}"));
                     } ,
                     child: Container(
                       width: MediaQuery.of(context).size.width/2.2,

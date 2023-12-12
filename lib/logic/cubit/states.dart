@@ -78,27 +78,11 @@ class AddServiceErrorState extends GraduationStates{
   AddServiceErrorState(String string);
 }
 
-class CreatePostLoadingStates extends GraduationStates{}
 
-class CreatePostSuccessStates extends GraduationStates{
-  CreatePostSuccessStates(PostModel postModel);
-}
-
-class CreatePostErrorStates extends GraduationStates{
-  CreatePostErrorStates(error);
-}
 
 class PostImageSuccessStates extends GraduationStates{}
 
 class PostImageErrorStates extends GraduationStates{}
 
-class GetPostLoadingStates extends GraduationStates{}
 
-class GetPostSuccessStates extends GraduationStates{
-  //GetPostSuccessStates(PostModel postModel);
-}
-
-class GetPostErrorStates extends GraduationStates{
-  GetPostErrorStates(error);
-}
 
