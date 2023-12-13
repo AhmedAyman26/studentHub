@@ -5,7 +5,6 @@ import 'package:graduation/features/posts/presentation/pages/posts_page/posts_sc
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/chats/home_chat.dart';
 import 'package:graduation/presentation/screens/proucts/product_categories.dart';
-import 'package:graduation/presentation/screens/services/Single_categoty_service_screen.dart';
 import 'package:graduation/presentation/screens/services/services_Screen.dart';
 import 'package:graduation/presentation/screens/setting/settings_screen.dart';
 import 'package:graduation/shared/constants.dart';
@@ -14,12 +13,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {
   static const routeName = "3_tabs";
+
+  const HomeLayout({super.key});
+
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
-
   @override
   Widget build(BuildContext context) {
     List<Tab> tabs = [
@@ -34,11 +35,11 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
     ];
     List<Widget> tabsContent = [
-      PostPage(),
+      const PostPage(),
       service_screen(),
       product_categories_screen(),
     ];
-    var scaffoldKey=GlobalKey<ScaffoldState>();
+    var scaffoldKey = GlobalKey<ScaffoldState>();
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(
@@ -47,9 +48,8 @@ class _HomeLayoutState extends State<HomeLayout> {
           child: Column(
             children: [
               Stack(
-                children:
-                [
-                  Container(
+                children: [
+                  const SizedBox(
                     width: double.infinity,
                     child: Image(
                       width: double.infinity,
@@ -58,36 +58,36 @@ class _HomeLayoutState extends State<HomeLayout> {
                     ),
                   ),
                   Column(
-                    children:
-                    [
+                    children: [
                       Row(
-                        children:
-                        [
+                        children: [
                           InkWell(
                             child: Container(
                               width: 25.w,
                               height: 25.h,
-                              margin: EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
                               child: Image.asset(
                                 "assets/images/user (2).png",
                               ),
                             ),
-                            onTap: ()
-                            {
+                            onTap: () {
                               scaffoldKey.currentState!.openDrawer();
                             },
                           ),
-                          Spacer(),
+                          const Spacer(),
                           InkWell(
-                            onTap: ()
-                            {
+                            onTap: () {
                               GraduationCubit.get(context).getUsers();
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatHomeScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ChatHomeScreen()));
                             },
                             child: Container(
                               width: 25.w,
                               height: 25.h,
-                              margin: EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(10),
                               child: Image.asset(
                                 "assets/images/chat (2).png",
                               ),
@@ -99,12 +99,12 @@ class _HomeLayoutState extends State<HomeLayout> {
                         padding: EdgeInsets.all(3.h),
                         height: MediaQuery.of(context).size.height / 25,
                         decoration: BoxDecoration(
-                            color: Color.fromRGBO(103, 139, 133, 1.0),
+                            color: const Color.fromRGBO(103, 139, 133, 1.0),
                             borderRadius: BorderRadius.circular(20.0)),
                         child: TabBar(
                           isScrollable: true,
                           indicator: BoxDecoration(
-                            color: Color.fromRGBO(70, 121, 112, 1.0),
+                            color: const Color.fromRGBO(70, 121, 112, 1.0),
                             borderRadius: BorderRadius.circular(15.0.w),
                           ),
                           labelColor: Colors.white,
@@ -139,54 +139,66 @@ class _HomeLayoutState extends State<HomeLayout> {
                       bottomRight: Radius.circular(30.h),
                       bottomLeft: Radius.circular(30.h),
                     ),
-                    image: DecorationImage(fit: BoxFit.cover,
-                      image: NetworkImage('https://static2.hdwallpapers.net/wallpapers/2019/02/24/1178/thumb_glass-building-in-toronto.jpg',),
-                    )
-                ),
-                currentAccountPicture: CircleAvatar(
+                    image: const DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        'https://static2.hdwallpapers.net/wallpapers/2019/02/24/1178/thumb_glass-building-in-toronto.jpg',
+                      ),
+                    )),
+                currentAccountPicture: const CircleAvatar(
                   radius: 10,
                   child: Icon(Icons.person),
                 ),
                 accountName: Text(
-                    '${FirebaseAuth.instance.currentUser?.displayName??'default'}'),
+                    FirebaseAuth.instance.currentUser?.displayName ??
+                        'default'),
                 // '${GraduationCubit.get(context).user?.fullname??'ahmed'}',style: TextStyle(color: Colors.black),),
-                accountEmail: Text('${FirebaseAuth.instance.currentUser?.email??'default@gmail.com'}'),
-
+                accountEmail: Text(FirebaseAuth.instance.currentUser?.email ??
+                    'default@gmail.com'),
               ),
               ListTile(
-
-                leading: ImageIcon(
-                  AssetImage('assets/images/user.png'),color: Colors.black,),
-
-                title:  Text(AppLocalizations.of(context)!.my_account),
-
+                leading: const ImageIcon(
+                  AssetImage('assets/images/user.png'),
+                  color: Colors.black,
+                ),
+                title: Text(AppLocalizations.of(context)!.my_account),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const ImageIcon(
+                  AssetImage('assets/images/settings.png'),
+                  color: Colors.black,
+                ),
+                title: Text(AppLocalizations.of(context)!.settings),
                 onTap: () {
+                  navigateTo(context, const SettingsScreen());
                 },
               ),
               ListTile(
-                leading: ImageIcon(AssetImage('assets/images/settings.png'),color: Colors.black,),
-                title:  Text(AppLocalizations.of(context)!.settings),
-                onTap: (){
-                  navigateTo(context, SettingsScreen());
-                },
+                leading: const ImageIcon(
+                  AssetImage(
+                    'assets/images/product.png',
+                  ),
+                  color: Colors.black,
+                ),
+                title: Text(AppLocalizations.of(context)!.my_products),
+                onTap: () {},
               ),
               ListTile(
-                leading: ImageIcon(AssetImage('assets/images/product.png',),color: Colors.black,),
-                title:  Text(AppLocalizations.of(context)!.my_products),
-                onTap: () {
-                },
+                leading: const ImageIcon(
+                  AssetImage('assets/images/service.png'),
+                  color: Colors.black,
+                ),
+                title: Text(AppLocalizations.of(context)!.my_services),
+                onTap: () {},
               ),
               ListTile(
-                leading: ImageIcon(AssetImage('assets/images/service.png'),color: Colors.black,),
-                title:  Text(AppLocalizations.of(context)!.my_services),
-                onTap: () {
-                },
-              ),
-              ListTile(
-                leading: ImageIcon(AssetImage('assets/images/favoits.png'),color: Colors.black,),
-                title:  Text(AppLocalizations.of(context)!.favourits),
-                onTap: () {
-                },
+                leading: const ImageIcon(
+                  AssetImage('assets/images/favoits.png'),
+                  color: Colors.black,
+                ),
+                title: Text(AppLocalizations.of(context)!.favourits),
+                onTap: () {},
               ),
             ],
           ),

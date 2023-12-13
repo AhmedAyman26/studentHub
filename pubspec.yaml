@@ -64,6 +64,7 @@ dependencies:
   intl: any
   equatable:
   get_it:
+  shimmer:
 dev_dependencies:
   flutter_test:
     sdk: flutter

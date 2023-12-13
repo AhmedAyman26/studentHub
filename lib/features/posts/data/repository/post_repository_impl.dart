@@ -22,15 +22,10 @@ class PostRepositoryImpl extends PostRepository {
 
   @override
   Future<List<PostModel>> getPosts() async {
-    try {
       final request = await DioHelper.getData(url: 'getpost.php');
       final result = ApiPostModel
           .fromJson(jsonDecode(request.data))
           .posts;
       return result?.map((e) => e.map()).toList() ?? [];
-    }
-    catch (e) {
-      throw Exception(e.toString());
-    }
   }
 }
