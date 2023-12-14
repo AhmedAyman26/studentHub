@@ -21,6 +21,8 @@ class HomeLayout extends StatefulWidget {
 }
 
 class _HomeLayoutState extends State<HomeLayout> {
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     List<Tab> tabs = [
@@ -39,7 +41,6 @@ class _HomeLayoutState extends State<HomeLayout> {
       service_screen(),
       product_categories_screen(),
     ];
-    var scaffoldKey = GlobalKey<ScaffoldState>();
     return DefaultTabController(
       length: tabs.length,
       child: Scaffold(

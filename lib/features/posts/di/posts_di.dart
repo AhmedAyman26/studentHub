@@ -6,14 +6,14 @@ import 'package:graduation/features/posts/domain/usecases/get_posts_use_case.dar
 
 final injector = GetIt.instance;
 
-Future<void> init() async {
-
-  // usecases
-  injector.registerFactory(() => GetPostsUseCase(injector()));
-  injector.registerFactory(() => CreatePostUseCase(injector()));
-  // repository
-  injector.registerLazySingleton<PostRepository>(() => PostRepositoryImpl(
-  ));
-
-
+class PostsDi {
+  static Future<void> init() async {
+    // usecases
+    injector.registerFactory(() => GetPostsUseCase(injector()));
+    injector.registerFactory(() => CreatePostUseCase(injector()));
+    // repository
+    injector.registerLazySingleton<PostRepository>(() =>
+        PostRepositoryImpl(
+        ));
+  }
 }

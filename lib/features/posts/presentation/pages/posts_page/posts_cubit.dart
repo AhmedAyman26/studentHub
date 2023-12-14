@@ -16,7 +16,7 @@ class PostsCubit extends Cubit<PostStates>
      _loadInjector();
    }
 
-   void _loadInjector()
+  void _loadInjector()
    {
      _getPostsUseCase=injector();
      _createPostUseCase=injector();
@@ -34,7 +34,6 @@ class PostsCubit extends Cubit<PostStates>
        emit(state.copyWith(getPostState: RequestStatus.error,errorMessage: error.toString()));
      }
    }
-
    // PostModel? postModel;
    Future<void> addPost(CreatePostInput input)async
    {

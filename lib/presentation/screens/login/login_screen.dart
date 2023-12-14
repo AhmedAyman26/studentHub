@@ -2,11 +2,11 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/features/authentication/presentation/pages/register_page/register_page.dart';
 import 'package:graduation/logic/login_cubit/cubit.dart';
 import 'package:graduation/logic/login_cubit/states.dart';
 import 'package:graduation/presentation/screens/login/forget_password_screen.dart';
 import 'package:graduation/presentation/screens/home.dart';
-import 'package:graduation/presentation/screens/register/register.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
@@ -190,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               TextButton(
                                   onPressed: () {
                                     navigateAndFinish(
-                                        context, RegisterScreen());
+                                        context, const RegisterPage());
                                   },
                                   child: Text(AppLocalizations.of(context)!.not_member,
                                       style: TextStyle(color: Colors.black54))),
