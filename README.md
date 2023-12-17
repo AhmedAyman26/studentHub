@@ -1,2 +1,15 @@
 # **Symbiosis and Collaboration**
-## FCI Graduation Project 2023
+## project summary
+A mobile application for university students in Egypt to help each other by offering free unused studying tools and books etc... that other students can't afford, accessing academic content by uploading summarization, tutorials, and documents related to specific courses, and finally, our app helps students to communicate with each other and share their scientific opinions in a social community appropriate for this.
+
+## Technical details
+
+Architecture used: clean architecture
+state management : cubit
+◾Important Package used:
+ ▪️Firebase Storage
+ ▪️Cloud_Firestore
+ ▪️SharedPrefrences
+ ▪️Dio
+ ▪️ScreenUtil
+
