@@ -96,7 +96,7 @@ class _PostPageBodyState extends State<PostPageBody> with AutomaticKeepAliveClie
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // navigateTo(context, const CreatePostPage());
+          navigateTo(context, const CreatePostPage());
         },
         child: const Icon(Icons.add),
       ),

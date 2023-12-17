@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
+import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import '../login/login_screen.dart';
@@ -21,7 +22,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     {
       if(value)
       {
-        navigateAndFinish(context, LoginScreen());
+        navigateAndFinish(context, LoginPage());
       }
     });
   }

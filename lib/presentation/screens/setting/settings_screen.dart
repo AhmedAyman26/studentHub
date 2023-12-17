@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
 import 'package:graduation/shared/constants.dart';
@@ -17,8 +18,6 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  String? language_status;
-
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -71,9 +70,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ))
                 ],
             ),
-            // ListTile(
-            //   leading: ImageIcon(AssetImage('')),
-            // ),
             Padding(
               padding: EdgeInsets.only(right: 16,left: 16),
               child: ExpansionTile(
@@ -82,12 +78,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 iconColor:Colors.white,
                 title: Row(
                   children: [
-                    //Image.asset("assets/images/market.png",
-                    // width: 21.3,
-                    // height: 24,),
                     Icon(Icons.language,color: Colors.black,),
                     Text("   ${AppLocalizations.of(context)!.language}"),
-
                   ],
                 ),
                 childrenPadding: EdgeInsets.all(5),
@@ -123,15 +115,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         );
                       }),
                 ],
-
-
               ),
             ),
             InkWell(
               onTap: ()
               {
                 CacheHelper.removeData(key: 'uId');
-                navigateAndFinish(context, LoginScreen());
+                navigateAndFinish(context, LoginPage());
               },
               child: Padding(
                 padding: EdgeInsets.only(left: 30),
@@ -145,9 +135,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-
-
-
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:graduation/data/models/ServiceModel.dart';
-import 'package:graduation/data/models/post_model.dart';
 
 import '../../data/models/addProduct_model.dart';
 import '../../data/models/getProduct_model.dart';

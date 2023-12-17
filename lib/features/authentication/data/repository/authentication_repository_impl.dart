@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/features/authentication/domain/models/inputs/login_input.dart';
 import 'package:graduation/features/authentication/domain/repository/authentication_repository.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/register_input.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
@@ -67,6 +68,19 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository
       print( List<String>.from(data.map((fac) => fac['university_name'].toString()).toList()));
           return List<String>.from(data.map((fac) => fac['university_name'].toString()).toList());
     }catch(error)
+    {
+      throw Exception(error.toString());
+    }
+  }
+
+  @override
+  Future<void> login(LoginInput input) async{
+    try {
+      var res=await DioHelper.postData(
+          url: 'login.php', data: LoginInput.toJson(input));
+      return res.data['message'];
+    }
+    catch(error)
     {
       throw Exception(error.toString());
     }

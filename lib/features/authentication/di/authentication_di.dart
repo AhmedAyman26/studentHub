@@ -3,6 +3,7 @@ import 'package:graduation/features/authentication/data/repository/authenticatio
 import 'package:graduation/features/authentication/domain/repository/authentication_repository.dart';
 import 'package:graduation/features/authentication/domain/use_cases/get_faculties_use_case.dart';
 import 'package:graduation/features/authentication/domain/use_cases/get_universities_use_case.dart';
+import 'package:graduation/features/authentication/domain/use_cases/login_use_case.dart';
 import 'package:graduation/features/authentication/domain/use_cases/register_db_use_case.dart';
 import 'package:graduation/features/authentication/domain/use_cases/register_fb_use_case.dart';
 
@@ -14,6 +15,7 @@ class AuthenticationDi {
     injector.registerFactory(() => RegisterFbUseCase(injector()));
     injector.registerFactory(() => GetUniversitiesUseCase(injector()));
     injector.registerFactory(() => GetFacultiesUseCase(injector()));
+    injector.registerFactory(() => LoginUseCase(injector()));
     // repository
     injector.registerLazySingleton<AuthenticationRepository>(() =>
         AuthenticationRepositoryImpl(

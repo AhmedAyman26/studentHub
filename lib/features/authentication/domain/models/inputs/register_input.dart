@@ -16,7 +16,7 @@ class RegisterInput
       {
         "fullname":input.fullName,
         "email":input.email,
-        !isFirebase?"password":input.password:null,
+        if (!isFirebase) "password": input.password,
         "university_id":input.universityId,
         "faculty_id":input.facultyId,
         "image":input.image

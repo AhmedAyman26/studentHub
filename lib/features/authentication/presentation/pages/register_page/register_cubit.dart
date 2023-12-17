@@ -29,12 +29,21 @@ class RegisterCubit extends Cubit<RegisterState> {
   static RegisterCubit get(context) => BlocProvider.of(context);
 
   void registerUser(RegisterInput input) async {
-    await _registerDbUseCase.call(input);
-    await _registerFbUseCase.call(input);
+    emit(state.copyWith(registerState: RequestStatus.loading));
+    try {
+      await _registerDbUseCase.call(input);
+      await _registerFbUseCase.call(input);
+      emit(state.copyWith(registerState: RequestStatus.success));
+    }
+    catch(e)
+    {
+      emit(state.copyWith(registerState: RequestStatus.error,errorMessage: e.toString()));
+    }
   }
 
   void getUniversities() async {
     try {
+      emit(state.copyWith(getUniversitiesState: RequestStatus.loading));
       final universities = await _getUniversitiesUseCase.call();
       emit(state.copyWith(
           universities: universities,
@@ -48,6 +57,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   void getFaculties() async {
     try {
+      emit(state.copyWith(getFacultiesState: RequestStatus.loading));
       final faculties = await _getFacultiesUseCase.call();
       emit(state.copyWith(
           getFacultiesState: RequestStatus.success, faculties: faculties));
