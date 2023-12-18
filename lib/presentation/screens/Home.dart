@@ -78,12 +78,12 @@ class _HomeLayoutState extends State<HomeLayout> {
                           const Spacer(),
                           InkWell(
                             onTap: () {
-                              GraduationCubit.get(context).getUsers();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ChatHomeScreen()));
+                              // GraduationCubit.get(context).getUsers();
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             const ChatHomeScreen()));
                             },
                             child: Container(
                               width: 25.w,

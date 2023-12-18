@@ -2,7 +2,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/data/models/user_model.dart';
+import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/logic/cubit/states.dart';
 import 'package:graduation/presentation/screens/chats/chat_screen.dart';
 import 'package:graduation/presentation/screens/chats/home_chat.dart';
@@ -263,7 +263,7 @@ var _searchController = TextEditingController();
                                   child: InkWell(
                                     onTap: ()
                                     {
-                                      GraduationCubit.get(context).sendMessage(receiverId: state.getProductModel.products[index].firebase_id.toString(), dateTime: DateTime.now().toString(), text: 'Hello,i see you have ${state.getProductModel.products[index].productName} i need it..so can you help me?',image: state.getProductModel.products[index].productImage);
+                                      // GraduationCubit.get(context).sendMessage(receiverId: state.getProductModel.products[index].firebase_id.toString(), dateTime: DateTime.now().toString(), text: 'Hello,i see you have ${state.getProductModel.products[index].productName} i need it..so can you help me?',image: state.getProductModel.products[index].productImage);
                                     },
                                     child: FittedBox(
                                       child: Row(

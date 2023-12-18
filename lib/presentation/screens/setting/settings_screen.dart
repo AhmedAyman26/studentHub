@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
-import 'package:graduation/logic/cubit/cubit.dart';
-import 'package:graduation/presentation/screens/login/login_screen.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/styles/colors.dart';
@@ -27,7 +25,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         leading: Padding(
           padding:  EdgeInsets.all(14.0.h),
           child: IconButton(
-            icon: Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios),
             color: Colors.black,
             onPressed: ()
             {
@@ -49,21 +47,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                  CircleAvatar(
                   backgroundColor: kPrimaryColor,
                   radius: 25.w,
-                  child: Image(image: AssetImage('assets/images/user.png'))),
+                  child: const Image(image: AssetImage('assets/images/user.png'))),
                 SizedBox(
                   width: 15.w,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${GraduationCubit.get(context).user!.fullname}',style: TextStyle(fontSize: 16.sp),),
+                    // Text('${GraduationCubit.get(context).user!.fullname}',style: TextStyle(fontSize: 16.sp),),
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text('${GraduationCubit.get(context).user!.facultyName}',style: Theme.of(context).textTheme.bodySmall,)
+                    // Text('${GraduationCubit.get(context).user!.facultyName}',style: Theme.of(context).textTheme.bodySmall,)
                   ],
                 ),
-                Spacer(),
+                const Spacer(),
                 IconButton(onPressed: (){}, icon: Icon(
                     Icons.arrow_forward_ios_outlined,
                    color: Colors.grey[600],
@@ -71,18 +69,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ],
             ),
             Padding(
-              padding: EdgeInsets.only(right: 16,left: 16),
+              padding: const EdgeInsets.only(right: 16,left: 16),
               child: ExpansionTile(
                 collapsedIconColor: Colors.black,
-                trailing:Icon(Icons.arrow_drop_down_outlined),
+                trailing:const Icon(Icons.arrow_drop_down_outlined),
                 iconColor:Colors.white,
                 title: Row(
                   children: [
-                    Icon(Icons.language,color: Colors.black,),
+                    const Icon(Icons.language,color: Colors.black,),
                     Text("   ${AppLocalizations.of(context)!.language}"),
                   ],
                 ),
-                childrenPadding: EdgeInsets.all(5),
+                childrenPadding: const EdgeInsets.all(5),
                 children: [
                   BlocBuilder<RadioListTileCubit, int>(
                       builder: (context, state) {
@@ -92,23 +90,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             RadioListTile(
                               controlAffinity: ListTileControlAffinity.trailing,
                               title: Text(AppLocalizations.of(context)!.arabic),
-                              activeColor: Color.fromRGBO(70, 121, 112, 1.0),
+                              activeColor: const Color.fromRGBO(70, 121, 112, 1.0),
                               value: 1,
                               groupValue: state,
                               onChanged: (value){
                                 context.read<RadioListTileCubit>().selectItem(value!);
-                                context.read<LanguageCubit>()..changeLanguage('ar');
+                                context.read<LanguageCubit>().changeLanguage('ar');
                               },
                             ),
                             RadioListTile(
                               controlAffinity: ListTileControlAffinity.trailing,
                               title: Text(AppLocalizations.of(context)!.english),
                               value:0,
-                              activeColor: Color.fromRGBO(70, 121, 112, 1.0),
+                              activeColor: const Color.fromRGBO(70, 121, 112, 1.0),
                               groupValue: state,
                               onChanged: (value){
                                 context.read<RadioListTileCubit>().selectItem(value!);
-                                context.read<LanguageCubit>()..changeLanguage('en');
+                                context.read<LanguageCubit>().changeLanguage('en');
                               },
                             ),
                           ],
@@ -121,10 +119,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
               onTap: ()
               {
                 CacheHelper.removeData(key: 'uId');
-                navigateAndFinish(context, LoginPage());
+                navigateAndFinish(context, const LoginPage());
               },
               child: Padding(
-                padding: EdgeInsets.only(left: 30),
+                padding: const EdgeInsets.only(left: 30),
                 child: Row(
                   children:
                   [

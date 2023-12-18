@@ -9,7 +9,10 @@ import 'package:graduation/features/authentication/presentation/pages/login_page
 import 'package:graduation/logic/Language%20Cubit/language_cubit.dart';
 import 'package:graduation/presentation/screens/home.dart';
 import 'package:graduation/presentation/screens/login/login_screen.dart';
+import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/shared/cubits/user_cubit/user_state.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
+import 'package:graduation/shared/utils.dart';
 import 'logic/Language Cubit/language_states.dart';
 import 'package:graduation/presentation/screens/onboarding/on_boarding_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -64,9 +67,9 @@ class MyApp extends StatelessWidget {
 
     return MultiBlocProvider(
         providers: [
-          // BlocProvider(
-          //   create: (context) => GraduationCubit()..getUserData()..getSubj(1),
-          // ),
+          BlocProvider(
+            create: (context) => UserCubit()..getCachedUserData(),
+          ),
           BlocProvider<LanguageCubit>(
             create: (BuildContext context) => LanguageCubit()..getSavedLanguage(),
           ),
@@ -96,7 +99,22 @@ class MyApp extends StatelessWidget {
                       primarySwatch: Colors.teal
                   ),
                   debugShowCheckedModeBanner: false,
-                  home:startWidget,
+                  home:BlocBuilder<UserCubit,UserState>(builder: (context, state)
+                  {
+                    if(state.userDataState==RequestStatus.loading)
+                    {
+                      return Scaffold(body: Center(child: CircularProgressIndicator(),),);
+                    }else{
+                      if(state.userData!=null)
+                      {
+                        return HomeLayout();
+                      }
+                      else
+                      {
+                        return LoginPage();
+                      }
+                    }
+                  }),
                 );
               },
            );

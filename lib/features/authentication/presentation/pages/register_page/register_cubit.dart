@@ -31,12 +31,15 @@ class RegisterCubit extends Cubit<RegisterState> {
   void registerUser(RegisterInput input) async {
     emit(state.copyWith(registerState: RequestStatus.loading));
     try {
-      await _registerDbUseCase.call(input);
-      await _registerFbUseCase.call(input);
-      emit(state.copyWith(registerState: RequestStatus.success));
+      final userData=await _registerDbUseCase.call(input);
+      String firebaseId=await _registerFbUseCase.call(input);
+      print("firebase$firebaseId");
+      final updatedUserData=userData.modify(firebaseId: firebaseId);
+      emit(state.copyWith(registerState: RequestStatus.success,userData: updatedUserData));
     }
     catch(e)
     {
+      print(e.toString());
       emit(state.copyWith(registerState: RequestStatus.error,errorMessage: e.toString()));
     }
   }

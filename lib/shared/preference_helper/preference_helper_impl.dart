@@ -1,18 +1,32 @@
-import 'package:graduation/data/models/user_model.dart';
+import 'dart:convert';
+import 'package:graduation/features/authentication/domain/models/user_model.dart';
+import 'package:graduation/shared/local/cache_helper.dart';
 import 'package:graduation/shared/preference_helper/preference_helper.dart';
 
 class PreferenceHelperImpl extends PreferenceHelper
 {
   @override
-  Future<void> cacheUserData(UserModel userModel) {
-    // TODO: implement cacheUserData
-    throw UnimplementedError();
+  Future<void> cacheUserData(UserData userData) async {
+    CacheHelper.saveData(key: 'userData', value: jsonEncode(userData.toJson()));
   }
 
   @override
-  Future<UserModel> getCachedUserData() {
-    // TODO: implement getCachedUserData
-    throw UnimplementedError();
+  Future<UserData?> getCachedUserData()async {
+   final result=CacheHelper.getData(key: 'userData');
+   if(result==null)
+   {
+     return null;
+   }
+   Map<String,dynamic> decoded= jsonDecode(result);
+   return UserData(
+     studentId: decoded['studentId'],
+     fullName: decoded['fullName'],
+     email: decoded['email'],
+     facultyName: decoded['fullName'],
+     universityName: decoded['universityName'],
+     image: decoded['image'],
+     firebaseId: decoded['firebaseId']
+   );
   }
 
   @override

@@ -1,8 +1,10 @@
 import 'package:equatable/equatable.dart';
+import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/shared/utils.dart';
 
 class RegisterState extends Equatable {
   final RequestStatus registerState;
+  final UserData userData;
   final String errorMessage;
   final RequestStatus getUniversitiesState;
   final List<String> universities;
@@ -11,6 +13,7 @@ class RegisterState extends Equatable {
 
   const RegisterState(
       {this.registerState = RequestStatus.initial,
+        this.userData=const UserData.initial(),
       this.errorMessage = '',
       this.getUniversitiesState = RequestStatus.initial,
       this.universities = const [],
@@ -19,6 +22,7 @@ class RegisterState extends Equatable {
 
   RegisterState copyWith({
     RequestStatus? registerState,
+    UserData ? userData,
     String? errorMessage,
     RequestStatus? getUniversitiesState,
     List<String>? universities,
@@ -28,6 +32,7 @@ class RegisterState extends Equatable {
     return RegisterState(
       errorMessage: errorMessage ?? this.errorMessage,
       registerState: registerState ?? this.registerState,
+      userData: userData??this.userData,
       getFacultiesState: getFacultiesState ?? this.getFacultiesState,
       getUniversitiesState: getUniversitiesState ?? this.getUniversitiesState,
       faculties: faculties ?? this.faculties,
@@ -36,5 +41,5 @@ class RegisterState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [registerState,errorMessage,getUniversitiesState,universities,getFacultiesState,faculties];
+  List<Object?> get props => [registerState,userData,errorMessage,getUniversitiesState,universities,getFacultiesState,faculties];
 }

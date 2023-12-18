@@ -8,9 +8,9 @@ import 'package:graduation/features/authentication/presentation/pages/register_p
 import 'package:graduation/features/authentication/presentation/pages/register_page/widgets/register_header.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/widgets/registeration_form.dart';
 import 'package:graduation/presentation/screens/home.dart';
-import 'package:graduation/presentation/screens/login/login_screen.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/shared/utils.dart';
 import 'package:graduation/shared/widgets.dart';
 
@@ -45,15 +45,12 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) async {
         if (state.registerState == RequestStatus.success) {
+          UserCubit.get(context).cacheUser(state.userData);
+          print("%%%%%%%%%%%%%%%%%%%%%%%%${state.userData}");
           navigateAndFinish(
             context,
             const HomeLayout(),

@@ -3,37 +3,43 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/features/authentication/data/mapper/api_user_data_mapper.dart';
+import 'package:graduation/features/authentication/data/models/api_user_model.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/login_input.dart';
 import 'package:graduation/features/authentication/domain/repository/authentication_repository.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/register_input.dart';
-import 'package:graduation/shared/local/cache_helper.dart';
 
 class AuthenticationRepositoryImpl extends AuthenticationRepository
 {
   @override
-  Future<void> registerDb(RegisterInput input) async{
-    try {
-      await DioHelper.postData(
+  Future<UserData> registerDb(RegisterInput input) async{
+      final request=await DioHelper.postData(
           url: 'register.php', data: RegisterInput.toJson(isFirebase: false,input: input));
-    }
-    catch(error)
-    {
-      throw Exception(error.toString());
-    }
+      if(request.statusCode!=200) {
+        throw Exception();
+      }else
+      {
+        final result=ApiUserModel.fromJson(jsonDecode(request.data)).data;
+        return result!.map();
+      }
   }
 
   @override
-  Future<void> registerFb(RegisterInput input)async {
-    FirebaseAuth.instance.createUserWithEmailAndPassword(email: input.email, password: input.password).then((value)async
+  Future<String> registerFb(RegisterInput input)async {
+    String? firebaseId;
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(email: input.email, password: input.password).then((value)async
     {
+      firebaseId=value.user?.uid;
       await FirebaseAuth.instance.currentUser!.updateDisplayName(input.fullName);
-      CacheHelper.saveData(key: 'uId', value: value.user!.uid);
+      // CacheHelper.saveData(key: 'uId', value: value.user!.uid);
       await _createUserFb(
         input: input,
       id : value.user!.uid,
       );
     });
+    return firebaseId??'';
   }
 
   _createUserFb({required String id,required RegisterInput input})async {
@@ -47,43 +53,38 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository
 
   @override
   Future<List<String>> getFaculties() async{
-    try
-    {
       Response res = await DioHelper.getData(url: 'getfac.php');
+      if (res.statusCode != 200) {
+        throw Exception(res.statusMessage);
+      }
       final data = jsonDecode(res.data)['faculty'];
-      print(List<String>.from(data.map((fac) => fac['faculty_name'].toString()).toList()));
-      return List<String>.from(data.map((fac) => fac['faculty_name'].toString()).toList());
-    }catch(error)
-    {
-      throw Exception(error.toString());
+      return List<String>.from(
+          data.map((fac) => fac['faculty_name'].toString()).toList());
     }
-  }
 
   @override
   Future<List<String>> getUniversities() async{
-    try
-    {
       Response res = await DioHelper.getData(url: 'getuni.php');
+      if(res.statusCode!=200)
+      {
+        throw Exception(res.statusMessage);
+      }
       final data = jsonDecode(res.data)['university'];
-      print( List<String>.from(data.map((fac) => fac['university_name'].toString()).toList()));
           return List<String>.from(data.map((fac) => fac['university_name'].toString()).toList());
-    }catch(error)
-    {
-      throw Exception(error.toString());
-    }
   }
 
   @override
-  Future<void> login(LoginInput input) async{
-    try {
-      var res=await DioHelper.postData(
+  Future<UserData> login(LoginInput input) async{
+      final request=await DioHelper.postData(
           url: 'login.php', data: LoginInput.toJson(input));
-      return res.data['message'];
-    }
-    catch(error)
-    {
-      throw Exception(error.toString());
-    }
+      if(request.statusCode!=200)
+      {
+        throw Exception();
+      }else
+      {
+        final result=ApiUserModel.fromJson(jsonDecode(request.data)).data;
+        return result!.map();
+      }
   }
 }
 

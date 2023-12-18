@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +5,8 @@ import 'package:graduation/features/posts/domain/models/create_post_input.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/shared/cubits/user_cubit/user_state.dart';
 import 'package:graduation/shared/utils.dart';
 import 'package:graduation/shared/widgets.dart';
 
@@ -16,7 +17,7 @@ class CreatePostPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PostsCubit(),
-      child: CreatePostPageBody(),
+      child: const CreatePostPageBody(),
     );
   }
 }
@@ -40,6 +41,8 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
   }
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<UserCubit, UserState>(
+  builder: (context, userState) {
     return BlocConsumer<PostsCubit, PostStates>(
       listener: (context, state)
       {
@@ -85,7 +88,7 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
                         var now = DateTime.now();
                         await PostsCubit.get(context).addPost(CreatePostInput(
                           postImage: postImageLink,text: textController.text,
-                          studentId: "366",time: now.toString()
+                          studentId: userState.userData?.studentId??'',time: now.toString()
                         ));
                       },
                       child: Text(
@@ -105,23 +108,23 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
             child: Column(
               children: [
                 state.createPostState==RequestStatus.loading?const LinearProgressIndicator():const SizedBox(),
-                const Row(
+                 Row(
                   children: [
                     CircleAvatar(
                       radius: 20,
                       backgroundColor: Colors.white,
-                      backgroundImage: AssetImage('assets/images/man.png'),
+                      backgroundImage: NetworkImage(userState.userData?.image??""),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('',
-                            // '${GraduationCubit.get(context).user?.fullname}',
-                            style: TextStyle(
+                          Text(
+                            '${userState.userData?.fullName}',
+                            style: const TextStyle(
                                 //fontWeight: FontWeight.bold,
                                 fontSize: 20),
                           ),
@@ -178,5 +181,7 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
         );
       },
     );
+  },
+);
   }
 }

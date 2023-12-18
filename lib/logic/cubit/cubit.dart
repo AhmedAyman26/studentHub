@@ -13,7 +13,7 @@ import 'package:graduation/data/models/addProduct_model.dart';
 import 'package:graduation/data/models/getProduct_model.dart';
 import 'package:graduation/data/models/message_model.dart';
 import 'package:graduation/data/models/subject_model.dart';
-import 'package:graduation/data/models/user_model.dart';
+import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
 import 'package:graduation/logic/cubit/states.dart';
 import 'package:graduation/shared/local/cache_helper.dart';
@@ -25,26 +25,26 @@ class GraduationCubit extends Cubit<GraduationStates> {
   GraduationCubit() : super(GraduationInitialState());
   static GraduationCubit get(context) => BlocProvider.of(context);
 
-  UserData? user;
-  void getUserData() async {
-    emit(GetUserDataLoadingState());
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(CacheHelper.getData(key: 'uId'))
-        .get()
-        .then((value) {
-      print("++++++++++++++");
-      print(value.id);
-      print(value.data());
-      print("++++++++++");
-      user = UserData.fromJson(value.data()!);
-      print(user!.uId);
-      emit(GetUserDataSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(GetUserDataErrorState());
-    });
-  }
+  // UserData? user;
+  // void getUserData() async {
+  //   emit(GetUserDataLoadingState());
+  //   await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(CacheHelper.getData(key: 'uId'))
+  //       .get()
+  //       .then((value) {
+  //     print("++++++++++++++");
+  //     print(value.id);
+  //     print(value.data());
+  //     print("++++++++++");
+  //     user = UserData.fromJson(value.data()!);
+  //     print(user!.uId);
+  //     emit(GetUserDataSuccessState());
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(GetUserDataErrorState());
+  //   });
+  // }
   List<DropdownMenuItem> items = [
     const DropdownMenuItem(
       value: 1,
@@ -547,95 +547,95 @@ class GraduationCubit extends Cubit<GraduationStates> {
   }
 
 
-  List<UserData> users=[];
-  void getUsers() {
-    users.clear();
-    print('get users 11111111111');
+  // List<UserData> users=[];
+  // void getUsers() {
+  //   users.clear();
+  //   print('get users 11111111111');
+  //
+  //   FirebaseFirestore.instance.collection('users').get().then((value) {
+  //     value.docs.forEach((element) {
+  //       if (element.id != FirebaseAuth.instance.currentUser!.uid) {
+  //         users.add(UserData.fromJson(element.data()));
+  //       }
+  //     });
+  //
+  //     print('get users 222222222');
+  //     emit(GetUsersSuccessState());
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(GetUsersErrorState());
+  //   });
+  //   print('get users 333333333333');
+  // }
 
-    FirebaseFirestore.instance.collection('users').get().then((value) {
-      value.docs.forEach((element) {
-        if (element.id != FirebaseAuth.instance.currentUser!.uid) {
-          users.add(UserData.fromJson(element.data()));
-        }
-      });
 
-      print('get users 222222222');
-      emit(GetUsersSuccessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(GetUsersErrorState());
-    });
-    print('get users 333333333333');
-  }
-
-
-  void sendMessage({
-    required String receiverId,
-    required String dateTime,
-    required String text,
-    String? image,
-  })async
-  {
-    MessageModel model= MessageModel(
-        text: text,
-        senderId: user!.uId,
-        receiverId: receiverId,
-        dateTime: dateTime,
-        image: image
-    );
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uId)
-        .collection('chats')
-        .doc(receiverId)
-        .collection('messages')
-        .add(model.toMap())
-        .then((value){
-      emit(SendMessageSuccessState());
-      emit(GetProductSuccessState(getProductModel!));
-    })
-        .catchError((){
-      emit(SendMessageErrorState());
-    });
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(receiverId)
-        .collection('chats')
-        .doc(user!.uId)
-        .collection('messages')
-        .add(model.toMap())
-        .then((value){
-      emit(SendMessageSuccessState());
-    })
-        .catchError((){
-      emit(SendMessageErrorState());
-    });
-  }
-
-  List<MessageModel> messages=[];
-  void getMessages ({
-    required String receiverId,
-  })
-  {
-    emit(GetMessagesLoadingState());
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(user!.uId)
-        .collection('chats')
-        .doc(receiverId)
-        .collection('messages')
-        .orderBy('dateTime')
-        .snapshots()
-        .listen((event)
-    {
-      messages=[];
-      event.docs.forEach((element)
-      {
-        messages.add(MessageModel.fromJson(element.data()));
-      });
-      emit(GetMessagesSuccessState());
-    });
-  }
+  // void sendMessage({
+  //   required String receiverId,
+  //   required String dateTime,
+  //   required String text,
+  //   String? image,
+  // })async
+  // {
+  //   MessageModel model= MessageModel(
+  //       text: text,
+  //       senderId: user!.uId,
+  //       receiverId: receiverId,
+  //       dateTime: dateTime,
+  //       image: image
+  //   );
+  //   await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(user!.uId)
+  //       .collection('chats')
+  //       .doc(receiverId)
+  //       .collection('messages')
+  //       .add(model.toMap())
+  //       .then((value){
+  //     emit(SendMessageSuccessState());
+  //     emit(GetProductSuccessState(getProductModel!));
+  //   })
+  //       .catchError((){
+  //     emit(SendMessageErrorState());
+  //   });
+  //   FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(receiverId)
+  //       .collection('chats')
+  //       .doc(user!.uId)
+  //       .collection('messages')
+  //       .add(model.toMap())
+  //       .then((value){
+  //     emit(SendMessageSuccessState());
+  //   })
+  //       .catchError((){
+  //     emit(SendMessageErrorState());
+  //   });
+  // }
+  //
+  // List<MessageModel> messages=[];
+  // void getMessages ({
+  //   required String receiverId,
+  // })
+  // {
+  //   emit(GetMessagesLoadingState());
+  //   FirebaseFirestore.instance
+  //       .collection('users')
+  //       .doc(user!.uId)
+  //       .collection('chats')
+  //       .doc(receiverId)
+  //       .collection('messages')
+  //       .orderBy('dateTime')
+  //       .snapshots()
+  //       .listen((event)
+  //   {
+  //     messages=[];
+  //     event.docs.forEach((element)
+  //     {
+  //       messages.add(MessageModel.fromJson(element.data()));
+  //     });
+  //     emit(GetMessagesSuccessState());
+  //   });
+  // }
 
   ServiceModel? serviceModel;
   void addService({

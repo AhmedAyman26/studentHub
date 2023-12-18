@@ -7,7 +7,7 @@ class RegisterFbUseCase
 
   RegisterFbUseCase(this._authenticationRepository);
 
-  Future<void> call(RegisterInput input)async
+  Future<String> call(RegisterInput input)async
   {
     return await _authenticationRepository.registerFb(input);
   }
