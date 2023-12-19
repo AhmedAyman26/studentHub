@@ -42,7 +42,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               child: Text('Enter Your Email',style: TextStyle(
                 fontSize: 25.sp,
                 fontWeight: FontWeight.w400,
-                color: kPrimaryColor
+                color: AppColors.kPrimaryColor
               ),),
             ),
             Padding(
@@ -68,7 +68,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 width: 200.w,
                 height: 40.h,
                 child: MaterialButton(
-                  color: kPrimaryColor,
+                  color: AppColors.kPrimaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18),
                   ),

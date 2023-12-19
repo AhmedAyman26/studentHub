@@ -45,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Row(
               children: [
                  CircleAvatar(
-                  backgroundColor: kPrimaryColor,
+                  backgroundColor: AppColors.kPrimaryColor,
                   radius: 25.w,
                   child: const Image(image: AssetImage('assets/images/user.png'))),
                 SizedBox(

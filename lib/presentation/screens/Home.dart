@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_screen.dart';
 import 'package:graduation/logic/cubit/cubit.dart';
 import 'package:graduation/presentation/screens/chats/home_chat.dart';
-import 'package:graduation/presentation/screens/proucts/product_categories.dart';
+import 'package:graduation/features/products/presentation/pages/product_categories/product_categories_page.dart';
 import 'package:graduation/presentation/screens/services/services_Screen.dart';
 import 'package:graduation/presentation/screens/setting/settings_screen.dart';
 import 'package:graduation/shared/constants.dart';
@@ -39,7 +39,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     List<Widget> tabsContent = [
       const PostPage(),
       service_screen(),
-      product_categories_screen(),
+      ProductCategoriesPage(),
     ];
     return DefaultTabController(
       length: tabs.length,

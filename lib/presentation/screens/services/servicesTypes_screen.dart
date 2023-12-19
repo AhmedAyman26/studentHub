@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduation/presentation/widgets/servicesTypesCard_Widget.dart';
 import 'package:graduation/shared/appBar_class.dart';
-import 'package:graduation/presentation/widgets/productCard_widget.dart';
+import 'package:graduation/features/products/presentation/pages/product_categories/widgets/category_card_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class servicesTypes_screen extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:graduation/features/authentication/di/authentication_di.dart';
 import 'package:graduation/features/posts/di/posts_di.dart';
+import 'package:graduation/features/products/di/products_di.dart';
 import 'package:graduation/shared/di/common_di.dart';
 
 final injector = GetIt.instance;
@@ -20,4 +21,5 @@ Future<void> registerAppDependencies() async {
   CommonDi.init();
   AuthenticationDi.init();
   PostsDi.init();
+  ProductsDi.init();
 }

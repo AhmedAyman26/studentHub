@@ -1,7 +1,7 @@
 class ProductModel {
   final String? id;
   final String? name;
-  final double? price;
+  final String? price;
   final String? description;
   final String? image;
   final String? studentName;
@@ -15,4 +15,14 @@ class ProductModel {
       required this.image,
       required this.studentName,
       this.studentImage});
+
+  ProductModel.initial()
+      : this(
+            id: '',
+            price: '',
+            image: '',
+            description: '',
+            studentName: '',
+            name: '',
+            studentImage: '');
 }

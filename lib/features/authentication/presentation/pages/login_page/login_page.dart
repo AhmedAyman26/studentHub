@@ -7,7 +7,7 @@ import 'package:graduation/features/authentication/domain/models/inputs/login_in
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_cubit.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_state.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_page.dart';
-import 'package:graduation/presentation/screens/login/forget_password_screen.dart';
+import 'package:graduation/features/authentication/presentation/pages/login_page/widgets/forget_password_screen.dart';
 import 'package:graduation/shared/constants.dart';
 import 'package:graduation/shared/styles/colors.dart';
 import 'package:graduation/shared/utils.dart';
@@ -17,7 +17,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => LoginCubit(),child: LoginPageBody(),);
+    return BlocProvider(create: (context) => LoginCubit(),child: const LoginPageBody(),);
   }
 }
 
@@ -96,7 +96,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(5),
                                       ),
-                                      activeColor: kPrimaryColor,
+                                      activeColor: AppColors.kPrimaryColor,
                                       value: isChecked,
                                       onChanged: (bool? value) {
                                         isChecked=value;
@@ -119,11 +119,11 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 16.0),
                                         child: ButtonTheme(
-                                          buttonColor: kPrimaryColor,
+                                          buttonColor: AppColors.kPrimaryColor,
                                           minWidth: 250.0,
                                           height: 50.0,
                                           child: MaterialButton(
-                                            color: kPrimaryColor,
+                                            color: AppColors.kPrimaryColor,
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius
                                                   .circular(18),

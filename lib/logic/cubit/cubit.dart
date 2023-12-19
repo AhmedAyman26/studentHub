@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/data/models/ServiceModel.dart';
 import 'package:graduation/data/models/addProduct_model.dart';
-import 'package:graduation/data/models/getProduct_model.dart';
 import 'package:graduation/data/models/message_model.dart';
 import 'package:graduation/data/models/subject_model.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
@@ -135,111 +134,8 @@ class GraduationCubit extends Cubit<GraduationStates> {
     emit(ChangeSelectedItemState());
   }
 
-  var productImagePicker = ImagePicker();
   File? file;
-  String ?imageToAPI;
-  String? link;
 
-  Future showProductBottomSheet(context) async{
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => Container(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Please Choose Image',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-              InkWell(
-                onTap: () async {
-                  var picked =
-                  await productImagePicker.pickImage(source: ImageSource.gallery);
-                  if (picked != null) {
-                    file = File(picked.path);
-                    var imageName = basename(picked.path);
-                    // convertImageToBase64(picked as File);
-                    // imageToAPI =await convertImageToBase64(file!);
-                    await FirebaseStorage.instance.ref()
-                        .child('products/${Uri.file(file!.path).pathSegments.last}')
-                        .putFile(file!).then((value)  {
-                      value.ref.getDownloadURL().then((value) {
-                        print(value);
-                        link=value;
-                        // emit(SocialUploadProfileImageSuccessState());
-                      });
-                    });
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Icons.photo_outlined,
-                        size: 30,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text(
-                        'From Gallery',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () async {
-                  var picked =
-                  await ImagePicker().pickImage(source: ImageSource.camera);
-                  if (picked != null) {
-                    file = File(picked.path);
-                    var imageName = basename(picked.path);
-                    // convertImageToBase64(picked as File);
-                    await FirebaseStorage.instance.ref()
-                        .child('products/${Uri.file(file!.path).pathSegments.last}')
-                        .putFile(file!).then((value)  {
-                      value.ref.getDownloadURL().then((value) {
-                        print(value);
-                        link=value;
-                        // emit(SocialUploadProfileImageSuccessState());
-                      });
-                    });
-                    // imageToAPI =await convertImageToBase64(file!);
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(10),
-                  child: const Row(
-                    children: [
-                      Icon(
-                        Icons.camera_alt_outlined,
-                        size: 30,
-                      ),
-                      SizedBox(width: 20),
-                      Text(
-                        'From Camera',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-
-    );
-  }
 
   File? _video;
   late VideoPlayerController videoPlayerController ;
@@ -527,25 +423,6 @@ class GraduationCubit extends Cubit<GraduationStates> {
     );
   }
 /////////////////////////////////////
-  GetProductModel ?getProductModel;
-  void getProduct(
-      { required String category,}
-      )async{
-    emit(GetProductLoadingState());
-    await DioHelper.getData(url: 'getprod.php',
-        query: {
-          'category':category,
-        }
-    ).then((value){
-      print("....................................................................");
-      print(value.data);
-      getProductModel=GetProductModel.fromJson(jsonDecode(value.data));
-      emit(GetProductSuccessState(getProductModel!));}
-    ).catchError((error){
-      emit(GetProductErrorState(error.toString()));
-    });
-  }
-
 
   // List<UserData> users=[];
   // void getUsers() {

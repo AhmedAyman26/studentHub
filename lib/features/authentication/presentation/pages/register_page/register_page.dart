@@ -50,7 +50,6 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
       listener: (context, state) async {
         if (state.registerState == RequestStatus.success) {
           UserCubit.get(context).cacheUser(state.userData);
-          print("%%%%%%%%%%%%%%%%%%%%%%%%${state.userData}");
           navigateAndFinish(
             context,
             const HomeLayout(),
