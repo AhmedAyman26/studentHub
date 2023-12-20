@@ -8,18 +8,22 @@ class UserData extends Equatable {
   final String? universityName;
   final String? facultyName;
   final String? firebaseId;
+  final int? facultyId;
 
-  const UserData(
-      {this.studentId,
-      this.fullName,
-      this.email,
-      this.image,
-      this.universityName,
-      this.facultyName,
-      this.firebaseId});
+  const UserData({
+    this.studentId,
+    this.fullName,
+    this.email,
+    this.image,
+    this.universityName,
+    this.facultyName,
+    this.firebaseId,
+    this.facultyId,
+  });
 
   const UserData.initial()
       : this(
+            facultyId: 0,
             firebaseId: '',
             studentId: '',
             fullName: '',
@@ -35,7 +39,8 @@ class UserData extends Equatable {
       String? image,
       String? universityName,
       String? facultyName,
-      String? firebaseId}) {
+      String? firebaseId,
+      int? facultyId}) {
     return UserData(
         studentId: studentId ?? this.studentId,
         fullName: fullName ?? this.fullName,
@@ -43,21 +48,21 @@ class UserData extends Equatable {
         image: image ?? this.image,
         universityName: universityName ?? this.universityName,
         facultyName: facultyName ?? this.facultyName,
-        firebaseId: firebaseId ?? this.firebaseId);
+        firebaseId: firebaseId ?? this.firebaseId,
+        facultyId: facultyId ?? this.facultyId);
   }
 
-  Map<String,dynamic> toJson()
-  {
-    return
-      {
-        "studentId":studentId,
-        "fullName":fullName,
-        "email":email,
-        "university":universityName,
-        "faculty":facultyName,
-        "image":image,
-        "firebaseId":firebaseId
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      "studentId": studentId,
+      "fullName": fullName,
+      "email": email,
+      "university": universityName,
+      "faculty": facultyName,
+      "image": image,
+      "firebaseId": firebaseId,
+      "facultyId": facultyId
+    };
   }
 
   @override
@@ -68,6 +73,7 @@ class UserData extends Equatable {
         image,
         facultyName,
         universityName,
-        firebaseId
+        firebaseId,
+        facultyId
       ];
 }

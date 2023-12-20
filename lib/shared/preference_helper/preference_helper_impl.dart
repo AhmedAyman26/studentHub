@@ -22,17 +22,17 @@ class PreferenceHelperImpl extends PreferenceHelper
      studentId: decoded['studentId'],
      fullName: decoded['fullName'],
      email: decoded['email'],
-     facultyName: decoded['fullName'],
-     universityName: decoded['universityName'],
+     facultyName: decoded['faculty'],
+     universityName: decoded['university'],
      image: decoded['image'],
-     firebaseId: decoded['firebaseId']
+     firebaseId: decoded['firebaseId'],
+     facultyId: decoded['facultyId']
    );
   }
 
   @override
-  Future<bool> removeData(String key) {
-    // TODO: implement removeData
-    throw UnimplementedError();
+  Future<bool> removeData(String key)async {
+    return await CacheHelper.removeData(key: key);
   }
 
   @override

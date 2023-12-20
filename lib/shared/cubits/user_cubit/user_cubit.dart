@@ -5,11 +5,13 @@ import 'package:graduation/features/authentication/domain/models/user_model.dart
 import 'package:graduation/shared/cubits/user_cubit/user_state.dart';
 import 'package:graduation/shared/use_cases/cache_user_data_use_case.dart';
 import 'package:graduation/shared/use_cases/get_cached_user_data_use_case.dart';
+import 'package:graduation/shared/use_cases/logout_use_case.dart';
 import 'package:graduation/shared/utils.dart';
 
 class UserCubit extends Cubit<UserState>
 {
   late final CacheUserDataUseCase _cacheUserDataUseCase;
+  late final LogoutUseCase _logoutUseCase;
 
   late final GetCachedUserDataUseCase _getCachedUserDataUseCase;
   UserCubit():super(const UserState())
@@ -21,6 +23,7 @@ class UserCubit extends Cubit<UserState>
   {
     _cacheUserDataUseCase=injector();
     _getCachedUserDataUseCase=injector();
+    _logoutUseCase=injector();
   }
   static UserCubit get(context)=>BlocProvider.of(context);
 
@@ -37,4 +40,12 @@ class UserCubit extends Cubit<UserState>
     final userData=await _getCachedUserDataUseCase.call();
     emit(state.copyWith(userData: userData,userDataState: RequestStatus.success));
   }
+
+  void logout(String key)async
+  {
+    emit(state.copyWith(logout: RequestStatus.loading));
+    await _logoutUseCase.call(key);
+    resetScopeDependencies();
+    emit(state.copyWith(logout: RequestStatus.success));
+}
 }

@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/features/chats/presentation/pages/users_page/home_chat.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_screen.dart';
-import 'package:graduation/logic/cubit/cubit.dart';
-import 'package:graduation/presentation/screens/chats/home_chat.dart';
 import 'package:graduation/features/products/presentation/pages/product_categories/product_categories_page.dart';
-import 'package:graduation/presentation/screens/services/services_Screen.dart';
-import 'package:graduation/presentation/screens/setting/settings_screen.dart';
+import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_page.dart';
+import 'package:graduation/features/setting/presentation/settings_screen.dart';
 import 'package:graduation/shared/constants.dart';
+import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
 import '../widgets/search_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -38,7 +38,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     ];
     List<Widget> tabsContent = [
       const PostPage(),
-      service_screen(),
+      SubjectsPage(),
       ProductCategoriesPage(),
     ];
     return DefaultTabController(
@@ -79,11 +79,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                           InkWell(
                             onTap: () {
                               // GraduationCubit.get(context).getUsers();
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             const ChatHomeScreen()));
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ChatHomePage()));
                             },
                             child: Container(
                               width: 25.w,
@@ -146,16 +146,14 @@ class _HomeLayoutState extends State<HomeLayout> {
                         'https://static2.hdwallpapers.net/wallpapers/2019/02/24/1178/thumb_glass-building-in-toronto.jpg',
                       ),
                     )),
-                currentAccountPicture: const CircleAvatar(
+                currentAccountPicture:  CircleAvatar(
                   radius: 10,
-                  child: Icon(Icons.person),
+                  backgroundImage: NetworkImage(  UserCubit.get(context).state.userData?.image??''),
                 ),
                 accountName: Text(
-                    FirebaseAuth.instance.currentUser?.displayName ??
-                        'default'),
+                    UserCubit.get(context).state.userData?.fullName??''),
                 // '${GraduationCubit.get(context).user?.fullname??'ahmed'}',style: TextStyle(color: Colors.black),),
-                accountEmail: Text(FirebaseAuth.instance.currentUser?.email ??
-                    'default@gmail.com'),
+                accountEmail: Text(  UserCubit.get(context).state.userData?.email??''),
               ),
               ListTile(
                 leading: const ImageIcon(

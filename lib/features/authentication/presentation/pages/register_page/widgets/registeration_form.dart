@@ -10,8 +10,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegistrationForm extends StatefulWidget {
   final String profileImageLink;
+  final Function(int facultyId)? onRegisterCallback;
 
-  const RegistrationForm({super.key, required this.profileImageLink});
+  const RegistrationForm({super.key, required this.profileImageLink, this.onRegisterCallback});
 
   @override
   State<RegistrationForm> createState() => _RegistrationFormState();
@@ -257,6 +258,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 facultyId.toString(),
                                 widget.profileImageLink),
                           );
+                          widget.onRegisterCallback!(facultyId);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                             content: Center(child: Text('please try again')),

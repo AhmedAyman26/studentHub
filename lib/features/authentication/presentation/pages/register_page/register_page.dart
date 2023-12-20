@@ -35,6 +35,7 @@ class RegisterPageBody extends StatefulWidget {
 
 class _RegisterPageBodyState extends State<RegisterPageBody> {
 
+  int? facultyId;
 
   String? profileImageLink;
   @override
@@ -49,7 +50,8 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) async {
         if (state.registerState == RequestStatus.success) {
-          UserCubit.get(context).cacheUser(state.userData);
+          final updatedUserData=state.userData.modify(facultyId:facultyId);
+          UserCubit.get(context).cacheUser(updatedUserData);
           navigateAndFinish(
             context,
             const HomeLayout(),
@@ -116,10 +118,12 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
                       right: 50.w,
                     ),
                     child:  RegistrationForm(
+                      onRegisterCallback: (facultyIdd) {
+                        facultyId=facultyIdd;
+                      },
                       profileImageLink: profileImageLink??'',
                     ),
                   ),
-
                   SizedBox(
                     height: 10.h,
                   ),

@@ -1,6 +1,5 @@
 import 'package:graduation/data/models/ServiceModel.dart';
 
-import '../../data/models/addProduct_model.dart';
 
 
 abstract class GraduationStates{}
@@ -21,8 +20,8 @@ class ChangeSelectedSubject extends GraduationStates{}
 class AddProductLoadingState extends GraduationStates{}
 
 class AddProductSuccessState extends GraduationStates{
-  AddProductModel addProductModel;
-  AddProductSuccessState(this.addProductModel);
+  // AddProductModel addProductModel;
+  // AddProductSuccessState(this.addProductModel);
 }
 
 class AddProductErrorState extends GraduationStates{

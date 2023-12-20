@@ -28,7 +28,7 @@ class PostPageBody extends StatefulWidget {
   State<PostPageBody> createState() => _PostPageBodyState();
 }
 
-class _PostPageBodyState extends State<PostPageBody> with AutomaticKeepAliveClientMixin{
+class _PostPageBodyState extends State<PostPageBody> {
   @override
   void initState() {
     BlocProvider.of<PostsCubit>(context).getPost();
@@ -37,7 +37,6 @@ class _PostPageBodyState extends State<PostPageBody> with AutomaticKeepAliveClie
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -51,9 +50,10 @@ class _PostPageBodyState extends State<PostPageBody> with AutomaticKeepAliveClie
                     shrinkWrap: true,
                     itemBuilder: (context, index) =>
                         PostItem(model: state.posts[index], context: context),
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 5.h,
-                    ),
+                    separatorBuilder: (context, index) =>
+                        SizedBox(
+                          height: 5.h,
+                        ),
                     itemCount: state.posts.length,
                   );
                 }
@@ -102,11 +102,9 @@ class _PostPageBodyState extends State<PostPageBody> with AutomaticKeepAliveClie
       ),
     );
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
+
+
 
 class PostButton extends StatelessWidget {
   const PostButton(

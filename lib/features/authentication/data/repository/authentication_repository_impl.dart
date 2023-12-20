@@ -33,7 +33,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository
     {
       firebaseId=value.user?.uid;
       await FirebaseAuth.instance.currentUser!.updateDisplayName(input.fullName);
-      // CacheHelper.saveData(key: 'uId', value: value.user!.uid);
       await _createUserFb(
         input: input,
       id : value.user!.uid,
