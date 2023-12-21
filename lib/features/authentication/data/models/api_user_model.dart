@@ -26,6 +26,7 @@ class ApiUserData {
   final String? universityName;
   final String? facultyName;
   final String? password;
+  final String? firebaseId;
 
   ApiUserData({
     this.fullname,
@@ -35,6 +36,7 @@ class ApiUserData {
     this.universityName,
     this.facultyName,
     this.password,
+    this.firebaseId
   });
 
   factory ApiUserData.fromJson(Map<String, dynamic> json) => ApiUserData(
@@ -45,6 +47,7 @@ class ApiUserData {
     universityName: json["university_name"],
     facultyName: json["faculty_name"],
     password: json["Password"],
+    firebaseId: json['uId']
   );
 
   Map<String, dynamic> toJson() => {

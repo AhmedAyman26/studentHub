@@ -5,6 +5,6 @@ import 'package:graduation/features/authentication/domain/models/user_model.dart
 abstract class ChatsRepository
 {
   Future<List<UserData>> getUsers();
-  Future<List<MessageModel>> getMessages(String userId,String receiverId);
+  Stream<List<MessageModel>> getMessages(String userId,String receiverId);
   Future<void> sendMessage(ApiMessageModel message);
 }

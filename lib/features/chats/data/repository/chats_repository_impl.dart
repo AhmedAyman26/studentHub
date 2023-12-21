@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:graduation/features/chats/data/mappers/api_message_mapper.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
@@ -15,35 +14,26 @@ class ChatsRepositoryImpl extends ChatsRepository {
 
     await FirebaseFirestore.instance.collection(
         'users').get().then((value) {
-          value.docs.forEach((element)
-          {
+          for (var element in value.docs) {
             users.add(ApiUserData.fromJson(element.data()).map());
-          });
+          }
     });    return users;
-
   }
 
   @override
-  Future<List<MessageModel>> getMessages(String userId,String receiverId)async {
-    List<MessageModel> messages=[];
-      // emit(GetMessagesLoadingState());
-       FirebaseFirestore.instance
+  Stream<List<MessageModel>> getMessages(String userId,String receiverId) {
+         return FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
           .collection('chats')
           .doc(receiverId)
           .collection('messages')
           .orderBy('dateTime')
-          .snapshots()
-          .listen((event)
-      {
-        messages=[];
-        event.docs.forEach((element)
-        {
-          messages.add(ApiMessageModel.fromJson(element.data()).map());
-        });
-      });
-       return messages;
+          .snapshots().map((event) {
+            return event.docs.map((e) {
+              return   ApiMessageModel.fromJson(e.data()).map();
+            },).toList();
+          },);
     }
 
   @override
@@ -54,6 +44,15 @@ class ChatsRepositoryImpl extends ChatsRepository {
           .doc(message.senderId)
           .collection('chats')
           .doc(message.receiverId)
+          .collection('messages')
+          .add(message.toMap())
+          .then((value){
+      });
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(message.receiverId)
+          .collection('chats')
+          .doc(message.senderId)
           .collection('messages')
           .add(message.toMap())
           .then((value){

@@ -10,7 +10,7 @@ extension ApiUserDataMapper on ApiUserData
       email: email??'',
       facultyName: facultyName??'',
       universityName: universityName??'',
-      firebaseId: '',
+      firebaseId: firebaseId??'',
       fullName: fullname??'',
       image: image??''
     );

@@ -4,6 +4,7 @@ import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/use_cases/get_messages_use_case.dart';
 import 'package:graduation/features/chats/domain/use_cases/send_msessage_use_case.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/chat_state.dart';
+import 'package:graduation/shared/utils.dart';
 
 class ChatsCubit extends Cubit<ChatState>
 {
@@ -13,13 +14,15 @@ class ChatsCubit extends Cubit<ChatState>
 
   static ChatsCubit get(context)=>BlocProvider.of(context);
 
-  void getMessages(String userId,String receiverId)
+  void getMessages({required String userId,required String receiverId})
   {
-    _getMessagesUseCase.call(userId, receiverId);
+    final messages=_getMessagesUseCase.call(userId, receiverId);
+    emit(state.copyWith(messagesState: RequestStatus.success,messages: messages));
   }
 
   void sendMessage(ApiMessageModel message)
   {
+    emit(state.copyWith(messagesState: RequestStatus.loading));
     _sendMessageUseCase.call(message);
   }
 }

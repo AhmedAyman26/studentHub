@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +10,7 @@ import 'package:graduation/features/chats/domain/models/api_message_model.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/chat_cubit.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/chat_state.dart';
-import 'package:graduation/logic/cubit/cubit.dart';
+import 'package:graduation/features/chats/presentation/pages/chat_page/widgets/select_attachment_bottom_sheet.dart';
 import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
 
 class ChatPage extends StatelessWidget {
@@ -19,7 +21,7 @@ class ChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChatsCubit(injector(),injector()),
+      create: (context) => ChatsCubit(injector(), injector()),
       child: ChatScreen(
         user: user,
       ),
@@ -40,99 +42,25 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void initState() {
     ChatsCubit.get(context).getMessages(
-        UserCubit.get(context).state.userData?.firebaseId ?? '',
-        widget.user.firebaseId ?? '');
+        userId: UserCubit.get(context).state.userData?.firebaseId ?? '',
+        receiverId: widget.user.firebaseId ?? '');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.user.fullName);
     TextEditingController messageController = TextEditingController();
     return BlocConsumer<ChatsCubit, ChatState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        log("${state.messages}");
+      },
       builder: (context, state) => Scaffold(
-        // PreferredSize(
-        //   preferredSize: const Size.fromHeight(110),
-        //   child: AppBar(
-        //     // backgroundColor: const Color.fromRGBO(70, 121, 112, 1.0),
-        //     leading: InkWell(
-        //       onTap: () {
-        //         Navigator.pop(context);
-        //       },
-        //       child: Padding(
-        //         padding: const EdgeInsets.all(0.5),
-        //         child: Row(
-        //           //mainAxisAlignment:  MainAxisAlignment.start,
-        //           children: const [
-        //             Icon(
-        //               Icons.arrow_back_ios,
-        //               size: 19,
-        //             ),
-        //             CircleAvatar(
-        //               radius: 18,
-        //               backgroundImage: NetworkImage(
-        //                   'https://media.istockphoto.com/id/1270067126/photo/smiling-indian-man-looking-at-camera.jpg?s=2048x2048&w=is&k=20&c=FLq43kh338qFN_JQSc262aRvFPBVlgDqhrG-sUtIIB8='),
-        //             )
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //     title: Container(
-        //       margin: const EdgeInsets.all(7),
-        //       child: Column(
-        //         //mainAxisAlignment: MainAxisAlignment.center,
-        //         children: [
-        //           Text(
-        //             '${user.fullname}',
-        //             style: TextStyle(
-        //               fontSize: 20,
-        //               fontWeight: FontWeight.bold,
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //     actions: [
-        //       IconButton(
-        //         onPressed: () {},
-        //         icon: const Icon(
-        //           Icons.phone,
-        //         ),
-        //       ),
-        //       IconButton(
-        //         onPressed: () {},
-        //         icon: const Icon(
-        //           Icons.more_vert,
-        //           size: 30,
-        //         ),
-        //       )
-        //     ],
-        //     toolbarHeight: MediaQuery.of(context).size.height / 11,
-        //     backgroundColor: Colors.transparent,
-        //     elevation: 0,
-        //     flexibleSpace: ClipPath(
-        //       clipper: CustomAppBarShape(),
-        //       child: Stack(
-        //         alignment: Alignment.center,
-        //         children: [
-        //           Container(
-        //             color: const Color.fromRGBO(70, 121, 112, 1.0),
-        //             alignment: Alignment.center,
-        //             // child: Text(
-        //             //   "title",style: TextStyle(color: Colors.white,fontSize: 20),),
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
         body: SafeArea(
           child: Column(
             children: [
               Stack(
                 children: [
-                  Image(
+                  const Image(
                     image: AssetImage('assets/images/chatHeader.png'),
                     fit: BoxFit.cover,
                     width: double.infinity,
@@ -156,19 +84,19 @@ class _ChatScreenState extends State<ChatScreen> {
                                 radius: 25,
                                 backgroundImage: widget.user.image != null
                                     ? NetworkImage('${widget.user.image}')
-                                    : NetworkImage(
+                                    : const NetworkImage(
                                         'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')),
                             SizedBox(
                               width: 8.w,
                             ),
                             Text(
                               '${widget.user.fullName}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             IconButton(
                               onPressed: () {},
                               icon: Icon(
@@ -195,29 +123,34 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               Expanded(
                 child: ConditionalBuilder(
-                  condition: (state.messages?.isNotEmpty == true),
+                  condition: (state.messages?.length != 0),
                   builder: (context) => Stack(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: ListView.separated(
-                          itemBuilder: (context, index) {
-                            var message = state.messages?[index];
-                            if (widget.user.firebaseId == message?.senderId) {
-                              return buildMyMessage(message!);
-                            }
-                            return buildMessage(message!);
-                          },
-                          shrinkWrap: true,
-                          separatorBuilder: (context, state) => SizedBox(
-                            height: 15.h,
-                          ),
-                          itemCount: state.messages?.length ?? 0,
-                        ),
+                        child: StreamBuilder(
+                            stream: state.messages,
+                            builder: (context, snapshot) {
+                              return ListView.separated(
+                                itemBuilder: (context, index) {
+                                  if (UserCubit.get(context).state.userData?.firebaseId ==
+                                      snapshot.data?[index].senderId) {
+                                    return buildMyMessage(
+                                        snapshot.data![index]);
+                                  }
+                                  return buildMessage(snapshot.data![index]);
+                                },
+                                shrinkWrap: true,
+                                separatorBuilder: (context, state) => SizedBox(
+                                  height: 15.h,
+                                ),
+                                itemCount: snapshot.data?.length ?? 0,
+                              );
+                            }),
                       ),
                     ],
                   ),
-                  fallback: (context) => Center(
+                  fallback: (context) => const Center(
                     child: CircularProgressIndicator(),
                   ),
                 ),
@@ -226,7 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 alignment: Alignment.bottomCenter,
                 child: Row(
                   children: [
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width - 60,
                       child: Card(
                         margin:
@@ -259,7 +192,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                     showModalBottomSheet(
                                         backgroundColor: Colors.transparent,
                                         context: context,
-                                        builder: (builder) => bottomsheet());
+                                        builder: (builder) =>
+                                            const SelectAttachmentBottomSheet());
                                   },
                                   icon: const Icon(
                                     Icons.attach_file,
@@ -299,15 +233,17 @@ class _ChatScreenState extends State<ChatScreen> {
                           ),
                           onPressed: () {
                             if (messageController.text.isNotEmpty) {
-                              ChatsCubit.get(context).sendMessage(
-                                ApiMessageModel(
-                                  senderId: UserCubit.get(context).state.userData?.firebaseId??'',
-                                  receiverId: widget.user.firebaseId,
-                                  dateTime: DateTime.now().toString(),
-                                  text: messageController.text,
-                                )
-
-                              );
+                              ChatsCubit.get(context)
+                                  .sendMessage(ApiMessageModel(
+                                senderId: UserCubit.get(context)
+                                        .state
+                                        .userData
+                                        ?.firebaseId ??
+                                    '',
+                                receiverId: widget.user.firebaseId,
+                                dateTime: DateTime.now().toString(),
+                                text: messageController.text,
+                              ));
                               messageController.clear();
                             }
                           },
@@ -324,43 +260,37 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget buildMessage(MessageModel message) => Align(
+  Widget buildMessage(MessageModel message) {
+    print("@@@@@@@@@@@@@@@@@@@@@@@@${message.image}");
+    return Align(
         alignment: AlignmentDirectional.centerStart,
         child: Container(
-          decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: const BorderRadiusDirectional.only(
-                bottomEnd: Radius.circular(10),
-                topEnd: Radius.circular(10),
-                topStart: Radius.circular(10),
-              )),
-          padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 10,
-          ),
-          child: message.image != null
-              ? Column(
+            decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: const BorderRadiusDirectional.only(
+                  bottomEnd: Radius.circular(10),
+                  topEnd: Radius.circular(10),
+                  topStart: Radius.circular(10),
+                )),
+            padding: const EdgeInsets.symmetric(
+              vertical: 5,
+              horizontal: 10,
+            ),
+            child:
+                Column(
                   children: [
-                    Image(
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.cover,
-                        image: NetworkImage(message.image!)),
-                    SizedBox(
-                      height: 5.h,
-                    ),
+                    (message.image==null || message.image=='')?SizedBox.shrink():Image(image: NetworkImage(message.image??'')),
                     Text(
-                      message.text!,
-                    ),
+                      message.text ?? '',
+            ),
                   ],
-                )
-              : Text(
-                  message.text!,
-                ),
-        ),
+                )),
       );
+  }
 
-  Widget buildMyMessage(MessageModel message) => Align(
+  Widget buildMyMessage(MessageModel message) {
+    print("@@@@@@@@@@@@@@@@@@@@@@@@${message.image}");
+    return Align(
         alignment: AlignmentDirectional.centerEnd,
         child: Container(
           decoration: BoxDecoration(
@@ -374,108 +304,16 @@ class _ChatScreenState extends State<ChatScreen> {
             vertical: 5,
             horizontal: 10,
           ),
-          child: message.image != null
-              ? Column(
-                  children: [
-                    Image(
-                        height: 100,
-                        width: 100,
-                        fit: BoxFit.cover,
-                        image: NetworkImage(message.image!)),
-                    SizedBox(
-                      height: 5.h,
-                    ),
-                    Text(
-                      message.text!,
-                    ),
-                  ],
-                )
-              : Text(
-                  message.text!,
-                ),
+          child:
+          Column(
+            children: [
+              (message.image==null || message.image=='')?const SizedBox.shrink():Image(image: NetworkImage(message.image??'')),
+              Text(
+                message.text ?? '',
+              ),
+            ],
+          )
         ),
       );
-
-  Widget bottomsheet() {
-    return Container(
-      height: 278,
-      width: 250,
-      child: Card(
-        margin: const EdgeInsets.all(18),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  iconcreation(
-                      Icons.insert_drive_file, Colors.indigo, 'Document'),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  iconcreation(Icons.camera_alt, Colors.pink, 'Camera'),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  iconcreation(Icons.photo, Colors.purple, 'Gallery'),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  iconcreation(Icons.headset, Colors.orange, 'Audio'),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  iconcreation(Icons.location_pin, Colors.teal, 'Location'),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                  iconcreation(Icons.person, Colors.blue, 'Contact'),
-                  const SizedBox(
-                    width: 40,
-                  ),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget iconcreation(IconData icon, Color color, String text) {
-    return InkWell(
-      onTap: () {},
-      child: Column(
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: color,
-            child: Icon(
-              icon,
-              size: 29,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(
-            height: 5,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 12,
-            ),
-          )
-        ],
-      ),
-    );
   }
 }

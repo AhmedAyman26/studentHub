@@ -14,7 +14,6 @@ class UsersListCubit extends Cubit<UsersListState>
   {
     emit(state.copyWith(getUsersState: RequestStatus.loading));
     final users=await _getUsersUseCase.call();
-    print("&&&&&&&&${users}");
     emit(state.copyWith(getUsersState: RequestStatus.success,users: users));
   }
 }

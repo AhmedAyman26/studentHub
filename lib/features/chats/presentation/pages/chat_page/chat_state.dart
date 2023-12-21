@@ -4,7 +4,7 @@ import 'package:graduation/shared/utils.dart';
 
 class ChatState extends Equatable {
   final RequestStatus? messagesState;
-  final List<MessageModel>? messages;
+  final Stream<List<MessageModel>>? messages;
   final RequestStatus? sendMessageState;
 
   const ChatState({this.messagesState, this.messages, this.sendMessageState});
@@ -12,7 +12,7 @@ class ChatState extends Equatable {
 
   ChatState copyWith({
     RequestStatus? messagesState,
-    List<MessageModel>? messages,
+    Stream<List<MessageModel>>? messages,
     RequestStatus? sendMessageState,
   }) {
     return ChatState(

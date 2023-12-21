@@ -7,7 +7,7 @@ class GetMessagesUseCase
 
   GetMessagesUseCase(this._chatsRepository);
 
-  Future<List<MessageModel>> call(String userId,String receiverId)
+ Stream<List<MessageModel>> call(String userId,String receiverId)
   {
     return _chatsRepository.getMessages(userId, receiverId);
   }
