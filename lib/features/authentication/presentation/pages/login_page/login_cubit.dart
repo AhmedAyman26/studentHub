@@ -25,8 +25,8 @@ class LoginCubit extends Cubit<LoginState>
     emit(state.copyWith(loginState: RequestStatus.loading));
     try
     {
-      await _loginUseCase.call(input);
-      emit(state.copyWith(loginState: RequestStatus.success,));
+      final userData=await _loginUseCase.call(input);
+      emit(state.copyWith(loginState: RequestStatus.success,userData: userData));
     }
     catch(error)
     {

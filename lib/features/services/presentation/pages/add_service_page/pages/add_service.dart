@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/features/services/domain/models/subject_model.dart';
 import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service_cubit.dart';
 import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service_state.dart';
 import 'package:graduation/features/services/presentation/pages/add_service_page/widgets/show_select_attachment_bottom_sheet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AddServicePage extends StatefulWidget {
-  const AddServicePage({super.key});
+  final List<SubjectModel> subjects;
+  const AddServicePage({super.key, required this.subjects});
 
 
   @override
@@ -18,6 +20,8 @@ class _AddServicePageState extends State<AddServicePage> {
 
   TextEditingController serviceNameController = TextEditingController();
 
+  String? selectedSubject;
+  int? subjectId;
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +62,8 @@ class _AddServicePageState extends State<AddServicePage> {
                     child: TextButton(
                         onPressed: () async{
                           if(true){
-                            const Center(child: CircularProgressIndicator());
+                            print("############${subjectId}");
+                            // const Center(child: CircularProgressIndicator());
                           }else
                           {
 
@@ -118,21 +123,6 @@ class _AddServicePageState extends State<AddServicePage> {
                   const SizedBox(
                     height: 18,
                   ),
-                  // Container(
-                  //   padding:  EdgeInsets.only(top: 10.h),
-                  //   child: SingleChildScrollView(
-                  //     child: DropdownButton(
-                  //       icon:const Icon(Icons.keyboard_arrow_down_rounded),
-                  //       items: GraduationCubit.get(context).subjectItems/*.take(7).toList()*/,
-                  //       hint: Text(AppLocalizations.of(context)!.select_subject),
-                  //       onChanged: (val) {
-                  //         GraduationCubit.get(context).changeSelectedSubject(val);
-                  //       },
-                  //       isExpanded: true,
-                  //       value: GraduationCubit.get(context).selectedSubject,
-                  //     ),
-                  //   ),
-                  // ),
                   TextFormField(
                     minLines: 1,
                     maxLines: 5,
@@ -146,6 +136,22 @@ class _AddServicePageState extends State<AddServicePage> {
                     ),
 
                   ),
+                  DropdownButton(
+                    items: widget.subjects.map((e) =>DropdownMenuItem(
+                      value: e.subjectName,
+                      child: Text(e.subjectName??''),
+                    ))
+                        .toList(),
+                    onChanged: (e) {
+                      selectedSubject = e;
+                      subjectId = widget.subjects.indexWhere((element) => element.subjectName==e)+1;
+                      setState(() {});
+                    },
+                    isExpanded: true,
+                    hint: Text(AppLocalizations.of(context)!.select_university),
+                    value:selectedSubject,
+                  ),
+
                   // Expanded(
                   //   child: Center(
                   //     child: GraduationCubit.get(context).

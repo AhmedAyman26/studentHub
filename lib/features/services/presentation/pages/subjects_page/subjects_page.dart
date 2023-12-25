@@ -66,12 +66,16 @@ class _SubjectPageBodyState extends State<SubjectPageBody> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: BlocBuilder<SubjectsCubit, SubjectsState>(
+  builder: (context, state) {
+    return FloatingActionButton(
           heroTag: 'btn',
           child: const Icon(Icons.add),
           onPressed: () {
-            navigateTo(context, const AddServicePage());
-          }),
+            navigateTo(context,  AddServicePage(subjects: state.subjects??[],));
+          });
+  },
+),
     );
   }
 }

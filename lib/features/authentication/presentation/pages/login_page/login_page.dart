@@ -4,9 +4,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/constants.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/local/cache_helper.dart';
 import 'package:graduation/common/styles/colors.dart';
 import 'package:graduation/common/utils.dart';
 import 'package:graduation/common/widgets/widgets.dart';
+import 'package:graduation/features/Home.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/login_input.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_cubit.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_state.dart';
@@ -45,14 +48,11 @@ class _LoginPageBodyState extends State<LoginPageBody> {
       child: BlocConsumer<LoginCubit, LoginState>
         (
         listener: (context, state) {
-          // if (state.loginState ==RequestStatus.success) {
-          //   CacheHelper.saveData(
-          //     key: 'uId',
-          //     value: state.uId,
-          //   ).then((value) {
-          //     navigateAndFinish(context, HomeLayout());
-          //   });
-          // }
+          if (state.loginState ==RequestStatus.success) {
+            UserCubit.get(context).cacheUser(state.userData);
+
+              navigateAndFinish(context, const HomeLayout());
+          }
         },
         builder: (context, state) {
           return Scaffold(
