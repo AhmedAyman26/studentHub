@@ -2,17 +2,18 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/constants.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/widgets/widgets.dart';
+import 'package:graduation/features/Home.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_cubit.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_state.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/widgets/register_header.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/widgets/registeration_form.dart';
-import 'package:graduation/presentation/screens/home.dart';
-import 'package:graduation/shared/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/shared/utils.dart';
-import 'package:graduation/shared/widgets.dart';
+
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});

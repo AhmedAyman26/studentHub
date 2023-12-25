@@ -8,7 +8,7 @@ import 'package:graduation/features/authentication/domain/models/user_model.dart
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_cubit.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_state.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/widgets/user_chat_item.dart';
-import 'package:graduation/presentation/widgets/search_widget.dart';
+import 'package:graduation/common/widgets/search_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChatHomePage extends StatelessWidget {

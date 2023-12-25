@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:graduation/common/constants.dart';
 import 'package:graduation/features/products/presentation/pages/add_product_page/add_product_screen.dart';
-import 'package:graduation/shared/constants.dart';
 import 'widgets/category_card_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

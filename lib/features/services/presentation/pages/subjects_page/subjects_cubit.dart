@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/services/domain/use_cases/get_subjects_use_case.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_state.dart';
-import 'package:graduation/shared/utils.dart';
 
 class SubjectsCubit extends Cubit<SubjectsState>
 {

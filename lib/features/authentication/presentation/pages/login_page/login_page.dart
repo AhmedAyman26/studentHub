@@ -3,15 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/constants.dart';
+import 'package:graduation/common/styles/colors.dart';
+import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/widgets/widgets.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/login_input.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_cubit.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_state.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_page.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/widgets/forget_password_screen.dart';
-import 'package:graduation/shared/constants.dart';
-import 'package:graduation/shared/styles/colors.dart';
-import 'package:graduation/shared/utils.dart';
-import 'package:graduation/shared/widgets.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 

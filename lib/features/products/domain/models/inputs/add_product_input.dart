@@ -6,8 +6,9 @@ class AddProductInput
   final String? studentId;
   final String? categoryId;
   final String? price;
+  final String? firebaseId;
 
-  AddProductInput({this.productName, this.productImage, this.productDescription, this.studentId, this.categoryId, this.price});
+  AddProductInput({this.productName, this.productImage, this.productDescription, this.studentId, this.categoryId, this.price,this.firebaseId,});
 
   static Map<String,dynamic> toJson(AddProductInput input)
   {
@@ -19,7 +20,7 @@ class AddProductInput
         "student_id":input.studentId,
         "category_id":input.categoryId,
         "price":input.price,
-        "firebase_id":"1"
+        "firebase_id":input.firebaseId
       };
   }
 }

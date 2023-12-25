@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/services/domain/models/subject_model.dart';
-import 'package:graduation/shared/utils.dart';
 
 class SubjectsState extends Equatable {
   final RequestStatus? subjectsState;

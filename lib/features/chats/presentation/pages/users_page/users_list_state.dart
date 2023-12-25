@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
-import 'package:graduation/shared/utils.dart';
 
 class UsersListState extends Equatable {
   final List<UserData>? users;

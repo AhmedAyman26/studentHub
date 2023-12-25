@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
-import 'package:graduation/shared/utils.dart';
 
 class ChatState extends Equatable {
   final RequestStatus? messagesState;

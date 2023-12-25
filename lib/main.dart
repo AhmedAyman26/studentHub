@@ -4,16 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
 import 'package:graduation/bloc_observer.dart';
+import 'package:graduation/common/cubits/Language%20Cubit/language_cubit.dart';
+import 'package:graduation/common/cubits/Language%20Cubit/language_states.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/cubits/user_cubit/user_state.dart';
+import 'package:graduation/common/local/cache_helper.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/features/Home.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
-import 'package:graduation/logic/Language%20Cubit/language_cubit.dart';
-import 'package:graduation/presentation/screens/home.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_state.dart';
-import 'package:graduation/shared/local/cache_helper.dart';
-import 'package:graduation/shared/utils.dart';
-import 'logic/Language Cubit/language_states.dart';
-import 'package:graduation/presentation/screens/onboarding/on_boarding_screen.dart';
+import 'package:graduation/features/onboarding/on_boarding_screen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 bool isLogin=false;
@@ -85,7 +85,7 @@ class MyApp extends StatelessWidget {
               splitScreenMode: true,
               builder: (context, child) {
                 return MaterialApp(
-                  localizationsDelegates: [
+                  localizationsDelegates: const [
                     AppLocalizations.delegate,
                     GlobalMaterialLocalizations.delegate,
                     GlobalWidgetsLocalizations.delegate,

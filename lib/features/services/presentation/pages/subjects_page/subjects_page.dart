@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/app_injector.dart';
-import 'package:graduation/features/services/presentation/pages/add_service_page/add_service.dart';
+import 'package:graduation/common/constants.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/utils.dart';
+import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_cubit.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_state.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/widgets/subject_card_widget.dart';
-import 'package:graduation/shared/constants.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
+
 
 class SubjectsPage extends StatelessWidget {
   const SubjectsPage({super.key});
@@ -30,7 +32,6 @@ class SubjectPageBody extends StatefulWidget {
 class _SubjectPageBodyState extends State<SubjectPageBody> {
   @override
   void initState() {
-    print("%%%%${UserCubit.get(context).state.userData}");
     final facultyId = UserCubit.get(context).state.userData?.facultyId;
     SubjectsCubit.get(context).getSubjects(facultyId ?? 0);
     super.initState();
@@ -43,6 +44,12 @@ class _SubjectPageBodyState extends State<SubjectPageBody> {
     return Scaffold(
       body: BlocBuilder<SubjectsCubit, SubjectsState>(
         builder: (context, state) {
+          if(state.subjectsState==RequestStatus.loading||state.subjects?.isEmpty==true)
+          {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }else{
           return Column(
             children: [
               Expanded(
@@ -56,6 +63,7 @@ class _SubjectPageBodyState extends State<SubjectPageBody> {
               ),
             ],
           );
+          }
         },
       ),
       floatingActionButton: FloatingActionButton(

@@ -1,6 +1,5 @@
 import 'package:graduation/features/products/data/models/api_product_model.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
-import 'package:graduation/shared/constants.dart';
 
 extension ApiProductMapper on ApiProduct {
   ProductModel map() {
@@ -11,6 +10,7 @@ extension ApiProductMapper on ApiProduct {
         image: productImage ?? '',
         description: productDesc ?? '',
         price: price ?? '',
-        id: id ?? '');
+      firebaseId: firebaseId??''
+    );
   }
 }

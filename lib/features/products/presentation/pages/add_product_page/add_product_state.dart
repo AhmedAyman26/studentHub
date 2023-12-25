@@ -1,4 +1,4 @@
-import 'package:graduation/shared/utils.dart';
+import 'package:graduation/common/utils.dart';
 
 class AddProductState {
   final RequestStatus addProductState;

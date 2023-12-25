@@ -1,14 +1,12 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_cubit.dart';
-import 'package:graduation/features/products/presentation/pages/products_page/products_state.dart';
-import 'package:graduation/shared/appBar_class.dart';
 
 class ProductDetailsPage extends StatefulWidget {
-  //ProductDetailsPage(int index, String s);
-
   final ProductModel product;
 
   const ProductDetailsPage(this.product, {super.key});
@@ -18,14 +16,6 @@ class ProductDetailsPage extends StatefulWidget {
 }
 
 class _ProductDetailsPageState extends State<ProductDetailsPage> {
-  //const ProductDetailsPage({Key? key}) : super(key: key);
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // GraduationCubit.get(context).getProduct(category:"${widget.name}");
-  }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,54 +24,42 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
         body: Column(
           children: [
             Stack(
-              alignment: Alignment.center,
               children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 8,
-                  child: ClipPath(
-                    clipper: CustomAppBarShape(),
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          color: Color.fromRGBO(70, 121, 112, 1.0),
-                          alignment: Alignment.center,
-                        ),
-                      ],
-                    ),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Image(
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/images/chatHeader.png"),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 10, left: 10, right: 10),
-                  child: Container(
-                      color: Color.fromRGBO(70, 121, 112, 1.0),
-                      // alignment: Alignment.center,
+                Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 30.h),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
+                            padding: EdgeInsets.only(left: 10.0.w),
                             child: InkWell(
                                 onTap: () => Navigator.of(context).pop(),
-                                child: Icon(
+                                child: const Icon(
                                   Icons.arrow_back_ios,
                                   color: Colors.white,
                                 )),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 15.0),
-                            child: Text(
-                              "Details",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20),
-                            ),
+                          const Spacer(),
+                          Text(
+                            widget.product.name ?? '',
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 20.sp),
                           ),
-                          Spacer(),
+                          const Spacer(),
                         ],
-                      )),
-                ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
             Column(
@@ -94,28 +72,25 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       child: FavoriteButton(
                         isFavorite: false,
                         iconSize: 40,
-// iconDisabledColor: Colors.white,
-                        valueChanged: (_isFavorite) {
-                          print('Is Favorite : $_isFavorite');
-                        },
+                        valueChanged: (isFavorite) {},
                       ),
                     ),
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
                   height: MediaQuery.of(context).size.height / 4,
                   width: double.infinity,
-                  child: Image(image:NetworkImage(widget.product.image??'')),
+                  child: Image(image: NetworkImage(widget.product.image ?? '')),
                   /*Image.asset("assets/images/laptop-with-white-screen-isolated-white-wall.png",
                     fit: BoxFit.cover,),*/
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 30, left: 20, right: 16),
+                  padding: const EdgeInsets.only(top: 30, left: 20, right: 16),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
+                        const Row(
                           children: [
                             Icon(Icons.location_on_outlined),
                             Text(
@@ -125,60 +100,66 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           ],
                         ),
                         Container(
-                          padding: EdgeInsets.only(top: 2),
+                          padding: const EdgeInsets.only(top: 2),
                           alignment: Alignment.centerLeft,
                           height: MediaQuery.of(context).size.height / 4,
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                /* Row(children: [
-                            Text("Name:",style: TextStyle(color: Colors.black,fontSize: 20),)
-                          ],),*/
-                                Text("${widget.product.description}",
-                                  style:TextStyle(
+                                Text(
+                                  "${widget.product.description}",
+                                  style: const TextStyle(
                                     color: Colors.grey,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
-                                  ) ,),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ),
                         SizedBox(
-                          height:
-                          MediaQuery.of(context).size.height * 0.06,
+                          height: MediaQuery.of(context).size.height * 0.06,
                         ),
                       ]),
                 ),
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.07,
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          primary: Color.fromRGBO(70, 121, 112, 1.0),
+                          primary: const Color.fromRGBO(70, 121, 112, 1.0),
                           elevation: 10, //elevation of button
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
-                          padding: EdgeInsets.all(
-                              8) //content padding inside button
-                      ),
+                          padding: const EdgeInsets.all(8)),
                       onPressed: () {
-//code to execute when this button is pressed.
-                        // print(widget.Index);
-                        // print(widget.catigory);
+                        ProductsCubit.get(context)
+                            .requestProduct(ApiMessageModel(
+                          receiverId: widget.product.firebaseId,
+                          image: widget.product.image,
+                          senderId:
+                              UserCubit.get(context).state.userData?.firebaseId,
+                          dateTime: DateTime.now().toString(),
+                          text:
+                              'Hello,i see you have ${widget.product.name} i need it..so can you help me?',
+                        ));
                       },
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width / 2,
                         child: FittedBox(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.add),
-                              Text(
+                              const Icon(Icons.add),
+                              const Text(
                                 "Request | ",
                                 style: TextStyle(),
                               ),
-                              Text("${widget.product.price} LE", style: TextStyle(color: Colors.white70),),
+                              Text(
+                                "${widget.product.price} LE",
+                                style: const TextStyle(color: Colors.white70),
+                              ),
                             ],
                           ),
                         ),

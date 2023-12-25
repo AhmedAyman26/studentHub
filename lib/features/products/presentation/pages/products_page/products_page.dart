@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_cubit.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_state.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/widgets/product_item.dart';
-import 'package:graduation/presentation/widgets/search_widget.dart';
-import 'package:graduation/shared/utils.dart';
+import 'package:graduation/common/widgets/search_widget.dart';
 
 class ProductsPage extends StatelessWidget {
   final String category;
@@ -95,10 +95,10 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
                   ),
                   BlocBuilder<ProductsCubit, ProductsState>(
                       builder: (context, state) {
-                    if (state.productState == RequestStatus.loading) {
+                    if (state.getProductState == RequestStatus.loading) {
                       return const Expanded(
                           child: Center(child: CircularProgressIndicator()));
-                    } else if (state.productState == RequestStatus.success) {
+                    } else if (state.getProductState == RequestStatus.success) {
                       return Expanded(
                         child: GridView.builder(
                           gridDelegate:

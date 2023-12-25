@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/widgets/widgets.dart';
 import 'package:graduation/features/posts/domain/models/post_model.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_screen.dart';
-import 'package:graduation/shared/widgets.dart';
 
 class PostItem extends StatelessWidget {
   final PostModel model;

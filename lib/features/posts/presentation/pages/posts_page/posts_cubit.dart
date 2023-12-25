@@ -1,10 +1,10 @@
  import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/posts/di/posts_di.dart';
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';
 import 'package:graduation/features/posts/domain/usecases/crearte_post_use_case.dart';
 import 'package:graduation/features/posts/domain/usecases/get_posts_use_case.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';
-import 'package:graduation/shared/utils.dart';
 
 class PostsCubit extends Cubit<PostStates>
  {

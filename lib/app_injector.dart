@@ -1,10 +1,10 @@
 import 'package:get_it/get_it.dart';
+import 'package:graduation/common/di/common_di.dart';
 import 'package:graduation/features/authentication/di/authentication_di.dart';
 import 'package:graduation/features/chats/di/chats_di.dart';
 import 'package:graduation/features/posts/di/posts_di.dart';
 import 'package:graduation/features/products/di/products_di.dart';
 import 'package:graduation/features/services/di/services_di.dart';
-import 'package:graduation/shared/di/common_di.dart';
 
 final injector = GetIt.instance;
 

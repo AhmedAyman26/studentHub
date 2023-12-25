@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/register_input.dart';
 import 'package:graduation/features/authentication/domain/use_cases/get_faculties_use_case.dart';
 import 'package:graduation/features/authentication/domain/use_cases/get_universities_use_case.dart';
@@ -7,7 +8,6 @@ import 'package:graduation/features/authentication/domain/use_cases/register_db_
 import 'package:graduation/features/authentication/domain/use_cases/register_fb_use_case.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_state.dart';
 import 'package:graduation/features/posts/di/posts_di.dart';
-import 'package:graduation/shared/utils.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   late final RegisterDbUseCase _registerDbUseCase;

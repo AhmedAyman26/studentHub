@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/use_cases/get_messages_use_case.dart';
 import 'package:graduation/features/chats/domain/use_cases/send_msessage_use_case.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/chat_state.dart';
-import 'package:graduation/shared/utils.dart';
 
 class ChatsCubit extends Cubit<ChatState>
 {

@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/chat_cubit.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/chat_state.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/widgets/select_attachment_bottom_sheet.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
 
 class ChatPage extends StatelessWidget {
   final UserData user;

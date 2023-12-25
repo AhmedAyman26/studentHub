@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/products/domain/models/inputs/add_product_input.dart';
 import 'package:graduation/features/products/domain/use_cases/add_product_use_case.dart';
 import 'package:graduation/features/products/presentation/pages/add_product_page/add_product_state.dart';
-import 'package:graduation/shared/utils.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
   final AddProductUseCase _addProductUseCase;

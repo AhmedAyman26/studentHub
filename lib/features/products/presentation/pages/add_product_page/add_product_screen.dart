@@ -3,15 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/cubits/user_cubit/user_state.dart';
+import 'package:graduation/common/styles/colors.dart';
+import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/widgets/widgets.dart';
 import 'package:graduation/features/products/domain/models/inputs/add_product_input.dart';
 import 'package:graduation/features/products/presentation/pages/add_product_page/add_product_cubit.dart';
 import 'package:graduation/features/products/presentation/pages/add_product_page/add_product_state.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:graduation/shared/styles/colors.dart';
-import 'package:graduation/shared/utils.dart';
-import 'package:graduation/shared/widgets.dart';
 
 class AddProductPage extends StatelessWidget {
   const AddProductPage({super.key});
@@ -114,7 +114,8 @@ class _AddProductPageBodyState extends State<AddProductPageBody> {
                                 productDescriptionController.text,
                             categoryId: categoryId.toString(),
                             price: productPriceController.text,
-                            studentId: userState.userData?.studentId ?? ''));
+                            studentId: userState.userData?.studentId ?? '',
+                        firebaseId: userState.userData?.firebaseId??''));
                       },
                       child: Text(AppLocalizations.of(context)!.add_product),
                     ),

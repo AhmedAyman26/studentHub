@@ -2,10 +2,10 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/widgets/widgets.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/register_input.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_cubit.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_state.dart';
-import 'package:graduation/shared/widgets.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RegistrationForm extends StatefulWidget {

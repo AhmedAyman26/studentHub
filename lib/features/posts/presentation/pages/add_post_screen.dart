@@ -1,14 +1,15 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/cubits/user_cubit/user_state.dart';
+import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/widgets/widgets.dart';
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_state.dart';
-import 'package:graduation/shared/utils.dart';
-import 'package:graduation/shared/widgets.dart';
+
 
 class CreatePostPage extends StatelessWidget {
   const CreatePostPage({super.key});

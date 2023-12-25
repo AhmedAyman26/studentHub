@@ -1,8 +1,13 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:graduation/common/constants.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/features/authentication/domain/models/user_model.dart';
+import 'package:graduation/features/chats/data/models/api_message_model.dart';
+import 'package:graduation/features/chats/presentation/pages/chat_page/chat_screen.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
+import 'package:graduation/features/products/presentation/pages/products_page/products_cubit.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/widgets/product_details_page.dart';
-import 'package:graduation/shared/constants.dart';
 
 class ProductItem extends StatelessWidget {
   final ProductModel product;
@@ -66,7 +71,7 @@ class ProductItem extends StatelessWidget {
                 child: Text("${product.name}",
                   style:const TextStyle(fontSize: 15,fontWeight: FontWeight.bold) ,)),
             const FittedBox(fit: BoxFit.cover,
-                child: Text("Zagazig University",style:TextStyle(fontSize: 12,fontWeight: FontWeight.bold) ,)),
+                child: Text("Zagazig University",style:TextStyle(fontSize: 12,fontWeight: FontWeight.bold),)),
             SizedBox(
               height: MediaQuery.of(context).size.height/25,
               child: ElevatedButton(
@@ -86,7 +91,9 @@ class ProductItem extends StatelessWidget {
                     child: InkWell(
                       onTap: ()
                       {
-                        // GraduationCubit.get(context).sendMessage(receiverId: state.getProductModel.products[index].firebase_id.toString(), dateTime: DateTime.now().toString(), text: 'Hello,i see you have ${state.getProductModel.products[index].productName} i need it..so can you help me?',image: state.getProductModel.products[index].productImage);
+                        print('tapped');
+                        ProductsCubit.get(context).requestProduct(ApiMessageModel(receiverId: product.firebaseId.toString(), dateTime: DateTime.now().toString(), text: 'Hello,i see you have ${product.name} i need it..so can you help me?',image: product.image,senderId: UserCubit.get(context).state.userData?.firebaseId??''));
+                        navigateTo(context, ChatPage(user: UserData(firebaseId: product.firebaseId,image: product.studentImage,fullName: product.studentName)));
                       },
                       child: FittedBox(
                         child: Row(

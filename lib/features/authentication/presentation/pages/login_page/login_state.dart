@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:graduation/shared/utils.dart';
+import 'package:graduation/common/utils.dart';
 
 class LoginState extends Equatable
 {

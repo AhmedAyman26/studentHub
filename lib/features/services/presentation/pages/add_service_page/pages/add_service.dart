@@ -1,11 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/logic/cubit/cubit.dart';
-import 'package:graduation/logic/cubit/states.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service_cubit.dart';
+import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service_state.dart';
+import 'package:graduation/features/services/presentation/pages/add_service_page/widgets/show_select_attachment_bottom_sheet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
 class AddServicePage extends StatefulWidget {
   const AddServicePage({super.key});
 
@@ -22,15 +22,9 @@ class _AddServicePageState extends State<AddServicePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>GraduationCubit(),
-      child: BlocConsumer<GraduationCubit, GraduationStates>(
+      create: (BuildContext context) =>AddServiceCubit(),
+      child: BlocConsumer<AddServiceCubit, AddServiceState>(
         listener: (context, state){
-          if(state is AddServiceSuccessState){
-            // if(state.serviceModel.success==true) {
-            //   Navigator.of(context).pop();
-            // }
-          }
-          else{print("-------------------------");}
         },
         builder: (context , state){
           return Scaffold(
@@ -63,19 +57,19 @@ class _AddServicePageState extends State<AddServicePage> {
                     ),
                     child: TextButton(
                         onPressed: () async{
-                          if(state is AddServiceLoadingState){
+                          if(true){
                             const Center(child: CircularProgressIndicator());
                           }else
                           {
 
-                            GraduationCubit.get(context).addService(
-                                serviceName: serviceNameController.text,
-                                serviceType: '1',
-                                subjectId: '1',
-                                studentId: "241",
-                                attachment: "",
-                                inFavourite: "true"
-                            );
+                            // GraduationCubit.get(context).addService(
+                            //     serviceName: serviceNameController.text,
+                            //     serviceType: '1',
+                            //     subjectId: '1',
+                            //     studentId: "241",
+                            //     attachment: "",
+                            //     inFavourite: "true"
+                            // );
                           }
                         },
                         child: Text(
@@ -152,15 +146,15 @@ class _AddServicePageState extends State<AddServicePage> {
                     ),
 
                   ),
-                  Expanded(
-                    child: Center(
-                      child: GraduationCubit.get(context).
-                      serviceImageFile == null ?  Text(AppLocalizations.of(context)!.not_found)  : Image.file(GraduationCubit.get(context).serviceImageFile! ,
-                        width: 250,
-                        height: 250,
-                      ) ,
-                    ),
-                  ),
+                  // Expanded(
+                  //   child: Center(
+                  //     child: GraduationCubit.get(context).
+                  //     serviceImageFile == null ?  Text(AppLocalizations.of(context)!.not_found)  : Image.file(GraduationCubit.get(context).serviceImageFile! ,
+                  //       width: 250,
+                  //       height: 250,
+                  //     ) ,
+                  //   ),
+                  // ),
                   Container(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -170,7 +164,7 @@ class _AddServicePageState extends State<AddServicePage> {
                           color:const Color.fromRGBO(70, 121, 112, 1.0),
                         ),
                         child: TextButton(
-                          onPressed: () => GraduationCubit.get(context).showServiceBottomSheet(context),
+                          onPressed: () => showServiceBottomSheet(context),
                           child:  Text(
                             AppLocalizations.of(context)!.upload,
                             style: const TextStyle(

@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/app_injector.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/login_input.dart';
 import 'package:graduation/features/authentication/domain/use_cases/login_use_case.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_state.dart';
-import 'package:graduation/shared/utils.dart';
 
 class LoginCubit extends Cubit<LoginState>
 {

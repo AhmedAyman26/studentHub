@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/chats/domain/use_cases/get_users_use_case.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_state.dart';
-import 'package:graduation/shared/utils.dart';
 
 class UsersListCubit extends Cubit<UsersListState>
 {

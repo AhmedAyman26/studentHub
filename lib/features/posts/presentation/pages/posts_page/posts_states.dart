@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/posts/domain/models/post_model.dart';
-import 'package:graduation/shared/utils.dart';
 
 class PostStates extends Equatable {
   final RequestStatus getPostState;

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/constants.dart';
+import 'package:graduation/common/cubits/Language%20Cubit/language_cubit.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/cubits/user_cubit/user_state.dart';
+import 'package:graduation/common/styles/colors.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
-import 'package:graduation/shared/constants.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_state.dart';
-import 'package:graduation/shared/styles/colors.dart';
-import 'package:graduation/shared/utils.dart';
-import '../../../../logic/Language Cubit/language_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {

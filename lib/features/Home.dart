@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/constants.dart';
+import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/home_chat.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_screen.dart';
 import 'package:graduation/features/products/presentation/pages/product_categories/product_categories_page.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_page.dart';
 import 'package:graduation/features/setting/presentation/settings_screen.dart';
-import 'package:graduation/shared/constants.dart';
-import 'package:graduation/shared/cubits/user_cubit/user_cubit.dart';
-import '../widgets/search_widget.dart';
+import '../common/widgets/search_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {

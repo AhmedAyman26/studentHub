@@ -30,6 +30,7 @@ class ApiProduct {
   final String? productDesc;
   final String? price;
   final String? image;
+  final String? firebaseId;
 
   ApiProduct({
     this.fullname,
@@ -39,6 +40,7 @@ class ApiProduct {
     this.productDesc,
     this.price,
     this.image,
+    this.firebaseId
   });
 
   factory ApiProduct.fromJson(Map<String, dynamic> json) => ApiProduct(
@@ -49,6 +51,7 @@ class ApiProduct {
     productDesc: json["product_desc"],
     price: json["price"],
     image: json["image"],
+    firebaseId: json['firebase_id'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -59,5 +62,6 @@ class ApiProduct {
     "product_desc": productDesc,
     "price": price,
     "image": image,
+    "firebase_id":firebaseId,
   };
 }

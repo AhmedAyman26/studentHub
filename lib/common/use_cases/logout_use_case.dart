@@ -1,4 +1,4 @@
-import 'package:graduation/shared/preference_helper/preference_helper.dart';
+import 'package:graduation/common/preference_helper/preference_helper.dart';
 
 class LogoutUseCase
 {

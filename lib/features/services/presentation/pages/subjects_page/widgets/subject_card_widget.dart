@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/common/styles/colors.dart';
 import 'package:graduation/features/services/presentation/pages/service_types_page/service_types.dart';
-import 'package:graduation/shared/styles/colors.dart';
 
 class SubjectCardWidget extends StatelessWidget {
   static const routeName="service_screen";
