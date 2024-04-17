@@ -12,12 +12,12 @@ import 'package:graduation/features/authentication/presentation/pages/login_page
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class StudentHubApp extends StatelessWidget {
-  const StudentHubApp({super.key,});
+  const StudentHubApp({
+    super.key,
+  });
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -30,8 +30,8 @@ class StudentHubApp extends StatelessWidget {
           create: (BuildContext context) => RadioListTileCubit(),
         ),
       ],
-      child: BlocBuilder<LanguageCubit,LanguageState>(
-        builder: (context,state) {
+      child: BlocBuilder<LanguageCubit, LanguageState>(
+        builder: (context, state) {
           if (state is ChangeLanguageState) {
             return ScreenUtilInit(
               designSize: const Size(360, 690),
@@ -48,22 +48,20 @@ class StudentHubApp extends StatelessWidget {
                   supportedLocales: AppLocalizations.supportedLocales,
                   locale: state.locale,
                   theme: ThemeData(
-                      primaryColor: Colors.teal,
-                      primarySwatch: Colors.teal
-                  ),
+                      primaryColor: Colors.teal, primarySwatch: Colors.teal),
                   debugShowCheckedModeBanner: false,
-                  home:BlocBuilder<UserCubit,UserState>(builder: (context, state)
-                  {
-                    if(state.userDataState==RequestStatus.loading)
-                    {
-                      return const Scaffold(body: Center(child: CircularProgressIndicator(),),);
-                    }else{
-                      if(state.userData!=null)
-                      {
+                  home: BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                    if (state.userDataState == RequestStatus.loading) {
+                      return const Scaffold(
+                        body: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    } else {
+                      if (state.userData != null) {
                         return const HomeLayout();
-                      }
-                      else
-                      {
+                      } else {
                         return const LoginPage();
                       }
                     }
@@ -71,7 +69,7 @@ class StudentHubApp extends StatelessWidget {
                 );
               },
             );
-          }else{
+          } else {
             return const SizedBox();
           }
         },
