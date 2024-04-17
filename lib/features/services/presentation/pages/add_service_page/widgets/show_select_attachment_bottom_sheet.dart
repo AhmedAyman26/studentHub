@@ -24,7 +24,7 @@ Future showServiceBottomSheet(context) async{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: 230,
               width: double.infinity,
               child: SingleChildScrollView(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/products/presentation/pages/add_product_page/add_product_page.dart';
 import 'widgets/category_card_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -16,13 +17,13 @@ class ProductCategoriesPage extends StatefulWidget {
 
 class _ProductCategoriesPageState extends State<ProductCategoriesPage> {
  final List<String> images = [
-    "assets/images/undraw_Devices_re_dxae.png",
-    "assets/images/undraw_Bookshelves_re_lxoy.png",
-    "assets/images/undraw_Circuit_board_re_1b79.png",
-    "assets/images/undraw_QA_engineers_dg5p.png",
-    "assets/images/undraw_Alien_science_re_0f8q.png",
-    "assets/images/undraw_Alien_science_re_0f8q.png",
-    "assets/images/undraw_Alien_science_re_0f8q.png",
+   ImagesPaths.devices,
+   ImagesPaths.books,
+   ImagesPaths.electronicTools,
+   ImagesPaths.engineering,
+   ImagesPaths.chemistry,
+   ImagesPaths.chemistry,
+   ImagesPaths.sharing,
   ];
 
   @override

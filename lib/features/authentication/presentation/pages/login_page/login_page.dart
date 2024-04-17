@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/common/presentation/widgets/app_text_form_field.dart';
-import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/common/utils/styles/colors.dart';
 import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/Home.dart';
@@ -48,6 +49,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state.loginState == RequestStatus.success) {
+            print("sadfdsfsdfsdfds${state.userData}");
             UserCubit.get(context).cacheUser(state.userData);
 
             navigateAndFinish(context, const HomeLayout());
@@ -61,7 +63,7 @@ class _LoginPageBodyState extends State<LoginPageBody> {
                   const SizedBox(
                       width: double.infinity,
                       child: Image(
-                        image: AssetImage('assets/images/signin.png'),
+                        image: AssetImage(ImagesPaths.loginHeader),
                         fit: BoxFit.fill,
                       )),
                   Center(

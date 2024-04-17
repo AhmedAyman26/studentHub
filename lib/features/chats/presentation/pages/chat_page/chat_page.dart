@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
@@ -59,7 +60,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
               Stack(
                 children: [
                   const Image(
-                    image: AssetImage('assets/images/chatHeader.png'),
+                    image: AssetImage(ImagesPaths.chatHeader),
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),

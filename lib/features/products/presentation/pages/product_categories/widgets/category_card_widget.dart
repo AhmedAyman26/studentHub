@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
 import 'package:graduation/common/utils/styles/colors.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_page.dart';
 

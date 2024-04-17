@@ -15,7 +15,6 @@ class SubjectsCubit extends Cubit<SubjectsState> {
     emit(state.copyWith(subjectsState: RequestStatus.loading));
     try {
       final subjects = await _getSubjectsUseCase.call(facultyId);
-      print("SDFGSDGFGDSFG${subjects}");
       emit(state.copyWith(
           subjectsState: RequestStatus.success, subjects: subjects));
     } catch (error) {

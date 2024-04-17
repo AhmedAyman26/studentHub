@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/chats/presentation/pages/chat_page/chat_page.dart';
 

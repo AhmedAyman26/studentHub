@@ -60,7 +60,6 @@ class _AddServicePageState extends State<AddServicePage> {
                     child: TextButton(
                         onPressed: () async {
                           if (true) {
-                            print("############${subjectId}");
                             // const Center(child: CircularProgressIndicator());
                           } else {
                             // GraduationCubit.get(context).addService(
@@ -102,7 +101,6 @@ class _AddServicePageState extends State<AddServicePage> {
                       ),
                       Expanded(
                         child: Column(
-                          //mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -158,21 +156,19 @@ class _AddServicePageState extends State<AddServicePage> {
                   //     ) ,
                   //   ),
                   // ),
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: const Color.fromRGBO(70, 121, 112, 1.0),
-                        ),
-                        child: TextButton(
-                          onPressed: () => showServiceBottomSheet(context),
-                          child: Text(
-                            AppLocalizations.of(context)!.upload,
-                            style: const TextStyle(
-                              color: Colors.white,
-                            ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: const Color.fromRGBO(70, 121, 112, 1.0),
+                      ),
+                      child: TextButton(
+                        onPressed: () => showServiceBottomSheet(context),
+                        child: Text(
+                          AppLocalizations.of(context)!.upload,
+                          style: const TextStyle(
+                            color: Colors.white,
                           ),
                         ),
                       ),

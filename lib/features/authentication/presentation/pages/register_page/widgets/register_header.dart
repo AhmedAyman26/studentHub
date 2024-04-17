@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 
 class RegisterHeader extends StatelessWidget {
   const RegisterHeader({super.key});
@@ -8,7 +9,7 @@ class RegisterHeader extends StatelessWidget {
     return const SizedBox(
         width: double.infinity,
         child: Image(
-          image: AssetImage('assets/images/signup.png'),
+          image: AssetImage(ImagesPaths.registerHeader),
           fit: BoxFit.fill,
         ));
   }

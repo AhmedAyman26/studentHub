@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
 import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/posts/presentation/pages/add_post_screen.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
@@ -38,15 +38,15 @@ class _PostPageBodyState extends State<PostPageBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            BlocConsumer<PostsCubit, PostStates>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state.getPostState == RequestStatus.success) {
-                  return ListView.separated(
-                    physics: const NeverScrollableScrollPhysics(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          BlocConsumer<PostsCubit, PostStates>(
+            listener: (context, state) {},
+            builder: (context, state) {
+              if (state.getPostState == RequestStatus.success) {
+                return Expanded(
+                  child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) =>
                         PostItem(model: state.posts[index], context: context),
@@ -55,10 +55,12 @@ class _PostPageBodyState extends State<PostPageBody> {
                           height: 5.h,
                         ),
                     itemCount: state.posts.length,
-                  );
-                }
-                if (state.getPostState == RequestStatus.loading) {
-                  return Shimmer.fromColors(
+                  ),
+                );
+              }
+              if (state.getPostState == RequestStatus.loading) {
+                return Expanded(
+                  child: Shimmer.fromColors(
                     baseColor: Colors.grey.shade300,
                     highlightColor: Colors.grey,
                     child: ListView.builder(
@@ -73,26 +75,30 @@ class _PostPageBodyState extends State<PostPageBody> {
                         );
                       },
                     ),
-                  );
-                } else {
-                  return Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('No internet connection'),
-                        MaterialButton(
-                            color: Colors.green,
-                            child: const Text('Retry'),
-                            onPressed: () {})
-                      ],
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
-        ),
+                  ),
+                );
+              } else {
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('No internet connection'),
+                      MaterialButton(
+                          color: Colors.green,
+                          child: const Text('Retry'),
+                          onPressed: ()
+                          {
+                            BlocProvider.of<PostsCubit>(context).getPost();
+
+                          })
+                    ],
+                  ),
+                );
+              }
+            },
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

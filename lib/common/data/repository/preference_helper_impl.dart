@@ -26,7 +26,7 @@ class PreferenceHelperImpl extends PreferenceHelper
      universityName: decoded['university'],
      image: decoded['image'],
      firebaseId: decoded['firebaseId'],
-     facultyId: decoded['facultyId']
+     facultyId: decoded['faculty_Id']
    );
   }
 

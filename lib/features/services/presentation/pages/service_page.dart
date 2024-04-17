@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/presentation/widgets/search_widget.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/common/utils/styles/colors.dart';
 
 class ServicesPage extends StatelessWidget {
@@ -17,7 +18,7 @@ class ServicesPage extends StatelessWidget {
             Stack(
               children: [
                 const Image(
-                  image: AssetImage('assets/images/chatHeader.png'),
+                  image: AssetImage(ImagesPaths.chatHeader),
                   fit: BoxFit.cover,
                   width: double.infinity,
                 ),
@@ -50,7 +51,7 @@ class ServicesPage extends StatelessWidget {
                     SizedBox(
                       height: 40.h,
                     ),
-                    AppSearchWidget(),
+                    const AppSearchWidget(),
                   ],
                 ),
               ],
@@ -74,7 +75,7 @@ class ServicesPage extends StatelessWidget {
                       children: [
                         const Image(
                           image: AssetImage(
-                            'assets/images/servicePDF.png',
+                            ImagesPaths.servicePDF,
                           ),
                         ),
                         SizedBox(

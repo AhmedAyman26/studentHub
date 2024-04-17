@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/presentation/widgets/app_divider.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/posts/domain/models/post_model.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_page.dart';
 
@@ -96,17 +97,16 @@ class PostItem extends StatelessWidget {
                 children: [
                   PostButton(
                       icon: ImageIcon(
-                        const AssetImage("assets/images/like.png"),
+                        const AssetImage(ImagesPaths.like),
                         size: 22.w,
                         color: Colors.grey[600],
                       ),
                       label: 'React',
                       onTap: () {
-                        print(model.postImage);
                       }),
                   PostButton(
                       icon: ImageIcon(
-                        const AssetImage("assets/images/comment.png"),
+                        const AssetImage(ImagesPaths.comment),
                         size: 20.w,
                         color: Colors.grey[600],
                       ),
@@ -114,7 +114,7 @@ class PostItem extends StatelessWidget {
                       onTap: () {}),
                   PostButton(
                       icon: ImageIcon(
-                        const AssetImage("assets/images/repost.png"),
+                        const AssetImage(ImagesPaths.repost),
                         size: 20.w,
                         color: Colors.grey[600],
                       ),
@@ -122,7 +122,7 @@ class PostItem extends StatelessWidget {
                       onTap: () {}),
                   PostButton(
                       icon: ImageIcon(
-                        const AssetImage("assets/images/send.png"),
+                        const AssetImage(ImagesPaths.send),
                         size: 20.w,
                         color: Colors.grey[600],
                       ),

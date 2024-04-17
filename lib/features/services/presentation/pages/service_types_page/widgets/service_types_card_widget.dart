@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
 import 'package:graduation/common/utils/styles/colors.dart';
-import 'package:graduation/features/services/presentation/pages/Single_categoty_service_screen.dart';
+import 'package:graduation/features/services/presentation/pages/service_page.dart';
 class ServiceTypesCardWidget extends StatelessWidget {
 
   final String serviceTypeImage;

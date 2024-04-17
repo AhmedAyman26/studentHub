@@ -2,6 +2,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_cubit.dart';
@@ -30,7 +31,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   child: Image(
                     width: double.infinity,
                     fit: BoxFit.fill,
-                    image: AssetImage("assets/images/chatHeader.png"),
+                    image: AssetImage(ImagesPaths.chatHeader),
                   ),
                 ),
                 Column(
@@ -82,8 +83,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   height: MediaQuery.of(context).size.height / 4,
                   width: double.infinity,
                   child: Image(image: NetworkImage(widget.product.image ?? '')),
-                  /*Image.asset("assets/images/laptop-with-white-screen-isolated-white-wall.png",
-                    fit: BoxFit.cover,),*/
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 30, left: 20, right: 16),

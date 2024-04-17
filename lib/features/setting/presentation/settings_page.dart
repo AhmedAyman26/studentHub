@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/presentation/cubits/language_cubit/language_cubit.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_state.dart';
-import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
 import 'package:graduation/common/utils/styles/colors.dart';
 import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';

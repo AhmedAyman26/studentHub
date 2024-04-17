@@ -5,32 +5,33 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
 import 'package:graduation/common/presentation/widgets/search_widget.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_cubit.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_state.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/widgets/user_chat_item.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ChatHomePage extends StatelessWidget {
-  const ChatHomePage({super.key});
+class UsersPage extends StatelessWidget {
+  const UsersPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => UsersListCubit(injector()),
-      child: const ChatHomeScreen(),
+      child: const UsersPageBody(),
     );
   }
 }
 
-class ChatHomeScreen extends StatefulWidget {
-  const ChatHomeScreen({Key? key}) : super(key: key);
+class UsersPageBody extends StatefulWidget {
+  const UsersPageBody({Key? key}) : super(key: key);
 
   @override
-  State<ChatHomeScreen> createState() => _ChatHomeScreenState();
+  State<UsersPageBody> createState() => _UsersPageBodyState();
 }
 
-class _ChatHomeScreenState extends State<ChatHomeScreen> {
+class _UsersPageBodyState extends State<UsersPageBody> {
   @override
   void initState() {
     UsersListCubit.get(context).getUsers();
@@ -50,7 +51,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                 Stack(
                   children: [
                     const Image(
-                      image: AssetImage('assets/images/chatHeader.png'),
+                      image: AssetImage(ImagesPaths.chatHeader),
                       fit: BoxFit.cover,
                       width: double.infinity,
                     ),

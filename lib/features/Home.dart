@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/common/presentation/widgets/search_widget.dart';
-import 'package:graduation/common/utils/constants.dart';
-import 'package:graduation/features/chats/presentation/pages/users_page/chat_home_page.dart';
+import 'package:graduation/common/utils/constants/app_constants.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
+import 'package:graduation/features/chats/presentation/pages/users_page/users_page.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_page.dart';
 import 'package:graduation/features/products/presentation/pages/product_categories/product_categories_page.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_page.dart';
@@ -65,7 +66,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                     child: Image(
                       width: double.infinity,
                       fit: BoxFit.fill,
-                      image: AssetImage("assets/images/chatHeader.png"),
+                      image: AssetImage(ImagesPaths.chatHeader),
                     ),
                   ),
                   Column(
@@ -78,7 +79,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               height: 25.h,
                               margin: const EdgeInsets.all(10),
                               child: Image.asset(
-                                "assets/images/user (2).png",
+                                ImagesPaths.user2,
                               ),
                             ),
                             onTap: () {
@@ -88,19 +89,18 @@ class _HomeLayoutState extends State<HomeLayout> {
                           const Spacer(),
                           InkWell(
                             onTap: () {
-                              // GraduationCubit.get(context).getUsers();
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const ChatHomePage()));
+                                          const UsersPage()));
                             },
                             child: Container(
                               width: 25.w,
                               height: 25.h,
                               margin: const EdgeInsets.all(10),
                               child: Image.asset(
-                                "assets/images/chat (2).png",
+                                ImagesPaths.chat,
                               ),
                             ),
                           ),
@@ -172,7 +172,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               ),
               ListTile(
                 leading: const ImageIcon(
-                  AssetImage('assets/images/user.png'),
+                  AssetImage(ImagesPaths.user),
                   color: Colors.black,
                 ),
                 title: Text(AppLocalizations.of(context)!.my_account),
@@ -180,7 +180,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               ),
               ListTile(
                 leading: const ImageIcon(
-                  AssetImage('assets/images/settings.png'),
+                  AssetImage(ImagesPaths.settings),
                   color: Colors.black,
                 ),
                 title: Text(AppLocalizations.of(context)!.settings),
@@ -191,7 +191,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               ListTile(
                 leading: const ImageIcon(
                   AssetImage(
-                    'assets/images/product.png',
+                    ImagesPaths.products,
                   ),
                   color: Colors.black,
                 ),
@@ -200,7 +200,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               ),
               ListTile(
                 leading: const ImageIcon(
-                  AssetImage('assets/images/service.png'),
+                  AssetImage(ImagesPaths.services),
                   color: Colors.black,
                 ),
                 title: Text(AppLocalizations.of(context)!.my_services),
@@ -208,7 +208,7 @@ class _HomeLayoutState extends State<HomeLayout> {
               ),
               ListTile(
                 leading: const ImageIcon(
-                  AssetImage('assets/images/favoits.png'),
+                  AssetImage(ImagesPaths.heart),
                   color: Colors.black,
                 ),
                 title: Text(AppLocalizations.of(context)!.favourits),

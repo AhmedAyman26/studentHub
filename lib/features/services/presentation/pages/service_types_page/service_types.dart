@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/services/presentation/pages/service_types_page/widgets/service_types_card_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -8,11 +9,11 @@ class ServiceTypesPage extends StatelessWidget {
   final String subjectName;
 
   final List<String> image = [
-    "assets/images/pdf.png",
-    "assets/images/undraw_link_shortener_mvf6.png",
-    "assets/images/undraw_Images_re_0kll.png",
-    "assets/images/undraw_video_files_fu10.png",
-    "assets/images/summary.png"
+    ImagesPaths.pdf,
+    ImagesPaths.link,
+    ImagesPaths.image,
+    ImagesPaths.video,
+    ImagesPaths.summarization
   ];
 
   ServiceTypesPage({super.key, required this.subjectName});
@@ -39,7 +40,7 @@ class ServiceTypesPage extends StatelessWidget {
                     child: Image(
                       width: double.infinity,
                       fit: BoxFit.fill,
-                      image: AssetImage("assets/images/chatHeader.png"),
+                      image: AssetImage("assets/images/chat_header.png"),
                     ),
                   ),
                   Column(
