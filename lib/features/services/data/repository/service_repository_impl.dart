@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/common/web_services/dio_helper.dart';
 import 'package:graduation/features/services/data/mappers/api_subject_mapper.dart';
 import 'package:graduation/features/services/data/models/api_subject_model.dart';
 import 'package:graduation/features/services/domain/models/subject_model.dart';

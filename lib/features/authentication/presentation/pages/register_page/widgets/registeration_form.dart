@@ -2,6 +2,8 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:graduation/common/styles/colors.dart';
+import 'package:graduation/common/utils.dart';
 import 'package:graduation/common/widgets/widgets.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/register_input.dart';
 import 'package:graduation/features/authentication/presentation/pages/register_page/register_cubit.dart';
@@ -266,13 +268,28 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           ));
                         }
                       },
-                      child: Text(
-                        AppLocalizations.of(context)!.sign_up,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          //fontSize: 15,
-                        ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+
+                          Text(
+                            AppLocalizations.of(context)!.sign_up,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              //fontSize: 15,
+                            ),
+                          ),
+                          if(state.registerState == RequestStatus.loading)
+                              ...[
+                            SizedBox(
+                              width: 15.w,
+                            ),
+                            const CircularProgressIndicator(
+                              color: AppColors.appGreen,
+                            )
+                          ]
+                        ],
                       ),
                     ),
                   ),

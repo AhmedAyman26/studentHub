@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/common/web_services/dio_helper.dart';
 import 'package:graduation/features/products/data/mappers/api_product_mapper.dart';
 import 'package:graduation/features/products/data/models/api_product_model.dart';
 import 'package:graduation/features/products/domain/models/inputs/add_product_input.dart';

@@ -9,7 +9,7 @@ class ServiceModel {
     if (json['services'] != null) {
       services = <Services>[];
       json['services'].forEach((v) {
-        services!.add(new Services.fromJson(v));
+        services!.add(Services.fromJson(v));
       });
     }
     success = json['success'];
@@ -17,12 +17,12 @@ class ServiceModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.services != null) {
-      data['services'] = this.services!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (services != null) {
+      data['services'] = services!.map((v) => v.toJson()).toList();
     }
-    data['success'] = this.success;
-    data['message'] = this.message;
+    data['success'] = success;
+    data['message'] = message;
     return data;
   }
 }
@@ -53,13 +53,13 @@ class Services {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['fullname'] = this.fullname;
-    data['image'] = this.image;
-    data['service_name'] = this.serviceName;
-    data['attachment'] = this.attachment;
-    data['service_type'] = this.serviceType;
-    data['in_favourite'] = this.inFavourite;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['fullname'] = fullname;
+    data['image'] = image;
+    data['service_name'] = serviceName;
+    data['attachment'] = attachment;
+    data['service_type'] = serviceType;
+    data['in_favourite'] = inFavourite;
     return data;
   }
 }

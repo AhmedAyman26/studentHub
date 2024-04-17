@@ -25,4 +25,11 @@ class ChatsCubit extends Cubit<ChatState>
     emit(state.copyWith(messagesState: RequestStatus.loading));
     _sendMessageUseCase.call(message);
   }
+
+  @override
+  void emit(ChatState state) {
+    if(!isClosed) {
+      super.emit(state);
+    }
+  }
 }

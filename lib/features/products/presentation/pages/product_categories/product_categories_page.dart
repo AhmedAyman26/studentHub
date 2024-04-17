@@ -5,8 +5,16 @@ import 'package:graduation/features/products/presentation/pages/add_product_page
 import 'widgets/category_card_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ProductCategoriesPage extends StatelessWidget {
+class ProductCategoriesPage extends StatefulWidget {
 
+
+  const ProductCategoriesPage({super.key});
+
+  @override
+  State<ProductCategoriesPage> createState() => _ProductCategoriesPageState();
+}
+
+class _ProductCategoriesPageState extends State<ProductCategoriesPage> {
  final List<String> images = [
     "assets/images/undraw_Devices_re_dxae.png",
     "assets/images/undraw_Bookshelves_re_lxoy.png",
@@ -17,7 +25,6 @@ class ProductCategoriesPage extends StatelessWidget {
     "assets/images/undraw_Alien_science_re_0f8q.png",
   ];
 
-  ProductCategoriesPage({super.key});
   @override
   Widget build(BuildContext context) {
     final List<String> names = [

@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/common/web_services/dio_helper.dart';
 import 'package:graduation/features/posts/data/mappers/api_post_mapper.dart';
 import 'package:graduation/features/posts/data/models/api_post_model.dart';
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';

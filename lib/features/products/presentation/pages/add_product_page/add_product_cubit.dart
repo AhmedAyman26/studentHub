@@ -23,4 +23,11 @@ class AddProductCubit extends Cubit<AddProductState> {
       emit(state.copyWith(message: error.toString(),addProductState: RequestStatus.error));
     }
   }
+
+  @override
+  void emit(AddProductState state) {
+    if(!isClosed){
+      super.emit(state);
+    }
+  }
 }

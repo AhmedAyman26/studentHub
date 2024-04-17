@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/constants.dart';
 import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/home_chat.dart';
-import 'package:graduation/features/posts/presentation/pages/posts_page/posts_screen.dart';
+import 'package:graduation/features/posts/presentation/pages/posts_page/posts_page.dart';
 import 'package:graduation/features/products/presentation/pages/product_categories/product_categories_page.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_page.dart';
 import 'package:graduation/features/setting/presentation/settings_screen.dart';
@@ -12,7 +11,7 @@ import '../common/widgets/search_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeLayout extends StatefulWidget {
-  static const routeName = "3_tabs";
+  static const routeName = "home";
 
   const HomeLayout({super.key});
 
@@ -22,6 +21,8 @@ class HomeLayout extends StatefulWidget {
 
 class _HomeLayoutState extends State<HomeLayout> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +38,12 @@ class _HomeLayoutState extends State<HomeLayout> {
       ),
     ];
     List<Widget> tabsContent = [
-      const PostPage(),
-      SubjectsPage(),
-      ProductCategoriesPage(),
+      Offstage(
+        child: const PostPage(),
+        offstage: index != 0,
+      ),
+      Offstage(child: const SubjectsPage(), offstage: index != 1),
+      Offstage(child: const ProductCategoriesPage(), offstage: index != 2),
     ];
     return DefaultTabController(
       length: tabs.length,
@@ -103,6 +107,12 @@ class _HomeLayoutState extends State<HomeLayout> {
                             color: const Color.fromRGBO(103, 139, 133, 1.0),
                             borderRadius: BorderRadius.circular(20.0)),
                         child: TabBar(
+                          onTap: (value) {
+                            index = value;
+                            setState(() {
+
+                            });
+                          },
                           isScrollable: true,
                           indicator: BoxDecoration(
                             color: const Color.fromRGBO(70, 121, 112, 1.0),
@@ -122,7 +132,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 ],
               ),
               Expanded(
-                child: TabBarView(
+                child: Stack(
                   children: tabsContent,
                 ),
               ),
@@ -146,14 +156,15 @@ class _HomeLayoutState extends State<HomeLayout> {
                         'https://static2.hdwallpapers.net/wallpapers/2019/02/24/1178/thumb_glass-building-in-toronto.jpg',
                       ),
                     )),
-                currentAccountPicture:  CircleAvatar(
+                currentAccountPicture: CircleAvatar(
                   radius: 10,
-                  backgroundImage: NetworkImage(  UserCubit.get(context).state.userData?.image??''),
+                  backgroundImage: NetworkImage(
+                      UserCubit.get(context).state.userData?.image ?? ''),
                 ),
-                accountName: Text(
-                    UserCubit.get(context).state.userData?.fullName??''),
-                // '${GraduationCubit.get(context).user?.fullname??'ahmed'}',style: TextStyle(color: Colors.black),),
-                accountEmail: Text(  UserCubit.get(context).state.userData?.email??''),
+                accountName:
+                    Text(UserCubit.get(context).state.userData?.fullName ?? ''),
+                accountEmail:
+                    Text(UserCubit.get(context).state.userData?.email ?? ''),
               ),
               ListTile(
                 leading: const ImageIcon(

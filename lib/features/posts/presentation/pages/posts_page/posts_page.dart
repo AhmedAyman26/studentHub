@@ -60,10 +60,10 @@ class _PostPageBodyState extends State<PostPageBody> {
                 if (state.getPostState == RequestStatus.loading) {
                   return Shimmer.fromColors(
                     baseColor: Colors.grey.shade300,
-                    highlightColor: Colors.green,
+                    highlightColor: Colors.grey,
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: state.posts.length,
+                      itemCount: 10,
                       itemBuilder: (context, index) {
                         return const SizedBox(
                           height: 70,

@@ -3,17 +3,23 @@ import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/chats/domain/use_cases/get_users_use_case.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_state.dart';
 
-class UsersListCubit extends Cubit<UsersListState>
-{
+class UsersListCubit extends Cubit<UsersListState> {
   final GetUsersUseCase _getUsersUseCase;
-  UsersListCubit(this._getUsersUseCase):super(const UsersListState());
 
-  static UsersListCubit get(context)=>BlocProvider.of(context);
+  UsersListCubit(this._getUsersUseCase) : super(const UsersListState());
 
-  void getUsers()async
-  {
+  static UsersListCubit get(context) => BlocProvider.of(context);
+
+  void getUsers() async {
     emit(state.copyWith(getUsersState: RequestStatus.loading));
-    final users=await _getUsersUseCase.call();
-    emit(state.copyWith(getUsersState: RequestStatus.success,users: users));
+    final users = await _getUsersUseCase.call();
+    emit(state.copyWith(getUsersState: RequestStatus.success, users: users));
+  }
+
+  @override
+  void emit(UsersListState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
   }
 }

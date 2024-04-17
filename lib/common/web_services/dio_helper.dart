@@ -22,14 +22,10 @@ class DioHelper
     String? token,
   })async
   {
-    // dio.interceptors.add(PrettyDioLogger(
-    //     requestHeader: true,
-    //     requestBody: true,
-    //     responseBody: true,
-    //     responseHeader: false,
-    //     error: true,
-    //     compact: true,
-    //     maxWidth: 90));
+    dio.interceptors.add(PrettyDioLogger(
+        error: true,
+        compact: true,
+        maxWidth: 90));
     dio.options.headers=
     {
       'Content-Type' : 'application/json',
@@ -45,10 +41,6 @@ class DioHelper
   })async
   {
     dio.interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
         error: true,
         compact: true,
         maxWidth: 90));
@@ -63,34 +55,6 @@ class DioHelper
     );
 
   }
-  // static Future<Response> postData({
-  //   required String url,
-  //   Map<String ,dynamic>?query,
-  //   required Map<String ,dynamic>data,
-  //   String lang='en',
-  //   String? token,
-  // //
-  // }) async
-  // {
-  //   // dio.interceptors.add(PrettyDioLogger(
-  //   //   requestHeader: true,
-  //   //   requestBody: true,
-  //   //   responseHeader: true,
-  //   // ));
-  //   // Map<String,dynamic>headers={
-  //   //   "content-type":"application/json",
-  //   //   "accept":"application/json",
-  //   // };
-  //   // dio.options=BaseOptions(
-  //   //   baseUrl: 'https://graduation.mocklab.io',
-  //   //   headers: headers,
-  //   // );
-  //   return dio.post(
-  //     url,
-  //     queryParameters: query,
-  //     data: data,
-  //   );
-  // }
 
   static Future<Response> putData({
     required String url,

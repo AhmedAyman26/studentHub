@@ -46,4 +46,11 @@ class ProductsCubit extends Cubit<ProductsState> {
           errorMessage: error.toString()));
     }
   }
+
+  @override
+  void emit(ProductsState state) {
+    if(!isClosed) {
+      super.emit(state);
+    }
+  }
 }

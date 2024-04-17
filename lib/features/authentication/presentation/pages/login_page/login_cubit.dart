@@ -33,4 +33,11 @@ class LoginCubit extends Cubit<LoginState>
       emit(state.copyWith(loginState: RequestStatus.error,errorMessage: error.toString()));
     }
   }
+
+  @override
+  void emit(LoginState state) {
+    if(!isClosed) {
+      super.emit(state);
+    }
+  }
 }

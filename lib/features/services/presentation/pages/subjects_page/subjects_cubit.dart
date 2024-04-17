@@ -4,23 +4,29 @@ import 'package:graduation/common/utils.dart';
 import 'package:graduation/features/services/domain/use_cases/get_subjects_use_case.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_state.dart';
 
-class SubjectsCubit extends Cubit<SubjectsState>
-{
-  SubjectsCubit(this._getSubjectsUseCase):super(const SubjectsState());
+class SubjectsCubit extends Cubit<SubjectsState> {
+  SubjectsCubit(this._getSubjectsUseCase) : super(const SubjectsState());
 
-  static SubjectsCubit get(context)=>BlocProvider.of(context);
+  static SubjectsCubit get(context) => BlocProvider.of(context);
 
   final GetSubjectsUseCase _getSubjectsUseCase;
 
-  void getSubjects(int facultyId)async
-  {
+  void getSubjects(int facultyId) async {
     emit(state.copyWith(subjectsState: RequestStatus.loading));
-    try{
-      final subjects=await _getSubjectsUseCase.call(facultyId);
-      emit(state.copyWith(subjectsState: RequestStatus.success,subjects: subjects));
-    }catch(error)
-    {
+    try {
+      final subjects = await _getSubjectsUseCase.call(facultyId);
+      print("SDFGSDGFGDSFG${subjects}");
+      emit(state.copyWith(
+          subjectsState: RequestStatus.success, subjects: subjects));
+    } catch (error) {
       emit(state.copyWith(subjectsState: RequestStatus.error));
+    }
+  }
+
+  @override
+  void emit(SubjectsState state) {
+    if (!isClosed) {
+      super.emit(state);
     }
   }
 }

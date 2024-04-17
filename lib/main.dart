@@ -10,7 +10,7 @@ import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/common/cubits/user_cubit/user_state.dart';
 import 'package:graduation/common/local/cache_helper.dart';
 import 'package:graduation/common/utils.dart';
-import 'package:graduation/data/web_services/dio_helper.dart';
+import 'package:graduation/common/web_services/dio_helper.dart';
 import 'package:graduation/features/Home.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
 import 'package:graduation/features/onboarding/on_boarding_screen.dart';
@@ -35,10 +35,10 @@ void main()async {
   {
     if(id !=null)
     {
-      widget=HomeLayout();
+      widget=const HomeLayout();
     }else
     {
-      widget=LoginPage();
+      widget=const LoginPage();
     }
   }else
   {
@@ -102,15 +102,15 @@ class MyApp extends StatelessWidget {
                   {
                     if(state.userDataState==RequestStatus.loading)
                     {
-                      return Scaffold(body: Center(child: CircularProgressIndicator(),),);
+                      return const Scaffold(body: Center(child: CircularProgressIndicator(),),);
                     }else{
                       if(state.userData!=null)
                       {
-                        return HomeLayout();
+                        return const HomeLayout();
                       }
                       else
                       {
-                        return LoginPage();
+                        return const LoginPage();
                       }
                     }
                   }),
