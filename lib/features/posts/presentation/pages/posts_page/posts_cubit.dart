@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/posts/di/posts_di.dart';
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';
 import 'package:graduation/features/posts/domain/usecases/crearte_post_use_case.dart';

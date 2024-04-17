@@ -1,11 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/common/constants.dart';
-import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/utils/constants.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
-import 'package:graduation/features/chats/presentation/pages/chat_page/chat_screen.dart';
+import 'package:graduation/features/chats/presentation/pages/chat_page/chat_page.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_cubit.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/widgets/product_details_page.dart';

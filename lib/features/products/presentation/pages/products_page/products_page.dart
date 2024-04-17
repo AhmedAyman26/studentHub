@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/presentation/widgets/search_widget.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_cubit.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/products_state.dart';
 import 'package:graduation/features/products/presentation/pages/products_page/widgets/product_item.dart';
-import 'package:graduation/common/widgets/search_widget.dart';
 
 class ProductsPage extends StatelessWidget {
   final String category;
@@ -88,7 +88,7 @@ class _ProductsPageBodyState extends State<ProductsPageBody> {
                           SizedBox(
                             height: 40.h,
                           ),
-                          search_widget(),
+                          AppSearchWidget(),
                         ],
                       )
                     ],

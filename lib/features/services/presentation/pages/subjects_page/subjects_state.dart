@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/services/domain/models/subject_model.dart';
 
 class SubjectsState extends Equatable {

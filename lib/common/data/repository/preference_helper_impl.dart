@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:graduation/common/local/cache_helper.dart';
-import 'package:graduation/common/preference_helper/preference_helper.dart';
+import 'package:graduation/common/domain/repository/preference_helper.dart';
+import 'package:graduation/common/utils/cache_helper.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 
 class PreferenceHelperImpl extends PreferenceHelper

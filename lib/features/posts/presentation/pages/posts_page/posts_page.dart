@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/constants.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/posts/presentation/pages/add_post_screen.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';

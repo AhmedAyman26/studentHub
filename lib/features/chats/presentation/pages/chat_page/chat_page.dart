@@ -1,11 +1,10 @@
 import 'dart:developer';
-
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
-import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';

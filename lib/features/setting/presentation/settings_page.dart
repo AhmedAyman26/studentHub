@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/constants.dart';
-import 'package:graduation/common/cubits/language_cubit/language_cubit.dart';
-import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/common/cubits/user_cubit/user_state.dart';
-import 'package:graduation/common/styles/colors.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/presentation/cubits/language_cubit/language_cubit.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_state.dart';
+import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/styles/colors.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

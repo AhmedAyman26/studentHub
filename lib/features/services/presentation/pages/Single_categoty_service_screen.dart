@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/styles/colors.dart';
-import 'package:graduation/common/widgets/search_widget.dart';
+import 'package:graduation/common/presentation/widgets/search_widget.dart';
+import 'package:graduation/common/utils/styles/colors.dart';
 
 class ServicesPage extends StatelessWidget {
   final String serviceType;
@@ -50,7 +50,7 @@ class ServicesPage extends StatelessWidget {
                     SizedBox(
                       height: 40.h,
                     ),
-                    search_widget(),
+                    AppSearchWidget(),
                   ],
                 ),
               ],

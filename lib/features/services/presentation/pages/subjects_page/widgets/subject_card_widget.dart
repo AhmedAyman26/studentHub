@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:graduation/common/styles/colors.dart';
+import 'package:graduation/common/utils/styles/colors.dart';
 import 'package:graduation/features/services/presentation/pages/service_types_page/service_types.dart';
 
 class SubjectCardWidget extends StatelessWidget {

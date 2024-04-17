@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:graduation/common/web_services/dio_helper.dart';
+import 'package:graduation/common/utils/dio_helper.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/authentication/data/mapper/api_user_data_mapper.dart';
 import 'package:graduation/features/authentication/data/models/api_user_model.dart';

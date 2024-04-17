@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/app_injector.dart';
-import 'package:graduation/common/constants.dart';
-import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/common/utils.dart';
-import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/utils.dart';
+import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service_page.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_cubit.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_state.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/widgets/subject_card_widget.dart';

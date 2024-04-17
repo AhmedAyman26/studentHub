@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
-import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/common/cubits/user_cubit/user_state.dart';
-import 'package:graduation/common/styles/colors.dart';
-import 'package:graduation/common/utils.dart';
-import 'package:graduation/common/widgets/widgets.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_state.dart';
+import 'package:graduation/common/presentation/widgets/show_select_image_bottom_sheet.dart';
+import 'package:graduation/common/utils/styles/colors.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/products/domain/models/inputs/add_product_input.dart';
 import 'package:graduation/features/products/presentation/pages/add_product_page/add_product_cubit.dart';
 import 'package:graduation/features/products/presentation/pages/add_product_page/add_product_state.dart';
@@ -165,7 +165,9 @@ class _AddProductPageBodyState extends State<AddProductPageBody> {
                                 productImageLink = value;
                               });
                             });
-                            Navigator.of(context).pop();
+                            if(mounted) {
+                              Navigator.of(context).pop();
+                            }
                           });
                         },
                         child: Icon(

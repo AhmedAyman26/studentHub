@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
-import 'package:graduation/common/constants.dart';
-import 'package:graduation/common/local/cache_helper.dart';
+import 'package:graduation/common/utils/constants.dart';
+import 'package:graduation/common/utils/cache_helper.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class OnBoardingScreen extends StatefulWidget {

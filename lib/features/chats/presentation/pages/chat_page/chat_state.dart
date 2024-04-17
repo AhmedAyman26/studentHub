@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
 
 class ChatState extends Equatable {

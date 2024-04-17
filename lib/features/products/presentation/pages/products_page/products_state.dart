@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/products/domain/models/product_model.dart';
 
 class ProductsState extends Equatable

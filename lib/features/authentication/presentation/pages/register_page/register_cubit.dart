@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/common/utils.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/register_input.dart';
 import 'package:graduation/features/authentication/domain/use_cases/get_faculties_use_case.dart';
 import 'package:graduation/features/authentication/domain/use_cases/get_universities_use_case.dart';

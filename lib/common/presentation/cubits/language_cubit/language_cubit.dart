@@ -5,17 +5,17 @@ import 'language_cach_helper.dart';
 import 'language_states.dart';
 
 
-class LanguageCubit extends Cubit<languageStates>{
-  LanguageCubit():super(languageInitialState());
+class LanguageCubit extends Cubit<LanguageState>{
+  LanguageCubit():super(LanguageInitialState());
 
   Future<void>getSavedLanguage()async{
      final String cachhedLanguageCode =
      await LanguageCacheHelper().getCachedLanguageCode();
-     emit(changeLanguageState(locale: Locale(cachhedLanguageCode)));
+     emit(ChangeLanguageState(locale: Locale(cachhedLanguageCode)));
   }
   Future<void>changeLanguage(String languageCode)async{
     await LanguageCacheHelper().cacheLanguageCode(languageCode);
-    emit(changeLanguageState(locale: Locale(languageCode)));
+    emit(ChangeLanguageState(locale: Locale(languageCode)));
   }
  // void toArabic()=>emit(selectedLanguageState(Locale('ar')));
 

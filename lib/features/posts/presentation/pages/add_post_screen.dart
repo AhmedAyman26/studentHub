@@ -1,10 +1,10 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/common/cubits/user_cubit/user_state.dart';
-import 'package:graduation/common/utils.dart';
-import 'package:graduation/common/widgets/widgets.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_state.dart';
+import 'package:graduation/common/presentation/widgets/show_select_image_bottom_sheet.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';

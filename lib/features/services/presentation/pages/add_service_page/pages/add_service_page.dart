@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:graduation/common/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/features/services/domain/models/subject_model.dart';
 import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service_cubit.dart';
 import 'package:graduation/features/services/presentation/pages/add_service_page/pages/add_service_state.dart';
 import 'package:graduation/features/services/presentation/pages/add_service_page/widgets/show_select_attachment_bottom_sheet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class AddServicePage extends StatefulWidget {
   final List<SubjectModel> subjects;
-  const AddServicePage({super.key, required this.subjects});
 
+  const AddServicePage({super.key, required this.subjects});
 
   @override
   State<AddServicePage> createState() => _AddServicePageState();
 }
 
 class _AddServicePageState extends State<AddServicePage> {
-
   TextEditingController serviceNameController = TextEditingController();
 
   String? selectedSubject;
@@ -26,11 +26,10 @@ class _AddServicePageState extends State<AddServicePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) =>AddServiceCubit(),
+      create: (BuildContext context) => AddServiceCubit(),
       child: BlocConsumer<AddServiceCubit, AddServiceState>(
-        listener: (context, state){
-        },
-        builder: (context , state){
+        listener: (context, state) {},
+        builder: (context, state) {
           return Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -38,18 +37,17 @@ class _AddServicePageState extends State<AddServicePage> {
               elevation: 0,
               backgroundColor: Colors.white,
               leading: IconButton(
-                onPressed: (){
+                onPressed: () {
                   Navigator.pop(context);
                 },
-                icon:const Icon(Icons.arrow_back,
+                icon: const Icon(
+                  Icons.arrow_back,
                   color: Colors.black,
                 ),
               ),
               title: Text(
                 AppLocalizations.of(context)!.add_service,
-                style: const TextStyle(
-                    color: Colors.black
-                ),
+                style: const TextStyle(color: Colors.black),
               ),
               actions: [
                 Padding(
@@ -57,16 +55,14 @@ class _AddServicePageState extends State<AddServicePage> {
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
-                      color:const Color.fromRGBO(70, 121, 112, 1.0),
+                      color: const Color.fromRGBO(70, 121, 112, 1.0),
                     ),
                     child: TextButton(
-                        onPressed: () async{
-                          if(true){
+                        onPressed: () async {
+                          if (true) {
                             print("############${subjectId}");
                             // const Center(child: CircularProgressIndicator());
-                          }else
-                          {
-
+                          } else {
                             // GraduationCubit.get(context).addService(
                             //     serviceName: serviceNameController.text,
                             //     serviceType: '1',
@@ -84,8 +80,7 @@ class _AddServicePageState extends State<AddServicePage> {
                             color: Colors.white,
                             //backgroundColor: Colors.teal
                           ),
-                        )
-                    ),
+                        )),
                   ),
                 )
               ],
@@ -96,10 +91,11 @@ class _AddServicePageState extends State<AddServicePage> {
                 children: [
                   Row(
                     children: [
-                       CircleAvatar(
+                      CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(UserCubit.get(context).state.userData?.image??''),
+                        backgroundImage: NetworkImage(
+                            UserCubit.get(context).state.userData?.image ?? ''),
                       ),
                       const SizedBox(
                         width: 10,
@@ -110,10 +106,9 @@ class _AddServicePageState extends State<AddServicePage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              UserCubit.get(context).state.userData?.fullName??'',
-                              style:  TextStyle(
-                                  fontSize: 18.sp
-                              ),
+                              UserCubit.get(context).state.userData?.fullName ??
+                                  '',
+                              style: TextStyle(fontSize: 18.sp),
                             ),
                           ],
                         ),
@@ -126,30 +121,32 @@ class _AddServicePageState extends State<AddServicePage> {
                   TextFormField(
                     minLines: 1,
                     maxLines: 5,
-                    controller: serviceNameController ,
+                    controller: serviceNameController,
                     cursorColor: Colors.teal,
                     keyboardType: TextInputType.multiline,
-                    decoration:  InputDecoration(
+                    decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.type_description,
                       border: InputBorder.none,
                       fillColor: Colors.teal,
                     ),
-
                   ),
                   DropdownButton(
-                    items: widget.subjects.map((e) =>DropdownMenuItem(
-                      value: e.subjectName,
-                      child: Text(e.subjectName??''),
-                    ))
+                    items: widget.subjects
+                        .map((e) => DropdownMenuItem(
+                              value: e.subjectName,
+                              child: Text(e.subjectName ?? ''),
+                            ))
                         .toList(),
                     onChanged: (e) {
                       selectedSubject = e;
-                      subjectId = widget.subjects.indexWhere((element) => element.subjectName==e)+1;
+                      subjectId = widget.subjects.indexWhere(
+                              (element) => element.subjectName == e) +
+                          1;
                       setState(() {});
                     },
                     isExpanded: true,
                     hint: Text(AppLocalizations.of(context)!.select_university),
-                    value:selectedSubject,
+                    value: selectedSubject,
                   ),
 
                   // Expanded(
@@ -167,11 +164,11 @@ class _AddServicePageState extends State<AddServicePage> {
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color:const Color.fromRGBO(70, 121, 112, 1.0),
+                          color: const Color.fromRGBO(70, 121, 112, 1.0),
                         ),
                         child: TextButton(
                           onPressed: () => showServiceBottomSheet(context),
-                          child:  Text(
+                          child: Text(
                             AppLocalizations.of(context)!.upload,
                             style: const TextStyle(
                               color: Colors.white,
@@ -189,6 +186,4 @@ class _AddServicePageState extends State<AddServicePage> {
       ),
     );
   }
-
 }
-
