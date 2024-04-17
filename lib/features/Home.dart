@@ -39,11 +39,17 @@ class _HomeLayoutState extends State<HomeLayout> {
     ];
     List<Widget> tabsContent = [
       Offstage(
-        child: const PostPage(),
         offstage: index != 0,
+        child: const PostPage(),
       ),
-      Offstage(child: const SubjectsPage(), offstage: index != 1),
-      Offstage(child: const ProductCategoriesPage(), offstage: index != 2),
+      Offstage(
+        offstage: index != 1,
+        child: const SubjectsPage(),
+      ),
+      Offstage(
+        offstage: index != 2,
+        child: const ProductCategoriesPage(),
+      ),
     ];
     return DefaultTabController(
       length: tabs.length,
@@ -109,9 +115,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                         child: TabBar(
                           onTap: (value) {
                             index = value;
-                            setState(() {
-
-                            });
+                            setState(() {});
                           },
                           isScrollable: true,
                           indicator: BoxDecoration(
