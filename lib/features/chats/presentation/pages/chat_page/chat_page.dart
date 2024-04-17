@@ -21,23 +21,23 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ChatsCubit(injector(), injector()),
-      child: ChatScreen(
+      child: ChatPageBody(
         user: user,
       ),
     );
   }
 }
 
-class ChatScreen extends StatefulWidget {
+class ChatPageBody extends StatefulWidget {
   final UserData user;
 
-  const ChatScreen({Key? key, required this.user}) : super(key: key);
+  const ChatPageBody({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<ChatPageBody> createState() => _ChatPageBodyState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatPageBodyState extends State<ChatPageBody> {
   @override
   void initState() {
     ChatsCubit.get(context).getMessages(
@@ -51,7 +51,6 @@ class _ChatScreenState extends State<ChatScreen> {
     TextEditingController messageController = TextEditingController();
     return BlocConsumer<ChatsCubit, ChatState>(
       listener: (context, state) {
-        log("${state.messages}");
       },
       builder: (context, state) => Scaffold(
         body: SafeArea(
@@ -105,14 +104,11 @@ class _ChatScreenState extends State<ChatScreen> {
                               ),
                             ),
                             IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
                                 icon: Icon(
                                   Icons.more_vert_rounded,
                                   size: 25.w,
                                   color: Colors.white,
-                                )),
+                                ), onPressed: () {},),
                           ],
                         ),
                       ),
@@ -260,7 +256,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildMessage(MessageModel message) {
-    print("@@@@@@@@@@@@@@@@@@@@@@@@${message.image}");
     return Align(
         alignment: AlignmentDirectional.centerStart,
         child: Container(
@@ -288,7 +283,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget buildMyMessage(MessageModel message) {
-    print("@@@@@@@@@@@@@@@@@@@@@@@@${message.image}");
     return Align(
         alignment: AlignmentDirectional.centerEnd,
         child: Container(

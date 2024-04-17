@@ -79,9 +79,7 @@ class _ChatHomeScreenState extends State<ChatHomeScreen> {
                               ),
                               const Spacer(),
                               IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
+                                onPressed: () {},
                                   icon: Icon(
                                     Icons.more_vert_rounded,
                                     size: 25.w,
