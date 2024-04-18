@@ -40,7 +40,7 @@ class ServiceTypesPage extends StatelessWidget {
                     child: Image(
                       width: double.infinity,
                       fit: BoxFit.fill,
-                      image: AssetImage("assets/images/chat_header.png"),
+                      image: AssetImage(ImagesPaths.chatHeader),
                     ),
                   ),
                   Column(

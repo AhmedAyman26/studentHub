@@ -1,4 +1,5 @@
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';
+import 'package:graduation/features/posts/domain/models/post_model.dart';
 import 'package:graduation/features/posts/domain/repository/post_repository.dart';
 
 class CreatePostUseCase
@@ -7,7 +8,7 @@ class CreatePostUseCase
 
   CreatePostUseCase(this._postRepository);
 
-  Future<void> call(CreatePostInput input)async
+  Future<PostModel> call(CreatePostInput input)async
   {
     return await _postRepository.addPost(input);
   }

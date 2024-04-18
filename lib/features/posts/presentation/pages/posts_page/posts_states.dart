@@ -7,6 +7,7 @@ class PostStates extends Equatable {
   final List<PostModel> posts;
   final String errorMessage;
   final RequestStatus createPostState;
+  final PostModel? createdPost;
 
 
   const PostStates(
@@ -14,23 +15,27 @@ class PostStates extends Equatable {
         this.createPostState=RequestStatus.initial,
         this.getPostState = RequestStatus.initial,
       this.posts = const [],
-      this.errorMessage = ''});
+      this.errorMessage = '',
+        this.createdPost
+      });
 
   PostStates copyWith({
      RequestStatus? getPostState,
      List<PostModel>? posts,
      String? errorMessage,
-    RequestStatus? createPostState
+    RequestStatus? createPostState,
+    PostModel? createdPost
 })
   {
     return PostStates(
       getPostState: getPostState??this.getPostState,
       posts: posts??this.posts,
       errorMessage: errorMessage??this.errorMessage,
-      createPostState: createPostState??this.createPostState
+      createPostState: createPostState??this.createPostState,
+      createdPost: createdPost??this.createdPost
     );
   }
 
   @override
-  List<Object?> get props => [getPostState,posts,errorMessage,createPostState];
+  List<Object?> get props => [getPostState,posts,errorMessage,createPostState,createdPost];
 }

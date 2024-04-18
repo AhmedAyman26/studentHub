@@ -12,7 +12,8 @@ extension ApiUserDataMapper on ApiUserData
       universityName: universityName??'',
       firebaseId: firebaseId??'',
       fullName: fullname??'',
-      image: image??''
+      image: image??'',
+      facultyId: facultyId??0
     );
   }
 }

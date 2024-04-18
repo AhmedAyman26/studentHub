@@ -257,7 +257,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                                 emailController.text.trim(),
                                 passwordController.text.trim(),
                                 universityId.toString(),
-                                facultyId.toString(),
+                                facultyId,
                                 widget.profileImageLink),
                           );
                           widget.onRegisterCallback!(facultyId);

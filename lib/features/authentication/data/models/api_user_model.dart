@@ -12,10 +12,6 @@ class ApiUserModel {
     message: json["message"],
   );
 
-  Map<String, dynamic> toJson() => {
-    "data": data?.toJson(),
-    "message": message,
-  };
 }
 
 class ApiUserData {
@@ -27,6 +23,7 @@ class ApiUserData {
   final String? facultyName;
   final String? password;
   final String? firebaseId;
+  final int? facultyId;
 
   ApiUserData({
     this.fullname,
@@ -36,7 +33,8 @@ class ApiUserData {
     this.universityName,
     this.facultyName,
     this.password,
-    this.firebaseId
+    this.firebaseId,
+    this.facultyId
   });
 
   factory ApiUserData.fromJson(Map<String, dynamic> json) => ApiUserData(
@@ -47,16 +45,7 @@ class ApiUserData {
     universityName: json["university_name"],
     facultyName: json["faculty_name"],
     password: json["Password"],
-    firebaseId: json['uId']
+    firebaseId: json['uId'],
+    facultyId: json['faculty_id'],
   );
-
-  Map<String, dynamic> toJson() => {
-    "fullname": fullname,
-    "email": email,
-    "image": image,
-    "student_id": studentId,
-    "university_name": universityName,
-    "faculty_name": facultyName,
-    "Password": password,
-  };
 }

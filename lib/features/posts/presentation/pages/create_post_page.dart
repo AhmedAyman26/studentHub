@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:graduation/common/presentation/cubits/user_cubit/user_state.dart
 import 'package:graduation/common/presentation/widgets/show_select_image_bottom_sheet.dart';
 import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';
+import 'package:graduation/features/posts/domain/models/post_model.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -49,7 +51,7 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
       {
         if(state.createPostState==RequestStatus.success)
         {
-          Navigator.of(context).pop();
+          Navigator.of(context).pop(state.createdPost);
         }
         if(state.createPostState==RequestStatus.error)
         {
@@ -87,7 +89,8 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
                   child: TextButton(
                       onPressed: () async {
                         var now = DateTime.now();
-                        await PostsCubit.get(context).addPost(CreatePostInput(
+                         PostsCubit.get(context).addPost(CreatePostInput(
+                           firebaseId: FirebaseAuth.instance.currentUser?.uid??'',
                           postImage: postImageLink,text: textController.text,
                           studentId: userState.userData?.studentId??'',time: now.toString()
                         ));

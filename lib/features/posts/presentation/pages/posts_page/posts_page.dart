@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/utils/constants/app_constants.dart';
 import 'package:graduation/common/utils/utils.dart';
-import 'package:graduation/features/posts/presentation/pages/add_post_screen.dart';
+import 'package:graduation/features/posts/presentation/pages/create_post_page.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/widgets/post_item.dart';
@@ -49,7 +49,7 @@ class _PostPageBodyState extends State<PostPageBody> {
                   child: ListView.separated(
                     shrinkWrap: true,
                     itemBuilder: (context, index) =>
-                        PostItem(model: state.posts[index], context: context),
+                        PostItem(post: state.posts[index], context: context),
                     separatorBuilder: (context, index) =>
                         SizedBox(
                           height: 5.h,
@@ -101,8 +101,11 @@ class _PostPageBodyState extends State<PostPageBody> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          navigateTo(context, const CreatePostPage());
+        onPressed: () async {
+          final createdPost= await Navigator.push(context,MaterialPageRoute(builder: (context) => const CreatePostPage(),));
+          if(mounted) {
+            PostsCubit.get(context).updatePostsList(createdPost);
+          }
         },
         child: const Icon(Icons.add),
       ),

@@ -4,7 +4,7 @@ class RegisterInput
   final String email;
   final String password;
   final String universityId;
-  final String facultyId;
+  final int facultyId;
   final String image;
 
   RegisterInput(this.fullName, this.email, this.password, this.universityId, this.facultyId, this.image);

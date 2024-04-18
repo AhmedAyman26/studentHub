@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,9 +8,10 @@ import 'package:graduation/features/posts/domain/models/post_model.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_page.dart';
 
 class PostItem extends StatelessWidget {
-  final PostModel model;
+  final PostModel post;
   final BuildContext context;
-  const PostItem({super.key, required this.model, required this.context});
+
+  const PostItem({super.key, required this.post, required this.context});
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +30,25 @@ class PostItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.greenAccent,
-                  radius: 20,
-                  child: Image(
-                    fit: BoxFit.cover,
-                    image: model.userImage?.isEmpty == true ||
-                        model.userImage?.isNotEmpty == true
-                        ? const NetworkImage(
-                        'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')
-                        : NetworkImage(model.userImage ?? ''),
+                Container(
+                  height: 40,
+                  width: 40,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.greenAccent,
                   ),
+                  child:CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: "${post.userImage}",
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) => const Image(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png'),
+                        ),
+                      ),
                 ),
                 SizedBox(
                   width: 10.w,
@@ -46,14 +56,14 @@ class PostItem extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    model.userName == null
+                    post.userName == null
                         ? const Text('name')
                         : Text(
-                      '${model.userName}',
-                    ),
-                    model.postDate == null
+                            '${post.userName}',
+                          ),
+                    post.postDate == null
                         ? const Text('12:00PM')
-                        : Text('${model.postDate}'),
+                        : Text('${post.postDate}'),
                   ],
                 ),
                 const Spacer(),
@@ -66,27 +76,25 @@ class PostItem extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                '${model.text}',
+                '${post.text}',
                 style: TextStyle(fontSize: 16.sp),
               ),
             ),
             const SizedBox(
               height: 10,
             ),
-            model.postImage != ''
+            post.postImage != ''
                 ? Container(
-              height: 140,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                image: DecorationImage(
-                  image: NetworkImage('${model.postImage}'
-                    //
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            )
+                    height: 140,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      image: DecorationImage(
+                        image: CachedNetworkImageProvider(post.postImage ?? ''),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  )
                 : const SizedBox(),
             const AppDivider(),
             Padding(
@@ -102,8 +110,7 @@ class PostItem extends StatelessWidget {
                         color: Colors.grey[600],
                       ),
                       label: 'React',
-                      onTap: () {
-                      }),
+                      onTap: () {}),
                   PostButton(
                       icon: ImageIcon(
                         const AssetImage(ImagesPaths.comment),

@@ -1,16 +1,16 @@
 
-class ApiPostModel {
+class ApiPostsResult {
   final bool? success;
   final String? message;
   final List<ApiPostData>? posts;
 
-  ApiPostModel({
+  ApiPostsResult({
     this.success,
     this.message,
     this.posts,
   });
 
-  factory ApiPostModel.fromJson(Map<String, dynamic> json) => ApiPostModel(
+  factory ApiPostsResult.fromJson(Map<String, dynamic> json) => ApiPostsResult(
     success: json["success"],
     message: json["message"],
     posts: json["posts"] == null ? [] : List<ApiPostData>.from(json["posts"].map((x) => ApiPostData.fromJson(x))),

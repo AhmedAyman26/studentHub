@@ -51,8 +51,7 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) async {
         if (state.registerState == RequestStatus.success) {
-          final updatedUserData=state.userData.modify(facultyId:facultyId);
-          UserCubit.get(context).cacheUser(updatedUserData);
+          UserCubit.get(context).cacheUser(state.userData);
           navigateAndFinish(
             context,
             const HomeLayout(),
@@ -119,9 +118,6 @@ class _RegisterPageBodyState extends State<RegisterPageBody> {
                       right: 50.w,
                     ),
                     child:  RegistrationForm(
-                      onRegisterCallback: (facultyIdd) {
-                        facultyId=facultyIdd;
-                      },
                       profileImageLink: profileImageLink??'',
                     ),
                   ),
