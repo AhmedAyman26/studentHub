@@ -19,7 +19,7 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateTo(context, ProductDetailsPage(product));
+        navigateTo(context, ProductDetailsPage(product: product));
       },
       child: Container(
         width: MediaQuery.of(context).size.width / 2.2,

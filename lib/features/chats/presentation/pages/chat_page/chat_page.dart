@@ -51,8 +51,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
   Widget build(BuildContext context) {
     TextEditingController messageController = TextEditingController();
     return BlocConsumer<ChatsCubit, ChatState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) => Scaffold(
         body: SafeArea(
           child: Column(
@@ -64,56 +63,63 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                     fit: BoxFit.cover,
                     width: double.infinity,
                   ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 20.h, left: 10.w),
-                        child: Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 25.w,
-                                  color: Colors.white,
-                                )),
-                            CircleAvatar(
-                                radius: 25,
-                                backgroundImage: widget.user.image != null
-                                    ? NetworkImage('${widget.user.image}')
-                                    : const NetworkImage(
-                                        'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')),
-                            SizedBox(
-                              width: 8.w,
-                            ),
-                            Text(
-                              '${widget.user.fullName}',
-                              style: const TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ),
-                            const Spacer(),
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.phone,
-                                color: Colors.white,
-                                size: 25.w,
-                              ),
-                            ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.more_vert_rounded,
-                                  size: 25.w,
-                                  color: Colors.white,
-                                ), onPressed: () {},),
-                          ],
+                  Padding(
+                    padding: EdgeInsets.only(top: 20.h, left: 10.w),
+                    child: Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_ios,
+                            size: 25.w,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ],
+                        CircleAvatar(
+                            radius: 20,
+                            backgroundImage: widget.user.image != null
+                                ? NetworkImage('${widget.user.image}')
+                                : const NetworkImage(
+                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')),
+                        SizedBox(
+                          width: 8.w,
+                        ),
+                             SizedBox(
+                               width: MediaQuery.of(context).size.width/3,
+                               height:  MediaQuery.of(context).size.width/10,
+                               child: FittedBox(
+                                child: Text(
+                                  '${widget.user.fullName}',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      fontSize: 22.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      overflow: TextOverflow.ellipsis),
+                                                       ),
+                               ),
+                             ),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.phone,
+                            color: Colors.white,
+                            size: 25.w,
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.more_vert_rounded,
+                            size: 25.w,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -129,7 +135,10 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                             builder: (context, snapshot) {
                               return ListView.separated(
                                 itemBuilder: (context, index) {
-                                  if (UserCubit.get(context).state.userData?.firebaseId ==
+                                  if (UserCubit.get(context)
+                                          .state
+                                          .userData
+                                          ?.firebaseId ==
                                       snapshot.data?[index].senderId) {
                                     return buildMyMessage(
                                         snapshot.data![index]);
@@ -258,35 +267,36 @@ class _ChatPageBodyState extends State<ChatPageBody> {
 
   Widget buildMessage(MessageModel message) {
     return Align(
-        alignment: AlignmentDirectional.centerStart,
-        child: Container(
-            decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: const BorderRadiusDirectional.only(
-                  bottomEnd: Radius.circular(10),
-                  topEnd: Radius.circular(10),
-                  topStart: Radius.circular(10),
-                )),
-            padding: const EdgeInsets.symmetric(
-              vertical: 5,
-              horizontal: 10,
-            ),
-            child:
-                Column(
-                  children: [
-                    (message.image==null || message.image=='')?SizedBox.shrink():Image(image: NetworkImage(message.image??'')),
-                    Text(
-                      message.text ?? '',
-            ),
-                  ],
-                )),
-      );
+      alignment: AlignmentDirectional.centerStart,
+      child: Container(
+          decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: const BorderRadiusDirectional.only(
+                bottomEnd: Radius.circular(10),
+                topEnd: Radius.circular(10),
+                topStart: Radius.circular(10),
+              )),
+          padding: const EdgeInsets.symmetric(
+            vertical: 5,
+            horizontal: 10,
+          ),
+          child: Column(
+            children: [
+              (message.image == null || message.image == '')
+                  ? SizedBox.shrink()
+                  : Image(image: NetworkImage(message.image ?? '')),
+              Text(
+                message.text ?? '',
+              ),
+            ],
+          )),
+    );
   }
 
   Widget buildMyMessage(MessageModel message) {
     return Align(
-        alignment: AlignmentDirectional.centerEnd,
-        child: Container(
+      alignment: AlignmentDirectional.centerEnd,
+      child: Container(
           decoration: BoxDecoration(
               color: Colors.grey[400],
               borderRadius: const BorderRadiusDirectional.only(
@@ -298,16 +308,16 @@ class _ChatPageBodyState extends State<ChatPageBody> {
             vertical: 5,
             horizontal: 10,
           ),
-          child:
-          Column(
+          child: Column(
             children: [
-              (message.image==null || message.image=='')?const SizedBox.shrink():Image(image: NetworkImage(message.image??'')),
+              (message.image == null || message.image == '')
+                  ? const SizedBox.shrink()
+                  : Image(image: NetworkImage(message.image ?? '')),
               Text(
                 message.text ?? '',
               ),
             ],
-          )
-        ),
-      );
+          )),
+    );
   }
 }
