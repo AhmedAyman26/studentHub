@@ -48,6 +48,7 @@ class StudentHubApp extends StatelessWidget {
                   supportedLocales: AppLocalizations.supportedLocales,
                   locale: state.locale,
                   theme: ThemeData(
+                    useMaterial3: false,
                       primaryColor: Colors.teal, primarySwatch: Colors.teal),
                   debugShowCheckedModeBanner: false,
                   home: BlocBuilder<UserCubit, UserState>(
