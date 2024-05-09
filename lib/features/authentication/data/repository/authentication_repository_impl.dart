@@ -74,19 +74,21 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository
 
   @override
   Future<UserData> login(LoginInput input) async{
+    String? firebaseId;
+    await FirebaseAuth.instance.signInWithEmailAndPassword(email: input.email, password: input.password).then((value)
+    {
+      firebaseId=value.user?.uid;
+      print("lkdjfjhdslghdfg${firebaseId}");
+    });
       final request=await DioHelper.postData(
           url: 'login.php', data: LoginInput.toJson(input));
       if(request.statusCode!=200  || jsonDecode(request.data)['data']==null)
       {
-        print(request.statusCode!=200);
-        print(jsonDecode(request.data)['code']);
-        print(jsonDecode(request.data)['data']==null);
-        print(jsonDecode(request.data)['code']!=200);
         throw ServerException(message: jsonDecode(request.data)['message']);
       }else
       {
         final result=ApiUserModel.fromJson(jsonDecode(request.data)).data;
-        return result!.map();
+        return result!.map().modify(firebaseId: firebaseId);
       }
   }
 }

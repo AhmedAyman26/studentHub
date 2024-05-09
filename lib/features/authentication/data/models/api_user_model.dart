@@ -46,6 +46,6 @@ class ApiUserData {
     facultyName: json["faculty_name"],
     password: json["Password"],
     firebaseId: json['uId'],
-    facultyId: json['facultyId']is String ? int.parse(json['facultyId']) :json['faculty_id']
+    facultyId: (json['faculty_id'] is String) ? int.parse(json['faculty_id']) :json['faculty_id']
   );
 }
