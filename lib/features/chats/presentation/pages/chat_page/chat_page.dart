@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
+import 'package:graduation/common/presentation/widgets/app_text_form_field.dart';
 import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
@@ -39,6 +40,8 @@ class ChatPageBody extends StatefulWidget {
 }
 
 class _ChatPageBodyState extends State<ChatPageBody> {
+  TextEditingController messageController = TextEditingController();
+
   @override
   void initState() {
     ChatsCubit.get(context).getMessages(
@@ -49,9 +52,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController messageController = TextEditingController();
-    return BlocConsumer<ChatsCubit, ChatState>(
-      listener: (context, state) {},
+    return BlocBuilder<ChatsCubit, ChatState>(
       builder: (context, state) => Scaffold(
         body: SafeArea(
           bottom: false,
@@ -63,25 +64,27 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                     ConditionalBuilder(
                       condition: (state.messages?.length != 0),
                       builder: (context) => Padding(
-                        padding: const EdgeInsets.all(20.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: StreamBuilder(
                             stream: state.messages,
                             builder: (context, snapshot) {
                               return ListView.separated(
-                                padding: EdgeInsets.only(bottom: 50.h,top: 70.h),
+                                padding:
+                                    EdgeInsets.only(bottom: 50.h, top: 90.h),
                                 itemBuilder: (context, index) {
                                   if (UserCubit.get(context)
-                                      .state
-                                      .userData
-                                      ?.firebaseId ==
+                                          .state
+                                          .userData
+                                          ?.firebaseId ==
                                       snapshot.data?[index].senderId) {
                                     return buildMyMessage(
                                         snapshot.data![index]);
                                   }
                                   return buildMessage(snapshot.data![index]);
                                 },
-                                shrinkWrap: true,
-                                separatorBuilder: (context, state) => SizedBox(
+                                // shrinkWrap: true,
+                                separatorBuilder: (context, state) =>
+                                    SizedBox(
                                   height: 15.h,
                                 ),
                                 itemCount: snapshot.data?.length ?? 0,
@@ -120,21 +123,21 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                           SizedBox(
                             width: 8.w,
                           ),
-                               SizedBox(
-                                 width: MediaQuery.sizeOf(context).width/3,
-                                 child: FittedBox(
-                                   alignment: Alignment.centerLeft,
-                                   fit: BoxFit.scaleDown,
-                                   child: Text(
-                                     '${widget.user.fullName}',
-                                     style: TextStyle(
-                                         fontSize: 22.sp,
-                                         fontWeight: FontWeight.bold,
-                                         color: Colors.white,
-                                         overflow: TextOverflow.ellipsis),
-                                                          ),
-                                 ),
-                               ),
+                          SizedBox(
+                            width: MediaQuery.sizeOf(context).width / 3,
+                            child: FittedBox(
+                              alignment: Alignment.centerLeft,
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                '${widget.user.fullName}',
+                                style: TextStyle(
+                                    fontSize: 22.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    overflow: TextOverflow.ellipsis),
+                              ),
+                            ),
+                          ),
                           const Spacer(),
                           IconButton(
                             onPressed: () {},
@@ -155,110 +158,103 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Card(
-                                margin:
-                                const EdgeInsets.only(left: 2, right: 2, bottom: 8),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                child: TextFormField(
-                                  controller: messageController,
-                                  textAlignVertical: TextAlignVertical.center,
-                                  keyboardType: TextInputType.multiline,
-                                  cursorColor: const Color.fromRGBO(70, 121, 112, 1.0),
-                                  maxLines: 5,
-                                  minLines: 1,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Write a message..',
-                                    prefixIcon: IconButton(
-                                      color: const Color.fromRGBO(70, 121, 112, 1.0),
-                                      icon: const Icon(
-                                        Icons.emoji_emotions_outlined,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                    suffixIcon: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        IconButton(
-                                          onPressed: () {
-                                            showModalBottomSheet(
-                                                backgroundColor: Colors.transparent,
-                                                context: context,
-                                                builder: (builder) =>
-                                                const SelectAttachmentBottomSheet());
-                                          },
-                                          icon: const Icon(
-                                            Icons.attach_file,
-                                          ),
-                                          color:
-                                          const Color.fromRGBO(70, 121, 112, 1.0),
-                                        ),
-                                        IconButton(
-                                          onPressed: () {},
-                                          icon: const Icon(
-                                            Icons.camera_alt,
-                                          ),
-                                          color:
-                                          const Color.fromRGBO(70, 121, 112, 1.0),
-                                        ),
-                                      ],
-                                    ),
-                                    contentPadding: const EdgeInsets.all(5),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 8,
-                                left: 2,
-                                right: 5,
-                              ),
-                              child: CircleAvatar(
-                                radius: 25,
-                                backgroundColor:
-                                const Color.fromRGBO(70, 121, 112, 1.0),
-                                child: IconButton(
-                                  icon: const Icon(
-                                    Icons.send_rounded,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {
-                                    if (messageController.text.isNotEmpty) {
-                                      ChatsCubit.get(context)
-                                          .sendMessage(ApiMessageModel(
-                                        senderId: UserCubit.get(context)
-                                            .state
-                                            .userData
-                                            ?.firebaseId ??
-                                            '',
-                                        receiverId: widget.user.firebaseId,
-                                        dateTime: DateTime.now().toString(),
-                                        text: messageController.text,
-                                      ));
-                                      messageController.clear();
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
-
+              Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      margin:
+                          const EdgeInsets.only(left: 2, right: 2, bottom: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                      child: TextFormField(
+                        controller: messageController,
+                        textAlignVertical: TextAlignVertical.center,
+                        keyboardType: TextInputType.multiline,
+                        cursorColor: const Color.fromRGBO(70, 121, 112, 1.0),
+                        maxLines: 5,
+                        minLines: 1,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Write a message..',
+                          prefixIcon: IconButton(
+                            color: const Color.fromRGBO(70, 121, 112, 1.0),
+                            icon: const Icon(
+                              Icons.emoji_emotions_outlined,
+                            ),
+                            onPressed: () {},
+                          ),
+                          suffixIcon: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                      backgroundColor: Colors.transparent,
+                                      context: context,
+                                      builder: (builder) =>
+                                          const SelectAttachmentBottomSheet());
+                                },
+                                icon: const Icon(
+                                  Icons.attach_file,
+                                ),
+                                color:
+                                    const Color.fromRGBO(70, 121, 112, 1.0),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.camera_alt,
+                                ),
+                                color:
+                                    const Color.fromRGBO(70, 121, 112, 1.0),
+                              ),
+                            ],
+                          ),
+                          contentPadding: const EdgeInsets.all(5),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 8,
+                      left: 2,
+                      right: 5,
+                    ),
+                    child: CircleAvatar(
+                      radius: 25,
+                      backgroundColor:
+                          const Color.fromRGBO(70, 121, 112, 1.0),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.send_rounded,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          if (messageController.text.isNotEmpty) {
+                            ChatsCubit.get(context)
+                                .sendMessage(ApiMessageModel(
+                              senderId: UserCubit.get(context)
+                                      .state
+                                      .userData
+                                      ?.firebaseId ??
+                                  '',
+                              receiverId: widget.user.firebaseId,
+                              dateTime: DateTime.now().toString(),
+                              text: messageController.text,
+                            ));
+                            messageController.clear();
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -322,3 +318,4 @@ class _ChatPageBodyState extends State<ChatPageBody> {
     );
   }
 }
+

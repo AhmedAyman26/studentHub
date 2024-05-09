@@ -34,39 +34,44 @@ class StudentHubApp extends StatelessWidget {
         builder: (context, state) {
           if (state is ChangeLanguageState) {
             return ScreenUtilInit(
-              designSize: const Size(360, 690),
+              designSize: const Size(375, 812),
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (context, child) {
-                return MaterialApp(
-                  localizationsDelegates: const [
-                    AppLocalizations.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                  ],
-                  supportedLocales: AppLocalizations.supportedLocales,
-                  locale: state.locale,
-                  theme: ThemeData(
-                    useMaterial3: false,
-                      primaryColor: Colors.teal, primarySwatch: Colors.teal),
-                  debugShowCheckedModeBanner: false,
-                  home: BlocBuilder<UserCubit, UserState>(
-                      builder: (context, state) {
-                    if (state.userDataState == RequestStatus.loading) {
-                      return const Scaffold(
-                        body: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    } else {
-                      if (state.userData != null) {
-                        return const HomeLayout();
+                return GestureDetector(
+                  onTap: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  child: MaterialApp(
+                    localizationsDelegates: const [
+                      AppLocalizations.delegate,
+                      GlobalMaterialLocalizations.delegate,
+                      GlobalWidgetsLocalizations.delegate,
+                      GlobalCupertinoLocalizations.delegate,
+                    ],
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    locale: state.locale,
+                    theme: ThemeData(
+                      useMaterial3: false,
+                        primaryColor: Colors.teal, primarySwatch: Colors.teal),
+                    debugShowCheckedModeBanner: false,
+                    home: BlocBuilder<UserCubit, UserState>(
+                        builder: (context, state) {
+                      if (state.userDataState == RequestStatus.loading) {
+                        return const Scaffold(
+                          body: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        );
                       } else {
-                        return const LoginPage();
+                        if (state.userData != null) {
+                          return const HomeLayout();
+                        } else {
+                          return const LoginPage();
+                        }
                       }
-                    }
-                  }),
+                    }),
+                  ),
                 );
               },
             );

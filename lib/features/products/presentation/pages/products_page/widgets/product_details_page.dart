@@ -67,13 +67,18 @@ class _ProductDetailsPageBodyState extends State<ProductDetailsPageBody> {
                                     color: Colors.white,
                                   )),
                             ),
-                            const Spacer(),
-                            Text(
-                              widget.product.name ?? '',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 20.sp),
+                            SizedBox(
+                              width:300,
+                              child: FittedBox(
+                                alignment: Alignment.center,
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  widget.product.name ?? '',
+                                  style:
+                                      TextStyle(color: Colors.white, fontSize: 20.sp),
+                                ),
+                              ),
                             ),
-                            const Spacer(),
                           ],
                         ),
                       ),
