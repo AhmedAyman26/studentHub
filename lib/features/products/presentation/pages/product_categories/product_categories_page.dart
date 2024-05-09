@@ -53,7 +53,7 @@ class _ProductCategoriesPageState extends State<ProductCategoriesPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        heroTag: 'btn',
+          heroTag: 'addProductsButton',
           child: const Icon(Icons.add),
           onPressed: () {
             navigateTo(context, const AddProductPage());

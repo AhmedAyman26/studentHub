@@ -101,6 +101,7 @@ class _PostPageBodyState extends State<PostPageBody> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: 'addPostButton',
         onPressed: () async {
           final createdPost= await Navigator.push(context,MaterialPageRoute(builder: (context) => const CreatePostPage(),));
           if(mounted) {

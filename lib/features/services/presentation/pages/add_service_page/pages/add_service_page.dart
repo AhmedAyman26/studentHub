@@ -24,6 +24,11 @@ class _AddServicePageState extends State<AddServicePage> {
   int? subjectId;
 
   @override
+  void dispose() {
+    serviceNameController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => AddServiceCubit(),

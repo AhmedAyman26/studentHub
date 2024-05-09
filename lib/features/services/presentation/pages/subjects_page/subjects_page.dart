@@ -9,7 +9,6 @@ import 'package:graduation/features/services/presentation/pages/subjects_page/su
 import 'package:graduation/features/services/presentation/pages/subjects_page/subjects_state.dart';
 import 'package:graduation/features/services/presentation/pages/subjects_page/widgets/subject_card_widget.dart';
 
-
 class SubjectsPage extends StatelessWidget {
   const SubjectsPage({super.key});
 
@@ -33,7 +32,7 @@ class _SubjectPageBodyState extends State<SubjectPageBody> {
   @override
   void initState() {
     final facultyId = UserCubit.get(context).state.userData?.facultyId;
-    SubjectsCubit.get(context).getSubjects(facultyId??0);
+    SubjectsCubit.get(context).getSubjects(facultyId ?? 0);
     super.initState();
   }
 
@@ -44,42 +43,50 @@ class _SubjectPageBodyState extends State<SubjectPageBody> {
     return Scaffold(
       body: BlocBuilder<SubjectsCubit, SubjectsState>(
         builder: (context, state) {
-          if(state.subjectsState==RequestStatus.loading)
-          {
+          if (state.subjectsState == RequestStatus.loading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          }else{
-            if(state.subjects?.isEmpty==true)
-            {
-              return const Center(child: Text('Your faculty subjects is coming soon.......',style: TextStyle(fontWeight: FontWeight.bold),));
+          } else {
+            if (state.subjects?.isEmpty == true) {
+              return const Center(
+                  child: Text(
+                'Your faculty subjects is coming soon.......',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ));
             }
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: state.subjects?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    return SubjectCardWidget(
-                        subjectName: state.subjects?[index].subjectName ?? '');
-                  },
+            return Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: state.subjects?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return SubjectCardWidget(
+                          subjectName:
+                              state.subjects?[index].subjectName ?? '');
+                    },
+                  ),
                 ),
-              ),
-            ],
-          );
+              ],
+            );
           }
         },
       ),
       floatingActionButton: BlocBuilder<SubjectsCubit, SubjectsState>(
-  builder: (context, state) {
-    return FloatingActionButton(
-          heroTag: 'btn',
-          child: const Icon(Icons.add),
-          onPressed: () {
-            navigateTo(context,  AddServicePage(subjects: state.subjects??[],));
-          });
-  },
-),
+        builder: (context, state) {
+          return FloatingActionButton(
+              heroTag: 'addServiceButton',
+              child: const Icon(Icons.add),
+              onPressed: () {
+                navigateTo(
+                  context,
+                  AddServicePage(
+                    subjects: state.subjects ?? [],
+                  ),
+                );
+              });
+        },
+      ),
     );
   }
 }

@@ -49,12 +49,16 @@ class _ChatPageBodyState extends State<ChatPageBody> {
         receiverId: widget.user.firebaseId ?? '');
     super.initState();
   }
+  @override
+  void dispose() {
+    messageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChatsCubit, ChatState>(
       builder: (context, state) => Scaffold(
-        resizeToAvoidBottomInset: true,
         body: SafeArea(
           bottom: false,
           child: Column(

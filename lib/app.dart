@@ -10,6 +10,7 @@ import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/Home.dart';
 import 'package:graduation/features/authentication/presentation/pages/login_page/login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:graduation/features/chats/presentation/pages/chat_page/chat_page.dart';
 
 class StudentHubApp extends StatelessWidget {
   const StudentHubApp({
@@ -38,44 +39,38 @@ class StudentHubApp extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (context, child) {
-                return GestureDetector(
-                  onTap: () {
-                    FocusManager.instance.primaryFocus?.unfocus();
-                  },
-                  child: MaterialApp(
-                    localizationsDelegates: const [
-                      AppLocalizations.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    supportedLocales: AppLocalizations.supportedLocales,
-                    locale: state.locale,
-                    theme: ThemeData(
+                return MaterialApp(
+                  localizationsDelegates: const [
+                    AppLocalizations.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: AppLocalizations.supportedLocales,
+                  locale: state.locale,
+                  theme: ThemeData(
                       useMaterial3: false,
-                        primaryColor: Colors.teal, primarySwatch: Colors.teal),
-                    debugShowCheckedModeBanner: false,
-                    home: BlocBuilder<UserCubit, UserState>(
-                        builder: (context, state) {
-                      if (state.userDataState == RequestStatus.loading) {
-                        return const Scaffold(
-                          body: Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                        );
-                      } else {
-                        if (state.userData != null) {
-                          return const HomeLayout();
+                      primaryColor: Colors.teal, primarySwatch: Colors.teal),
+                  debugShowCheckedModeBanner: false,
+                  home: BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        if (state.userDataState == RequestStatus.loading) {
+                          return const Scaffold(
+                            body: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
                         } else {
-                          return const LoginPage();
+                          if (state.userData != null) {
+                            return const HomeLayout();
+                          } else {
+                            return const LoginPage();
+                          }
                         }
-                      }
-                    }),
-                  ),
+                      }),
                 );
               },
-            );
-          } else {
+            );          } else {
             return const SizedBox();
           }
         },

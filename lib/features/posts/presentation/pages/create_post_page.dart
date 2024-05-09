@@ -147,36 +147,35 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
                   ),
                 ),
                 Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: TextButton(
-                          onPressed: () {
-                            showSelectImageBottomSheet(context, (image)async {
-                              await FirebaseStorage.instance.ref()
-                                  .child('posts/${Uri.file(image.path).pathSegments.last}')
-                                  .putFile(image).then((value)  {
-                                value.ref.getDownloadURL().then((value) {
-                                  postImageLink=value;
-                                  setState(() {
-                                  });
+                    TextButton(
+                        onPressed: () {
+                          showSelectImageBottomSheet(context, (image)async {
+                            await FirebaseStorage.instance.ref()
+                                .child('posts/${Uri.file(image.path).pathSegments.last}')
+                                .putFile(image).then((value)  {
+                              value.ref.getDownloadURL().then((value) {
+                                postImageLink=value;
+                                setState(() {
                                 });
                               });
-                              Navigator.of(context).pop();
                             });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.broken_image,
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Text(AppLocalizations.of(context)!.add_photo)
-                            ],
-                          )),
-                    ),
+                            Navigator.of(context).pop();
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.broken_image,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(AppLocalizations.of(context)!.add_photo)
+                          ],
+                        )),
                   ],
                 )
               ],
