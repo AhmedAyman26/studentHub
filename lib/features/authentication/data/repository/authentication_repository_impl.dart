@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:graduation/common/utils/dio_helper.dart';
+import 'package:graduation/common/utils/exceptions.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/authentication/data/mapper/api_user_data_mapper.dart';
 import 'package:graduation/features/authentication/data/models/api_user_model.dart';
@@ -75,9 +76,13 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository
   Future<UserData> login(LoginInput input) async{
       final request=await DioHelper.postData(
           url: 'login.php', data: LoginInput.toJson(input));
-      if(request.statusCode!=200)
+      if(request.statusCode!=200  || jsonDecode(request.data)['data']==null)
       {
-        throw Exception();
+        print(request.statusCode!=200);
+        print(jsonDecode(request.data)['code']);
+        print(jsonDecode(request.data)['data']==null);
+        print(jsonDecode(request.data)['code']!=200);
+        throw ServerException(message: jsonDecode(request.data)['message']);
       }else
       {
         final result=ApiUserModel.fromJson(jsonDecode(request.data)).data;

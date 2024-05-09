@@ -147,15 +147,13 @@ class _AddServicePageState extends State<AddServicePage> {
                     value: selectedSubject,
                   ),
 
-                  // Expanded(
-                  //   child: Center(
-                  //     child: GraduationCubit.get(context).
-                  //     serviceImageFile == null ?  Text(AppLocalizations.of(context)!.not_found)  : Image.file(GraduationCubit.get(context).serviceImageFile! ,
-                  //       width: 250,
-                  //       height: 250,
-                  //     ) ,
-                  //   ),
-                  // ),
+                  Expanded(
+                    child: Center(
+                      child:  Text(AppLocalizations.of(context)!.not_found
+
+                      ) ,
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(

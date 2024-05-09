@@ -54,6 +54,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatsCubit, ChatState>(
       builder: (context, state) => Scaffold(
+        resizeToAvoidBottomInset: true,
         body: SafeArea(
           bottom: false,
           child: Column(

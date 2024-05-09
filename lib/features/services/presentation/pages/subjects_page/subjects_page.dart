@@ -44,12 +44,16 @@ class _SubjectPageBodyState extends State<SubjectPageBody> {
     return Scaffold(
       body: BlocBuilder<SubjectsCubit, SubjectsState>(
         builder: (context, state) {
-          if(state.subjectsState==RequestStatus.loading||state.subjects?.isEmpty==true)
+          if(state.subjectsState==RequestStatus.loading)
           {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }else{
+            if(state.subjects?.isEmpty==true)
+            {
+              return const Center(child: Text('Your faculty subjects is coming soon.......',style: TextStyle(fontWeight: FontWeight.bold),));
+            }
           return Column(
             children: [
               Expanded(

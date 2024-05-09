@@ -49,10 +49,14 @@ class _LoginPageBodyState extends State<LoginPageBody> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state.loginState == RequestStatus.success) {
-            print("sadfdsfsdfsdfds${state.userData}");
             UserCubit.get(context).cacheUser(state.userData);
-
             navigateAndFinish(context, const HomeLayout());
+          }
+          if(state.loginState==RequestStatus.error)
+          {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.errorMessage)),
+            );
           }
         },
         builder: (context, state) {

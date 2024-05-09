@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/app_injector.dart';
+import 'package:graduation/common/utils/exceptions.dart';
 import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/authentication/domain/models/inputs/login_input.dart';
 import 'package:graduation/features/authentication/domain/use_cases/login_use_case.dart';
@@ -28,7 +29,12 @@ class LoginCubit extends Cubit<LoginState>
       final userData=await _loginUseCase.call(input);
       emit(state.copyWith(loginState: RequestStatus.success,userData: userData));
     }
-    catch(error)
+    on ServerException catch(error)
+    {
+      print("dfgjdfhgjkfdhjgkhdfjhgjdfg${error.message}");
+      emit(state.copyWith(loginState: RequestStatus.error,errorMessage: error.message));
+    }
+    catch (error)
     {
       emit(state.copyWith(loginState: RequestStatus.error,errorMessage: error.toString()));
     }
