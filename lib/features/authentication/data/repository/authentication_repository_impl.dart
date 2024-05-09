@@ -78,7 +78,6 @@ class AuthenticationRepositoryImpl extends AuthenticationRepository
     await FirebaseAuth.instance.signInWithEmailAndPassword(email: input.email, password: input.password).then((value)
     {
       firebaseId=value.user?.uid;
-      print("lkdjfjhdslghdfg${firebaseId}");
     });
       final request=await DioHelper.postData(
           url: 'login.php', data: LoginInput.toJson(input));
