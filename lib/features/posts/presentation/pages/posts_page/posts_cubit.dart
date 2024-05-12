@@ -25,6 +25,7 @@ class PostsCubit extends Cubit<PostStates> {
     emit(state.copyWith(getPostState: RequestStatus.loading));
     try {
       final posts = await _getPostsUseCase.call();
+      posts.sort((a, b) => b.postDate!.compareTo(a.postDate!),);
       emit(state.copyWith(getPostState: RequestStatus.success, posts: posts));
     } catch (error) {
       emit(state.copyWith(
@@ -46,7 +47,7 @@ class PostsCubit extends Cubit<PostStates> {
   void updatePostsList(PostModel post)
   {
     final posts = [...state.posts];
-    posts.add(post);
+    posts.insert(0, post);
     emit(state.copyWith(posts: posts));
   }
   @override

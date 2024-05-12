@@ -116,10 +116,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   type: TextInputType.number,
                   validate: (value) {
                     if (value!.isEmpty) {
-                      return AppLocalizations.of(context)!.enter_phon;
+                      return AppLocalizations.of(context)!.emptyPhoneValidation;
                     }
                     if (value.length < 10) {
-                      return AppLocalizations.of(context)!.enter_vphon;
+                      return AppLocalizations.of(context)!.phoneValidation;
                     }
                     return null;
                   },
@@ -215,11 +215,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     type: TextInputType.visiblePassword,
                     validate: (value) {
                       if (value!.isEmpty) {
-                        return AppLocalizations.of(context)!.enter_cpassword;
+                        return AppLocalizations.of(context)!.emptyConfirmPasswordValidation;
                       }
                       if (passwordController.text !=
                           confirmPasswordController.text) {
-                        return AppLocalizations.of(context)!.pass_notmatch;
+                        return AppLocalizations.of(context)!.passwordValidation;
                       }
                       return null;
                     },

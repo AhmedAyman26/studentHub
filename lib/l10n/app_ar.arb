@@ -22,14 +22,14 @@
   "full_name": "الاسم الكمال",
   "enter_name":"الرجاء إدخال الاسم الكامل!",
   "phone": "رقم الهاتف",
-  "enter_phon": "الرجاء إدخال رقم الهاتف!",
-  "enter_vphon": "الرجاء إدخال رقم هاتف صحيح!",
-  "select_university": "اختار جلمعتك",
+  "emptyPhoneValidation": "الرجاء إدخال رقم الهاتف!",
+  "phoneValidation": "الرجاء إدخال رقم هاتف صحيح!",
+  "select_university": "اختار جامعتك",
   "faculty": "الكلية",
   "enter_faculty":"من فضلك ادخل الكلية!",
   "confirm_password": "تأكيد كلمة المرور",
-  "enter_cpassword":"الرجاء إدخال تأكيد كلمة المرور!",
-  "pass_notmatch":"كلمة المرور غير متطابقة!",
+  "emptyConfirmPasswordValidation":"الرجاء إدخال تأكيد كلمة المرور!",
+  "passwordValidation":"كلمة المرور غير متطابقة!",
   "have_account": "هل لديك حساب؟",
 
   "settings": "الاعدادات",
@@ -43,7 +43,7 @@
   "my_account":"حسابي",
   "my_products":"الادوات",
   "my_services": "خدماتي",
-  "favourits":"المفضلة",
+  "favourites":"المفضلة",
   "search":"البحث",
 
   "devices":"الاجهزة",
@@ -75,7 +75,7 @@
   "summarization": "التلخيص",
 
   "create_post": "انشاء منشور",
-  "your_mind": "ماذا يدور في ذهنك...",
+  "your_mind": "ماذا يدور في ذهنك...؟",
   "add_photo": "اضافة صورة"
 
 

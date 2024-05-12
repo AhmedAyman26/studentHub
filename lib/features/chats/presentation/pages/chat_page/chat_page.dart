@@ -1,11 +1,9 @@
-import 'dart:developer';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
-import 'package:graduation/common/presentation/widgets/app_text_form_field.dart';
 import 'package:graduation/common/utils/constants/image_paths.dart';
 import 'package:graduation/features/chats/data/models/api_message_model.dart';
 import 'package:graduation/features/chats/domain/models/api_message_model.dart';
@@ -49,6 +47,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
         receiverId: widget.user.firebaseId ?? '');
     super.initState();
   }
+
   @override
   void dispose() {
     messageController.dispose();
@@ -88,8 +87,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                                   return buildMessage(snapshot.data![index]);
                                 },
                                 // shrinkWrap: true,
-                                separatorBuilder: (context, state) =>
-                                    SizedBox(
+                                separatorBuilder: (context, state) => SizedBox(
                                   height: 15.h,
                                 ),
                                 itemCount: snapshot.data?.length ?? 0,
@@ -120,11 +118,12 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                             ),
                           ),
                           CircleAvatar(
-                              radius: 20,
-                              backgroundImage: widget.user.image != null
-                                  ? NetworkImage('${widget.user.image}')
-                                  : const NetworkImage(
-                                      'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')),
+                            radius: 20,
+                            backgroundImage: widget.user.image != null
+                                ? NetworkImage('${widget.user.image}')
+                                : const NetworkImage(
+                                    'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png'),
+                          ),
                           SizedBox(
                             width: 8.w,
                           ),
@@ -206,16 +205,14 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                                 icon: const Icon(
                                   Icons.attach_file,
                                 ),
-                                color:
-                                    const Color.fromRGBO(70, 121, 112, 1.0),
+                                color: const Color.fromRGBO(70, 121, 112, 1.0),
                               ),
                               IconButton(
                                 onPressed: () {},
                                 icon: const Icon(
                                   Icons.camera_alt,
                                 ),
-                                color:
-                                    const Color.fromRGBO(70, 121, 112, 1.0),
+                                color: const Color.fromRGBO(70, 121, 112, 1.0),
                               ),
                             ],
                           ),
@@ -232,8 +229,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                     ),
                     child: CircleAvatar(
                       radius: 25,
-                      backgroundColor:
-                          const Color.fromRGBO(70, 121, 112, 1.0),
+                      backgroundColor: const Color.fromRGBO(70, 121, 112, 1.0),
                       child: IconButton(
                         icon: const Icon(
                           Icons.send_rounded,
@@ -241,8 +237,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                         ),
                         onPressed: () {
                           if (messageController.text.isNotEmpty) {
-                            ChatsCubit.get(context)
-                                .sendMessage(ApiMessageModel(
+                            ChatsCubit.get(context).sendMessage(ApiMessageModel(
                               senderId: UserCubit.get(context)
                                       .state
                                       .userData
@@ -271,27 +266,30 @@ class _ChatPageBodyState extends State<ChatPageBody> {
     return Align(
       alignment: AlignmentDirectional.centerStart,
       child: Container(
-          decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: const BorderRadiusDirectional.only(
-                bottomEnd: Radius.circular(10),
-                topEnd: Radius.circular(10),
-                topStart: Radius.circular(10),
-              )),
-          padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 10,
-          ),
-          child: Column(
-            children: [
-              (message.image == null || message.image == '')
-                  ? const SizedBox.shrink()
-                  : Image(image: NetworkImage(message.image ?? '')),
-              Text(
-                message.text ?? '',
-              ),
-            ],
-          )),
+        decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: const BorderRadiusDirectional.only(
+              bottomEnd: Radius.circular(10),
+              topEnd: Radius.circular(10),
+              topStart: Radius.circular(10),
+            )),
+        padding: const EdgeInsets.symmetric(
+          vertical: 5,
+          horizontal: 10,
+        ),
+        child: Column(
+          children: [
+            (message.image == null || message.image == '')
+                ? const SizedBox.shrink()
+                : Image(
+                    image: NetworkImage(message.image ?? ''),
+                  ),
+            Text(
+              message.text ?? '',
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -299,28 +297,28 @@ class _ChatPageBodyState extends State<ChatPageBody> {
     return Align(
       alignment: AlignmentDirectional.centerEnd,
       child: Container(
-          decoration: BoxDecoration(
-              color: Colors.grey[400],
-              borderRadius: const BorderRadiusDirectional.only(
-                bottomStart: Radius.circular(10),
-                topEnd: Radius.circular(10),
-                topStart: Radius.circular(10),
-              )),
-          padding: const EdgeInsets.symmetric(
-            vertical: 5,
-            horizontal: 10,
-          ),
-          child: Column(
-            children: [
-              (message.image == null || message.image == '')
-                  ? const SizedBox.shrink()
-                  : Image(image: NetworkImage(message.image ?? '')),
-              Text(
-                message.text ?? '',
-              ),
-            ],
-          )),
+        decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: const BorderRadiusDirectional.only(
+              bottomStart: Radius.circular(10),
+              topEnd: Radius.circular(10),
+              topStart: Radius.circular(10),
+            )),
+        padding: const EdgeInsets.symmetric(
+          vertical: 5,
+          horizontal: 10,
+        ),
+        child: Column(
+          children: [
+            (message.image == null || message.image == '')
+                ? const SizedBox.shrink()
+                : Image(image: NetworkImage(message.image ?? '')),
+            Text(
+              message.text ?? '',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
-

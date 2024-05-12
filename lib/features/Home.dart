@@ -211,7 +211,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   AssetImage(ImagesPaths.heart),
                   color: Colors.black,
                 ),
-                title: Text(AppLocalizations.of(context)!.favourits),
+                title: Text(AppLocalizations.of(context)!.favourites),
                 onTap: () {},
               ),
             ],

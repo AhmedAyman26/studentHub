@@ -6,6 +6,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/app_injector.dart';
 import 'package:graduation/common/presentation/widgets/search_widget.dart';
 import 'package:graduation/common/utils/constants/image_paths.dart';
+import 'package:graduation/common/utils/styles/colors.dart';
+import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/authentication/domain/models/user_model.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_cubit.dart';
 import 'package:graduation/features/chats/presentation/pages/users_page/users_list_state.dart';
@@ -40,81 +42,87 @@ class _UsersPageBodyState extends State<UsersPageBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<UsersListCubit, UsersListState>(
-      listener: (context, state) {
-      },
-      builder: (context, state) {
-        return Scaffold(
-          body: SafeArea(
-            child: Column(
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Stack(
               children: [
-                Stack(
+                const Image(
+                  image: AssetImage(ImagesPaths.chatHeader),
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+                Column(
                   children: [
-                    const Image(
-                      image: AssetImage(ImagesPaths.chatHeader),
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                    ),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 20.h, left: 10.w),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: Icon(
-                                    Icons.arrow_back_ios,
-                                    size: 25.w,
-                                    color: Colors.white,
-                                  )),
-                              SizedBox(
-                                width: 5.w,
-                              ),
-                              Text(
-                                AppLocalizations.of(context)!.chats,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20.sp),
-                              ),
-                              const Spacer(),
-                              IconButton(
-                                onPressed: () {},
-                                  icon: Icon(
-                                    Icons.more_vert_rounded,
-                                    size: 25.w,
-                                    color: Colors.white,
-                                  )),
-                            ],
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.h, left: 10.w),
+                      child: Row(
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios,
+                                size: 25.w,
+                                color: Colors.white,
+                              )),
+                          SizedBox(
+                            width: 5.w,
                           ),
-                        ),
-                        SizedBox(
-                          height: 40.h,
-                        ),
-                        const AppSearchWidget(),
-                      ],
+                          Text(
+                            AppLocalizations.of(context)!.chats,
+                            style: TextStyle(
+                                color: Colors.white, fontSize: 20.sp),
+                          ),
+                          const Spacer(),
+                          IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.more_vert_rounded,
+                                size: 25.w,
+                                color: Colors.white,
+                              )),
+                        ],
+                      ),
                     ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    const AppSearchWidget(),
                   ],
                 ),
-                Expanded(
+              ],
+            ),
+            BlocBuilder<UsersListCubit, UsersListState>(
+              builder: (context, state) {
+                if(state.getUsersState == RequestStatus.loading){
+                  return const Center(child: CircularProgressIndicator(color: AppColors.kPrimaryColor,));
+                }
+                else if(state.getUsersState == RequestStatus.error){
+                  return Center(child: Text(state.errorMessage ?? '',));
+                }
+                return Expanded(
                   child: Padding(
                     padding:
-                        EdgeInsets.only(right: 20.w, left: 20.w, bottom: 20.h),
+                    EdgeInsets.only(right: 20.w, left: 20.w, bottom: 20.h),
                     child: ListView.separated(
-                        itemBuilder: (context, index) => UserChatItem(user:
+                        itemBuilder: (context, index) =>
+                            UserChatItem(user:
                             state.users?[index] ?? const UserData.initial(),),
-                        separatorBuilder: (context, index) => SizedBox(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(
                               height: 15.h,
                             ),
                         itemCount: state.users?.length ?? 0),
                   ),
-                ),
-              ],
+                );
+              },
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

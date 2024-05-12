@@ -5,13 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_state.dart';
 import 'package:graduation/common/presentation/widgets/show_select_image_bottom_sheet.dart';
+import 'package:graduation/common/utils/constants/image_paths.dart';
+import 'package:graduation/common/utils/styles/colors.dart';
 import 'package:graduation/common/utils/utils.dart';
 import 'package:graduation/features/posts/domain/models/create_post_input.dart';
 import 'package:graduation/features/posts/domain/models/post_model.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_cubit.dart';
 import 'package:graduation/features/posts/presentation/pages/posts_page/posts_states.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 
 class CreatePostPage extends StatelessWidget {
   const CreatePostPage({super.key});
@@ -42,149 +43,170 @@ class _CreatePostPageBodyState extends State<CreatePostPageBody> {
     textController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<UserCubit, UserState>(
-  builder: (context, userState) {
-    return BlocConsumer<PostsCubit, PostStates>(
-      listener: (context, state)
-      {
-        if(state.createPostState==RequestStatus.success)
-        {
-          Navigator.of(context).pop(state.createdPost);
-        }
-        if(state.createPostState==RequestStatus.error)
-        {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('please try again'),backgroundColor: Colors.red,));
-        }
-      },
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            titleSpacing: 5.0,
-            elevation: 0,
-            backgroundColor: Colors.white,
-            leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              ),
-            ),
-            title: Text(
-              AppLocalizations.of(context)!.create_post,
-              style: const TextStyle(color: Colors.black),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: const Color.fromRGBO(70, 121, 112, 1.0),
-                  ),
-                  child: TextButton(
-                      onPressed: () async {
-                        var now = DateTime.now();
-                         PostsCubit.get(context).addPost(CreatePostInput(
-                           firebaseId: FirebaseAuth.instance.currentUser?.uid??'',
-                          postImage: postImageLink,text: textController.text,
-                          studentId: userState.userData?.studentId??'',time: now.toString()
-                        ));
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.post,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          //backgroundColor: Colors.teal
-                        ),
-                      )),
+      builder: (context, userState) {
+        return BlocConsumer<PostsCubit, PostStates>(
+          listener: (context, state) {
+            if (state.createPostState == RequestStatus.success) {
+              Navigator.of(context).pop(state.createdPost);
+            }
+            if (state.createPostState == RequestStatus.error) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('please try again'),
+                  backgroundColor: Colors.red,
                 ),
-              )
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                state.createPostState==RequestStatus.loading?const LinearProgressIndicator():const SizedBox(),
-                 Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colors.white,
-                      backgroundImage: NetworkImage(userState.userData?.image??""),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '${userState.userData?.fullName}',
-                            style: const TextStyle(
-                                //fontWeight: FontWeight.bold,
-                                fontSize: 20),
+              );
+            }
+          },
+          builder: (context, state) {
+            return Scaffold(
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                titleSpacing: 5.0,
+                elevation: 0,
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
+                  ),
+                ),
+                title: Text(
+                  AppLocalizations.of(context)!.create_post,
+                  style: const TextStyle(color: Colors.black),
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: const Color.fromRGBO(70, 121, 112, 1.0),
+                      ),
+                      child: TextButton(
+                        onPressed: () async {
+                          var now = DateTime.now();
+                          PostsCubit.get(context).addPost(
+                            CreatePostInput(
+                              firebaseId:
+                                  FirebaseAuth.instance.currentUser?.uid ?? '',
+                              postImage: postImageLink,
+                              text: textController.text,
+                              studentId: userState.userData?.studentId ?? '',
+                              time: now.toString(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)!.post,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            //backgroundColor: Colors.teal
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ],
-                ),
-                Expanded(
-                  child: TextFormField(
-                    controller: textController,
-                    decoration: InputDecoration(
-                      hintText: AppLocalizations.of(context)!.your_mind,
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
+                  )
+                ],
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
                   children: [
-                    TextButton(
-                        onPressed: () {
-                          showSelectImageBottomSheet(context, (image)async {
-                            await FirebaseStorage.instance.ref()
-                                .child('posts/${Uri.file(image.path).pathSegments.last}')
-                                .putFile(image).then((value)  {
-                              value.ref.getDownloadURL().then((value) {
-                                postImageLink=value;
-                                setState(() {
+                    state.createPostState == RequestStatus.loading
+                        ? const LinearProgressIndicator()
+                        : const SizedBox(),
+                    Row(
+                      children: [
+                        userState.userData?.image == ''
+                            ? const CircleAvatar(
+                                radius: 20,
+                                backgroundColor: AppColors.kPrimaryColor,
+                                child: Icon(Icons.person),
+                              )
+                            : CircleAvatar(
+                                radius: 20,
+                                backgroundColor: Colors.white,
+                                backgroundImage: NetworkImage(
+                                    userState.userData?.image ?? ""),
+                              ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${userState.userData?.fullName}',
+                                style: const TextStyle(
+                                    //fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        controller: textController,
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.your_mind,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            showSelectImageBottomSheet(context, (image) async {
+                              await FirebaseStorage.instance
+                                  .ref()
+                                  .child(
+                                      'posts/${Uri.file(image.path).pathSegments.last}')
+                                  .putFile(image)
+                                  .then((value) {
+                                value.ref.getDownloadURL().then((value) {
+                                  postImageLink = value;
+                                  setState(() {});
                                 });
                               });
+                              Navigator.of(context).pop();
                             });
-                            Navigator.of(context).pop();
-                          });
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Icon(
-                              Icons.broken_image,
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(AppLocalizations.of(context)!.add_photo)
-                          ],
-                        )),
+                          },
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                Icons.photo,
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(AppLocalizations.of(context)!.add_photo)
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
-          ),
+                ),
+              ),
+            );
+          },
         );
       },
     );
-  },
-);
   }
 }

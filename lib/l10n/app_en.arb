@@ -3,15 +3,15 @@
 "skip": "Skip",
   "sign_up": "Sign up",
   "next": "Next",
-  "onboard_title1": "Exchange services with students from different universitres in your field of study including references, summerization, Links ,Online courses.",
+  "onboard_title1": "Exchange services with students from different universities in your field of study including references, summarization, Links ,Online courses.",
   "onboard_title2": "We enable you to offer and request different products and tools used in different fields to achieve collaboration.",
   "onboard_title3":"All students in the same platform so you can ask freely about any thing you need in the right place",
 
 
   "email": "Email",
   "password": "Password",
-  "enter_password": "please enter password!",
-  "strong_pass": "please enter strong password",
+  "enter_password": "Please enter password!",
+  "strong_pass": "Please enter strong password",
   "show_password": "Show password",
   "hide_password": "Hide Password",
   "remember_me": "Remember me",
@@ -23,16 +23,16 @@
 
 
   "full_name": "Full Name",
-  "enter_name": "please enter full name!",
+  "enter_name": "Please enter full name!",
   "phone": "Phone",
-  "enter_phon": "please enter phone number!",
-  "enter_vphon":"please enter valid phone !",
+  "emptyPhoneValidation": "Please enter phone number!",
+  "phoneValidation":"Please enter valid phone !",
   "select_university": "Select Your University",
   "faculty": "Faculty",
-  "enter_faculty": "please enter faculty!",
+  "enter_faculty": "Please enter faculty!",
   "confirm_password": "Confirm Password",
-  "enter_cpassword": "please enter confirmpassword!",
-  "pass_notmatch": "password don't match !",
+  "emptyConfirmPasswordValidation": "Please enter confirm password!",
+  "passwordValidation": "Password doesn't match !",
   "have_account": "Already have an account?",
 
 
@@ -47,7 +47,7 @@
   "my_account": "My Account",
   "my_products": "My Products",
   "my_services": "My Services",
-  "favourits": "Favourits",
+  "favourites": "Favourites",
   "search": "Search",
 
   "devices":"Devices",
@@ -56,7 +56,7 @@
   "engineering_tools":"Engineering tools",
   "medical_tools":"Medical tools",
   "chemical_tools": "Chemical tools",
-  "others":"others",
+  "others":"Others",
   "chats": "Chats",
 
 
@@ -80,12 +80,6 @@
   "summarization": "Summarization",
 
   "create_post": "Create Post ",
-  "your_mind": "what is on your mind...",
+  "your_mind": "what is on your mind...?",
   "add_photo": "Add Photo"
-
-
-
-
-
-
 }
