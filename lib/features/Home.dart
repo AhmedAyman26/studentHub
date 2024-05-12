@@ -185,7 +185,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                 ),
                 title: Text(AppLocalizations.of(context)!.settings),
                 onTap: () {
-                  navigateTo(context, const SettingsScreen());
+                  navigateTo(context, const SettingPage());
                 },
               ),
               ListTile(
