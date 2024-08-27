@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -98,7 +99,7 @@ class _AddServicePageState extends State<AddServicePage> {
                       CircleAvatar(
                         radius: 20,
                         backgroundColor: Colors.white,
-                        backgroundImage: NetworkImage(
+                        backgroundImage: CachedNetworkImageProvider(
                             UserCubit.get(context).state.userData?.image ?? ''),
                       ),
                       const SizedBox(
@@ -148,7 +149,7 @@ class _AddServicePageState extends State<AddServicePage> {
                       setState(() {});
                     },
                     isExpanded: true,
-                    hint: Text(AppLocalizations.of(context)!.select_university),
+                    hint: Text(AppLocalizations.of(context)!.select_subject),
                     value: selectedSubject,
                   ),
 

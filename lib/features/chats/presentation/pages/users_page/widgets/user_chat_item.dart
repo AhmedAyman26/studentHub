@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/utils/constants/app_constants.dart';
@@ -22,8 +23,8 @@ class UserChatItem extends StatelessWidget {
           CircleAvatar(
               radius: 20.h,
               backgroundImage: (user.image != ""||user.image!=null)
-                  ? NetworkImage('${user.image}')
-                  : const NetworkImage(
+                  ? CachedNetworkImageProvider('${user.image}')
+                  : const CachedNetworkImageProvider(
                   'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png')),
           SizedBox(
             width: 15.w,

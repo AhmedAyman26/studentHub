@@ -30,7 +30,7 @@ class UserData extends Equatable {
             email: '',
             facultyName: '',
             universityName: '',
-            image: '');
+            image: null);
 
   UserData modify(
       {String? studentId,

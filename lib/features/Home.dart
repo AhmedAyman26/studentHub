@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:graduation/common/presentation/cubits/user_cubit/user_cubit.dart';
@@ -156,13 +157,13 @@ class _HomeLayoutState extends State<HomeLayout> {
                     ),
                     image: const DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage(
+                      image: CachedNetworkImageProvider(
                         'https://static2.hdwallpapers.net/wallpapers/2019/02/24/1178/thumb_glass-building-in-toronto.jpg',
                       ),
                     )),
                 currentAccountPicture: CircleAvatar(
                   radius: 10,
-                  backgroundImage: NetworkImage(
+                  backgroundImage: CachedNetworkImageProvider(
                       UserCubit.get(context).state.userData?.image ?? ''),
                 ),
                 accountName:

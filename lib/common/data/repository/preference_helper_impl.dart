@@ -16,18 +16,19 @@ class PreferenceHelperImpl extends PreferenceHelper
    if(result==null)
    {
      return null;
+   }else {
+     Map<String, dynamic> decoded = jsonDecode(result);
+     return UserData(
+         studentId: decoded['studentId'],
+         fullName: decoded['fullName'],
+         email: decoded['email'],
+         facultyName: decoded['faculty'],
+         universityName: decoded['university'],
+         image: decoded['image']==""?null:decoded['image'],
+         firebaseId: decoded['firebaseId'],
+         facultyId: decoded['facultyId']
+     );
    }
-   Map<String,dynamic> decoded= jsonDecode(result);
-   return UserData(
-     studentId: decoded['studentId'],
-     fullName: decoded['fullName'],
-     email: decoded['email'],
-     facultyName: decoded['faculty'],
-     universityName: decoded['university'],
-     image: decoded['image'],
-     firebaseId: decoded['firebaseId'],
-     facultyId: decoded['facultyId']
-   );
   }
 
   @override

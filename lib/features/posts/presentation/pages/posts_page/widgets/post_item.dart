@@ -45,7 +45,7 @@ class PostItem extends StatelessWidget {
                             const CircularProgressIndicator(),
                         errorWidget: (context, url, error) => const Image(
                           fit: BoxFit.cover,
-                          image: NetworkImage(
+                          image: CachedNetworkImageProvider(
                               'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png'),
                         ),
                       ),

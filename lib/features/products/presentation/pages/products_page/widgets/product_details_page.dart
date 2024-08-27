@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,7 +106,7 @@ class _ProductDetailsPageBodyState extends State<ProductDetailsPageBody> {
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     height: MediaQuery.of(context).size.height / 4,
                     width: double.infinity,
-                    child: Image(image: NetworkImage(widget.product.image ?? '')),
+                    child: CachedNetworkImage(imageUrl: widget.product.image ?? ''),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 30, left: 20, right: 16),

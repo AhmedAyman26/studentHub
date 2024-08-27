@@ -46,7 +46,7 @@ class ProductItem extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: CircleAvatar(
                     radius: 20,
-                    backgroundImage: NetworkImage("${product.studentImage}"),
+                    backgroundImage: CachedNetworkImageProvider("${product.studentImage}"),
                     backgroundColor: Colors.white,
                   ),
                 ),

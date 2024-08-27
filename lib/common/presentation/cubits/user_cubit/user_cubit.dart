@@ -39,7 +39,6 @@ class UserCubit extends Cubit<UserState>
   {
     emit(state.copyWith(userDataState: RequestStatus.loading));
     final userData=await _getCachedUserDataUseCase.call();
-    print("idhfkjsdhfshdfjhdsjfhskdjhfjksd$userData");
     emit(state.copyWith(userData: userData,userDataState: RequestStatus.success));
   }
 

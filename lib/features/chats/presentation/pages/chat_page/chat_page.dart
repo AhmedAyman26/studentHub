@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -65,38 +66,33 @@ class _ChatPageBodyState extends State<ChatPageBody> {
               Expanded(
                 child: Stack(
                   children: [
-                    ConditionalBuilder(
-                      condition: (state.messages?.length != 0),
-                      builder: (context) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                        child: StreamBuilder(
-                            stream: state.messages,
-                            builder: (context, snapshot) {
-                              return ListView.separated(
-                                padding:
-                                    EdgeInsets.only(bottom: 50.h, top: 90.h),
-                                itemBuilder: (context, index) {
-                                  if (UserCubit.get(context)
-                                          .state
-                                          .userData
-                                          ?.firebaseId ==
-                                      snapshot.data?[index].senderId) {
-                                    return buildMyMessage(
-                                        snapshot.data![index]);
-                                  }
-                                  return buildMessage(snapshot.data![index]);
-                                },
-                                // shrinkWrap: true,
-                                separatorBuilder: (context, state) => SizedBox(
-                                  height: 15.h,
-                                ),
-                                itemCount: snapshot.data?.length ?? 0,
-                              );
-                            }),
-                      ),
-                      fallback: (context) => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: StreamBuilder(
+                          stream: state.messages,
+                          builder: (context, snapshot) {
+                            return ListView.separated(
+                              physics: const ClampingScrollPhysics(),
+                              padding:
+                                  EdgeInsets.only(bottom: 50.h, top: 90.h),
+                              itemBuilder: (context, index) {
+                                if (UserCubit.get(context)
+                                        .state
+                                        .userData
+                                        ?.firebaseId ==
+                                    snapshot.data?[index].senderId) {
+                                  return buildMyMessage(
+                                      snapshot.data![index]);
+                                }
+                                return buildMessage(snapshot.data![index]);
+                              },
+                              // shrinkWrap: true,
+                              separatorBuilder: (context, state) => SizedBox(
+                                height: 15.h,
+                              ),
+                              itemCount: snapshot.data?.length ?? 0,
+                            );
+                          }),
                     ),
                     const Image(
                       image: AssetImage(ImagesPaths.chatHeader),
@@ -120,8 +116,8 @@ class _ChatPageBodyState extends State<ChatPageBody> {
                           CircleAvatar(
                             radius: 20,
                             backgroundImage: widget.user.image != null
-                                ? NetworkImage('${widget.user.image}')
-                                : const NetworkImage(
+                                ? CachedNetworkImageProvider('${widget.user.image}')
+                                : const CachedNetworkImageProvider(
                                     'https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png'),
                           ),
                           SizedBox(
@@ -281,8 +277,8 @@ class _ChatPageBodyState extends State<ChatPageBody> {
           children: [
             (message.image == null || message.image == '')
                 ? const SizedBox.shrink()
-                : Image(
-                    image: NetworkImage(message.image ?? ''),
+                : CachedNetworkImage(
+                    imageUrl: message.image ?? '',
                   ),
             Text(
               message.text ?? '',
@@ -312,7 +308,7 @@ class _ChatPageBodyState extends State<ChatPageBody> {
           children: [
             (message.image == null || message.image == '')
                 ? const SizedBox.shrink()
-                : Image(image: NetworkImage(message.image ?? '')),
+                : CachedNetworkImage(imageUrl: message.image ?? ''),
             Text(
               message.text ?? '',
             ),
